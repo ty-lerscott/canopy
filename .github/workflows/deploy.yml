@@ -50,6 +50,7 @@ jobs:
             cd ${{ secrets.TARGET_DIR }};
             tar -xzvf ${{ secrets.BUNDLE_NAME }};
             rm -rf ${{ secrets.BUNDLE_NAME }};
-            npm ci;
+            echo process.env.NODE_ENV;
+            npm i;
             npm build;
             pm2 restart ecosystem.config.js
