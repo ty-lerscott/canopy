@@ -26,11 +26,14 @@ jobs:
 #        uses: webfactory/ssh-agent@v0.5.1
 #        with:
 #          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Tarballer
+        run: |
+          tar -czvf canopy.tar.gz ./
 
       - name: Publish
         uses: nogsantos/scp-deploy@master
         with:
-          src: package.json
+          src: canopy.tar.gz
           host: ${{ secrets.DROPLET_IP }}
           remote: ${{ secrets.DROPLET_TARGET_DIR }}
           port: 22
