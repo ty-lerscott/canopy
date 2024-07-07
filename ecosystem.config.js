@@ -1,5 +1,3 @@
-const tarFile = 'canopy.tar.gz';
-
 module.exports = {
     apps: [
         {
