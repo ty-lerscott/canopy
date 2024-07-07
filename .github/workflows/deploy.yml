@@ -22,11 +22,11 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Tarballer
+      - name: Bundle files for transfer
         run: |
           tar -czvf ${{ secrets.BUNDLE_NAME }} ${{ secrets.BUNDLE_INCLUDE }}
 
-      - name: Publish
+      - name: SCP file transfer
         uses: nogsantos/scp-deploy@master
         with:
           src: canopy.tar.gz
@@ -35,7 +35,7 @@ jobs:
           port: 22
           user: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-      - name: UnTarball
+      - name: Unpack Bundle
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}

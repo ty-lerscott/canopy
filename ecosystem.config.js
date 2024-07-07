@@ -4,7 +4,8 @@ module.exports = {
     apps: [
         {
             name: 'canopy',
-            script: `tar --xzvf ${tarFile} && rm -rf ${tarFile} && npm i && npm build && npm start`,
+            script: 'npm',
+            args: "start",
             instances: '2', // Or a specific number of instances
             exec_mode: 'cluster', // Enables clustering mode
             env: {
