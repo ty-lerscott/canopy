@@ -10,7 +10,7 @@ module.exports = {
             exec_mode: 'cluster', // Enables clustering mode
             env: {
                 NODE_ENV: 'production',
-                PORT: 3100,
+                PORT: 3000,
                 // Add other environment variables here
             },
         },
