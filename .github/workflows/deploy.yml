@@ -47,10 +47,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-#            cd ${{ secrets.TARGET_DIR }};
-#            tar -xzvf ${{ secrets.BUNDLE_NAME }};
-#            rm -rf ${{ secrets.BUNDLE_NAME }};
-#            echo process.env.NODE_ENV;
-#            npm i;
-#            npm build;
             pm2 restart ecosystem.config.js
