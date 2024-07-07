@@ -30,7 +30,7 @@ jobs:
       - name: Publish
         uses: nogsantos/scp-deploy@master
         with:
-          src: ./
+          src: *
           host: ${{ secrets.DROPLET_IP }}
           remote: ${{ secrets.DROPLET_TARGET_DIR }}
           port: 22
