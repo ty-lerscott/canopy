@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: "20"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: Install dependencies
         run: npm i
@@ -22,10 +22,6 @@ jobs:
       - name: Build application
         run: npm run build
 
-#      - name: Set up SSH
-#        uses: webfactory/ssh-agent@v0.5.1
-#        with:
-#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Tarballer
         run: |
           tar -czvf ${{ secrets.BUNDLE_NAME }} ${{ secrets.BUNDLE_INCLUDE }}
