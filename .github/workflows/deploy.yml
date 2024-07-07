@@ -22,17 +22,26 @@ jobs:
 #      - name: Build application
 #        run: npm run build
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#      - name: Set up SSH
+#        uses: webfactory/ssh-agent@v0.5.1
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to DigitalOcean
-        run: |
-          scp -r ./ ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_IP }}:${{ secrets.DROPLET_TARGET_DIR }}
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_IP }} << EOF
-            cd ${{ secrets.DROPLET_TARGET_DIR }}
-            npm ci --production
-            npm run build
-            pm2 restart ecosystem.config.js
-          EOF
+      - name: Publish
+        uses: nogsantos/scp-deploy@master
+        with:
+          src: ./
+          host: ${{ secrets.DROPLET_IP }}
+          remote: ${{ secrets.DROPLET_TARGET_DIR }}
+          port: 22
+          user: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#      - name: Deploy to DigitalOcean
+#        run: |
+#          scp -r ./ ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_IP }}:${{ secrets.DROPLET_TARGET_DIR }}
+#          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_IP }} << EOF
+#            cd ${{ secrets.DROPLET_TARGET_DIR }}
+#            npm ci --production
+#            npm run build
+#            pm2 restart ecosystem.config.js
+#          EOF
