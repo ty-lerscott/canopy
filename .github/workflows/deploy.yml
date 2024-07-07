@@ -28,7 +28,7 @@ jobs:
 #          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Tarballer
         run: |
-          tar -czvf canopy.tar.gz ./src ./public ecosystem.config.js next.config.mjs next-env.d.ts package.json postcss.config.mjs tailwind.config.ts tsconfig.json
+          tar -czvf canopy.tar.gz ./src ./public ecosystem.config.js next.config.mjs package.json postcss.config.mjs tailwind.config.ts tsconfig.json
 
       - name: Publish
         uses: nogsantos/scp-deploy@master
