@@ -43,7 +43,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.DROPLET_USER }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
