@@ -28,7 +28,7 @@ jobs:
 #          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Tarballer
         run: |
-          tar -czvf ${{ secrets.BUNDLE_NAME }} ./src ./public ecosystem.config.js next.config.mjs package.json postcss.config.mjs tailwind.config.ts tsconfig.json
+          tar -czvf ${{ secrets.BUNDLE_NAME }} ${{ secrets.BUNDLE_INCLUDE }}
 
       - name: Publish
         uses: nogsantos/scp-deploy@master
