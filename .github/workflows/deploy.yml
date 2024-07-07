@@ -28,34 +28,28 @@ jobs:
 #          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Tarballer
         run: |
-          tar -czvf canopy.tar.gz ./src ./public ecosystem.config.js next.config.mjs package.json postcss.config.mjs tailwind.config.ts tsconfig.json
+          tar -czvf ${{ secrets.BUNDLE_NAME }} ./src ./public ecosystem.config.js next.config.mjs package.json postcss.config.mjs tailwind.config.ts tsconfig.json
 
       - name: Publish
         uses: nogsantos/scp-deploy@master
         with:
           src: canopy.tar.gz
-          host: ${{ secrets.DROPLET_IP }}
-          remote: ${{ secrets.DROPLET_TARGET_DIR }}
+          host: ${{ secrets.HOST }}
+          remote: ${{ secrets.TARGET_DIR }}
           port: 22
-          user: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          user: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
       - name: UnTarball
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.DROPLET_IP }}
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-            cd ${{secrets.DROPLET_TARGET_DIR}};
-            tar -xzvf canopy.tar.gz;
-            rm -rf canopy.tar.gz;
-#      - name: Deploy to DigitalOcean
-#        run: |
-#          scp -r ./ ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_IP }}:${{ secrets.DROPLET_TARGET_DIR }}
-#          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_IP }} << EOF
-#            cd ${{ secrets.DROPLET_TARGET_DIR }}
-#            npm ci --production
-#            npm run build
-#            pm2 restart ecosystem.config.js
-#          EOF
+            cd ${{ secrets.TARGET_DIR }};
+            tar -xzvf ${{ secrets.BUNDLE_NAME }};
+            rm -rf ${{ secrets.BUNDLE_NAME }};
+            npm ci;
+            npm build;
+            pm2 restart ecosystem.config.js
