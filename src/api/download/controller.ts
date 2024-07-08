@@ -1,20 +1,24 @@
 import type { Controller } from "@/types";
 
-const DownloadController = ({
-	req,
+import getResume from "./resume";
+
+const DownloadController = async ({
 	res,
 	next,
-	logger,
 	pathname,
+	logger,
 }: Controller) => {
 	const [subject] = pathname;
 	switch (subject) {
-		case "resume":
-			res.send("RESUME");
+		case "resume": {
+			const resp = await getResume({ res, logger });
+			res.send(resp);
 			break;
-		default:
+		}
+		default: {
 			res.send(`Download: ${subject}`);
 			break;
+		}
 	}
 	next();
 };
