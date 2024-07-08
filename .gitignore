@@ -9,10 +9,12 @@
 # testing
 *.tar.gz
 /coverage
+*.log
 
 # next.js
 /.next/
 /out/
+.rollup.cache/
 
 # production
 /build
