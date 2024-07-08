@@ -3,8 +3,6 @@ import puppeteer from "puppeteer";
 
 const isLocal = process.env.NODE_ENV !== "production";
 
-console.log({isLocal})
-
 export async function GET() {
   try {
     const pathname = isLocal
