@@ -1,14 +1,14 @@
 import dotenv from "dotenv";
 import Server from "./api";
 
-const BUILD_MODE = process.env.NODE_ENV === "production";
+const IS_PROD = process.env.APP_ENV === "production";
 
-if (!BUILD_MODE) {
+if (!IS_PROD) {
 	dotenv.config({
 		path: ".env.local",
 	});
-
-	Server.listen(Number(process.env.PORT) || 3000, () =>
-		console.log(`Server is listening on port ${Number(process.env.PORT)}`),
-	);
 }
+
+const PORT = Number(process.env.PORT) || 3000;
+
+Server.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

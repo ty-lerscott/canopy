@@ -20,7 +20,7 @@ jobs:
         run: npm i
 #
       - name: Build application
-        run: npm run build
+        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm build
 
       - name: Bundle files for transfer
         run: |
