@@ -1,13 +1,10 @@
-import { normalize } from "@/api/utils";
-import type { GetResponse, RequestConfig } from "@/types";
+import { logger } from "@/api/logger";
+import type { GetResponse } from "@/types";
 import puppeteer from "puppeteer";
 import pkg from "~/package.json";
 const isLocal = process.env.APP_ENV !== "production";
 
-const getResume = async ({
-	res,
-	logger,
-}: RequestConfig): Promise<GetResponse["data"]> => {
+const getResume = async (): Promise<GetResponse> => {
 	let responseBody: GetResponse;
 
 	try {
@@ -42,7 +39,7 @@ const getResume = async ({
 		responseBody = { status: 500, error: (error as Error).message };
 	}
 
-	return normalize(res)(responseBody);
+	return responseBody;
 };
 
 export default getResume;

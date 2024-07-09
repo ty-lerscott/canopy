@@ -24,7 +24,7 @@ jobs:
 
       - name: Bundle files for transfer
         run: |
-          tar -czvf ${{ secrets.BUNDLE_NAME }} ./.next node_modules public next.config.mjs package.json
+          tar -czvf ${{ secrets.BUNDLE_NAME }} dist public node_modules package.json
 
       - name: SCP file transfer
         uses: nogsantos/scp-deploy@master

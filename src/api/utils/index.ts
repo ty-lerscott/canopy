@@ -1,15 +1,11 @@
-import type { Controller, GetResponse } from "@/types";
+import type { PrimitiveObject } from "@/types";
+import { type ClassValue, clsx } from "clsx";
+import type { Request } from "express";
+import objectOmit from "object.omit";
 
-export const normalize =
-	(res: Controller["res"]) =>
-	({
-		headers,
-		data,
-		status,
-		error,
-	}: GetResponse): GetResponse["data"] | GetResponse["error"] => {
-		res.set(headers);
-		res.status(status);
+export const omit = <Generic = PrimitiveObject>(
+	obj: PrimitiveObject | Request["query"],
+	keyArr: string[],
+) => objectOmit(obj, keyArr) as Generic;
 
-		return data || error;
-	};
+export const cn = (...inputs: ClassValue[]) => clsx(inputs);

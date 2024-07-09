@@ -1,20 +1,19 @@
 import type { NextFunction, Request, Response } from "express";
-import type { Logger } from "winston";
 
-type Primitives = string | number | boolean | null | Buffer;
-type PrimitiveObject = Record<string, Primitives | Primitives[]>;
+export type Primitives = string | number | boolean | null | Buffer | undefined;
+export type PrimitiveObject = Record<string, Primitives | Primitives[]>;
 
-export type Controller = {
-	req: Request;
-	res: Response;
-	logger: Logger;
-	next: NextFunction;
-	pathname: string[];
+export type NormalizeHeader = {
+	setHeaders: Response["set"];
+	setStatus: Response["status"];
 };
 
-export type RequestConfig = {
+export type Controller = {
 	res: Response;
-	logger: Logger;
+	next: NextFunction;
+	pathname: string[];
+	body: Record<string, string | number>;
+	query: PrimitiveObject | Request["query"];
 };
 
 export type Data =
@@ -23,9 +22,9 @@ export type Data =
 	| PrimitiveObject
 	| (Primitives | PrimitiveObject)[];
 
-export type GetResponse = {
-	data?: Data;
+export type GetResponse<T = Data> = {
+	data?: T;
 	error?: string;
 	status: number;
-	headers?: Record<string, string>;
+	headers?: Record<string, string | number>;
 };
