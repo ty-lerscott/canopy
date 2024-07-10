@@ -1,0 +1,22 @@
+name: Deploying Canopy
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Notify Discord
+        uses: discord-actions/message@v2
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          message: "Hello, from Github"
+          username: "Github"
+          avatar: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
