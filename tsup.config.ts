@@ -9,6 +9,10 @@ const env = config({
 	path: ".env.local",
 }).parsed;
 
+console.log("PROCESS ARGS", process.env.NODE_ENV);
+console.log("PROCESS ARGS", process.env.DISCORD_WEBHOOK_URL);
+console.log("PROCESS ARGS", env);
+
 export default defineConfig({
 	entry: ["./src/(api|tools)/*.ts(x)?"],
 	outDir: "./src",
