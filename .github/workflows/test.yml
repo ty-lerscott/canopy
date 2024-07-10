@@ -9,7 +9,7 @@ jobs:
   message:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -20,11 +20,11 @@ jobs:
 
       - name: Build Apps
         env:
-          PORT=${{ secrets.PORT }}
-          APP_ENV=${{ secrets.APP_ENV }}
-          BLUR=${{ secrets.BLUR }}
-          NODE_ENV=${{ secrets.NODE_ENV }}
-          DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}
+          PORT: ${{ secrets.PORT }}
+          APP_ENV: ${{ secrets.APP_ENV }}
+          BLUR: ${{ secrets.BLUR }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: npm run build
 
       - name: Notify Discord
