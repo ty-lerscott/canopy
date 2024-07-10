@@ -1,0 +1,49 @@
+name: Deploying Canopy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm i
+#
+      - name: Build application
+        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm run build
+
+      - name: Bundle files for transfer
+        run: |
+          tar -czvf ${{ secrets.BUNDLE_NAME }} src node_modules package.json next.config.mjs postcss.config.mjs tailwind.config.ts tsconfig.json tsup.config.ts;
+
+      - name: SCP file transfer
+        uses: nogsantos/scp-deploy@master
+        with:
+          src: ${{ secrets.BUNDLE_NAME }}
+          host: ${{ secrets.HOST }}
+          remote: ${{ secrets.TARGET_DIR }}
+          port: 22
+          user: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+      - name: Unpack Bundle
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd ${{ secrets.TARGET_DIR }};
+            tar -xzvf ${{ secrets.BUNDLE_NAME }};
+            rm ${{ secrets.BUNDLE_NAME }};
+            pm2 restart canopy

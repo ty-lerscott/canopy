@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"lib": ["ESNext.Array", "dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"sourceMap": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"target": "ES2020",
+		"moduleResolution": "Node",
+		"outDir": "./dist",
+		"paths": {
+			"~/*": ["./*"],
+			"@/*": ["./src/*"],
+			"@cnpy/*": ["./src/apps/*"]
+		}
+	},
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": ["node_modules"]
+}
