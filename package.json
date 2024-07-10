@@ -5,15 +5,19 @@
 	"scripts": {
 		"dev": "NODE_ENV=development tsx watch src/api/server.ts",
 		"dev:apps": "PORT=3101 next dev ./src/apps",
+		"dev:tools": "NODE_ENV=development tsx watch src/tools/index.ts",
 		"build": "npm run build:apps && NODE_ENV=production tsup",
 		"build:apps": "NODE_ENV=production next build ./src/apps",
+		"build:tools": "NODE_ENV=production tsup",
 		"start": "node ./src/api/server.js",
 		"start:apps": "PORT=3101 next start ./src/apps",
 		"lint": "biome lint ./src",
 		"format": "biome format ./src --write",
 		"check": "biome check ./src",
 		"tar": "tar --exclude-vcs --exclude=\"src/apps/.next\" -czvf canopy.tar.gz .",
-		"zip": "zip -r canopy.zip . -x \"*.git*\" -x \"*.next*\""
+		"zip": "zip -r canopy.zip . -x \"*.git*\" -x \"*.next*\"",
+		"clean": "find ./src -name \"*.js\" -type f -delete\n",
+		"discord": "node ./src/tools/index.js"
 	},
 	"type": "module",
 	"author": {
@@ -27,7 +31,10 @@
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",
 		"clsx": "2.1.1",
+		"commander": "^12.1.0",
 		"cors": "2.8.5",
+		"deepmerge": "^4.3.1",
+		"discord-webhook-node": "^1.1.8",
 		"dotenv": "16.4.5",
 		"express": "4.19.2",
 		"jimp": "0.22.12",

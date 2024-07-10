@@ -13,6 +13,9 @@ logs
 dist
 src/app/node_modules
 
+*.js
+*.jsx
+
 # next.js
 /.next/
 /out/
