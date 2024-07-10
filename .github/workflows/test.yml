@@ -19,6 +19,6 @@ jobs:
         uses: discord-actions/message@v2
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          username: "Captain Hook"
+#          username: "Captain Hook"
           avatar: "https://shorturl.at/VdsFZ"
           message: "Canopy successfully deployed"
