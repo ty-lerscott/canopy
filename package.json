@@ -8,7 +8,7 @@
 		"dev:tools": "NODE_ENV=development tsx watch src/tools/index.ts",
 		"build": "npm run build:apps && NODE_ENV=production tsup",
 		"build:apps": "NODE_ENV=production next build ./src/apps",
-		"build:tools": "NODE_ENV=production tsup",
+		"build:ts": "NODE_ENV=production tsup",
 		"start": "node ./src/api/server.js",
 		"start:apps": "PORT=3101 next start ./src/apps",
 		"lint": "biome lint ./src",

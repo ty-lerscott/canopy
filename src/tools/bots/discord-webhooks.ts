@@ -30,6 +30,8 @@ const BotUser: Bot = {
 	avatar: "https://canopy.lerscott.com/images/bots/captain-hook.png",
 };
 
+console.log({ BotUser });
+
 const hook = new Webhook(BotUser.webhook);
 
 const wrap = (message: string, level: Level) => {
