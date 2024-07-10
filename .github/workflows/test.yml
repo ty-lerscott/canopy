@@ -20,5 +20,5 @@ jobs:
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
           username: "Captain Hook"
-          avatar: "https://cdn.discordapp.com/ephemeral-attachments/1222118690598813726/1260678992831320104/ty_lerscott_logo_for_github_action_discord_messager_bot_named_C_6ad0e09b-91f8-41de-9b34-7d5c764d24cf.png?ex=6690324e&is=668ee0ce&hm=668db29dc396173406d7a685397544bc197f9361ae1539f1568dfd97d3cb3dcf&"
+          avatar: "https://shorturl.at/VdsFZ"
           message: "Canopy successfully deployed"
