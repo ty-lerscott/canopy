@@ -15,6 +15,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - name: Install dependencies
+        run: npm i
+      #
+      - name: Build application
+        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm run build
+
       - name: Notify Discord
         run: |
           title=$(echo ${{ github.repository }} | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
