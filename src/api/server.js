@@ -90,6 +90,7 @@ var package_default = {
     puppeteer: "22.12.1",
     react: "18.3.1",
     "react-dom": "18.3.1",
+    redoc: "2.1.5",
     tailwindcss: "3.4.4",
     tsup: "8.1.0",
     tsx: "4.16.2",

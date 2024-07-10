@@ -53,7 +53,7 @@ const Server = {
 			return nextHandler(req, res);
 		});
 
-		server.listen(PORT, (err?: any) => {
+		server.listen(PORT, (err?: Error) => {
 			if (err) throw err;
 			console.log(`> Ready on http://localhost:${PORT}`);
 		});
