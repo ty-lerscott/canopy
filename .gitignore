@@ -13,7 +13,6 @@ logs
 dist
 src/app/node_modules
 
-
 # next.js
 /.next/
 /out/
