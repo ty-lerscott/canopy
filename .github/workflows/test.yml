@@ -19,9 +19,9 @@ jobs:
         run: |
           title=$(echo ${{ github.repository }} | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
           
-          npm run discord -- /
-            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} /
-            --level success /
-            --title ${{ env.title }} Status: /
-            --image ${{ github.event.sender.avatar_url }} /
+          npm run discord -- \
+            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
+            --level success \
+            --title ${{ env.title }} Status: \
+            --image ${{ github.event.sender.avatar_url }} \
             --description Wafer shortbread macaroon croissant cheesecake. Oat cake dragée cake cotton candy dragée. Tart halvah marzipan oat cake jelly candy candy canes. Caramels sweet topping topping chocolate cake jujubes pudding. Apple pie brownie gummies jelly brownie marzipan. Candy jelly shortbread halvah pie halvah carrot cake. Sweet wafer wafer biscuit sesame snaps. Gummies ice cream icing
