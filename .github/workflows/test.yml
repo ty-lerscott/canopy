@@ -11,15 +11,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm i
-      #
-      - name: Build application
-        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm run build
+
+      - name: Build Apps
+        env:
+          PORT=${{ secrets.PORT }}
+          APP_ENV=${{ secrets.APP_ENV }}
+          BLUR=${{ secrets.BLUR }}
+          NODE_ENV=${{ secrets.NODE_ENV }}
+          DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: npm run build
 
       - name: Notify Discord
         run: |
