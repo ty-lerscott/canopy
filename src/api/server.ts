@@ -39,6 +39,7 @@ const Server = {
 				);
 				req.url = newUrl;
 				req.originalUrl = newUrl;
+
 				express.static("public")(req, res, next);
 			} else {
 				next();
