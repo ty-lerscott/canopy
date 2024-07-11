@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -35,6 +36,7 @@ jobs:
           port: 22
           user: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
+
       - name: Unpack Bundle
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -47,3 +49,26 @@ jobs:
             tar -xzvf ${{ secrets.BUNDLE_NAME }};
             rm ${{ secrets.BUNDLE_NAME }};
             pm2 restart canopy
+
+      - name: Notify Discord
+        run: |
+          npm run discord -- \
+            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
+            --level success \
+            --title "Commit Hash: ${{ github.event.head_commit.message }}" \
+            --author.url https://github.com/${{ github.actor }} \
+            --author.name ${{ github.actor }} \
+            --author.avatar ${{ github.event.sender.avatar_url }} \
+            --description "${{ github.repository }} deploy status: 🎉 SUCCESS  🎉"
+
+      - name: Notify Discord Catch All
+        if: ${{ failure() }}
+        run: |
+          npm run discord -- \
+            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
+            --level critical \
+            --title "Commit Hash: ${{ github.event.head_commit.message }}" \
+            --author.url https://github.com/${{ github.actor }} \
+            --author.name ${{ github.actor }} \
+            --author.avatar ${{ github.event.sender.avatar_url }} \
+            --description "${{ github.repository }} deploy status: 🚨 FAILURE  🚨"
