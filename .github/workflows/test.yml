@@ -25,7 +25,7 @@ jobs:
           BLUR: ${{ secrets.BLUR }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }} npm run build
+        run: npm run build -- --env DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Notify Discord
         run: |
