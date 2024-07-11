@@ -30,7 +30,7 @@ jobs:
 
       - name: Bundle files for transfer
         run: |
-          tar -czvf ${{ secrets.BUNDLE_NAME }} src public node_modules package.json next.config.mjs postcss.config.mjs tailwind.config.ts tsconfig.json tsup.config.ts;
+          tar -czf ${{ secrets.BUNDLE_NAME }} src public node_modules package.json next.config.mjs postcss.config.mjs tailwind.config.ts tsconfig.json tsup.config.ts;
 
       - name: SCP file transfer
         uses: nogsantos/scp-deploy@master
@@ -51,45 +51,33 @@ jobs:
           port: 22
           script: |
             cd ${{ secrets.TARGET_DIR }};
-            tar -xzvf ${{ secrets.BUNDLE_NAME }};
+            tar -xzf ${{ secrets.BUNDLE_NAME }};
             rm ${{ secrets.BUNDLE_NAME }};
             pm2 restart canopy
-      - name: Get commit details
-        id: commit_details
-        run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          COMMIT_TITLE=$(echo "$COMMIT_MESSAGE" | head -n 1)
-          COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an')
-          COMMIT_HASH=$(git log -1 --pretty=format:'%H')
-          echo "COMMIT_TITLE=$COMMIT_TITLE" >> $GITHUB_ENV
-          echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >> $GITHUB_ENV
-          echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
 
       - name: Notify Discord
         run: |
           npm run discord -- \
-            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ env.COMMIT_HASH }} \
+            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --level success \
-            --title ${{ env.COMMIT_TITLE }} \
+            --title ${{ github.event.head_commit.message }} \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
-            --description "${{ github.repository }} deploy status: 🎉 SUCCESS  🎉" \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Commit%${{ env.COMMIT_TITLE }}%false" \
-            --field "Commit Hash%${{ env.COMMIT_HASH }}%true"
+            --field "Commit Hash%${{ github.sha }}%true"
+            --description "${{ github.repository }} deploy status: 🎉 SUCCESS  🎉" \
 
       - name: Notify Discord Catch All
         if: ${{ failure() }}
         run: |
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
-            --level critical \
-            --title ${{ env.COMMIT_TITLE }} \
+            --title ${{ github.event.head_commit.message }} \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
-            --description "${{ github.repository }} deploy status: 🚨 FAILURE  🚨"
             --field "Branch%${{ github.ref }}%true" \
-            --field "Commit%${{ env.COMMIT_TITLE }}%false" \
-            --field "Commit Hash%${{ env.COMMIT_HASH }}%true"
+            --field "Commit Hash%${{ github.sha }}%true"
+            --level critical \
+            --description "${{ github.repository }} deploy status: 🚨 FAILURE  🚨"
