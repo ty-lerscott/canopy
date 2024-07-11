@@ -85,7 +85,7 @@ jobs:
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Build Duration%${{ eva.BUILD_TIME }}%true" \
+            --field "Build Duration%${{ env.BUILD_TIME }}%true" \
             --footer.value ${{ github.sha }} \
             --description "🎉 SUCCESS: ${{ github.repository }} deployed 🎉"
 
@@ -100,7 +100,7 @@ jobs:
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Build Duration%${{ eva.BUILD_TIME }}%true" \
+            --field "Build Duration%${{ env.BUILD_TIME }}%true" \
             --footer.value ${{ github.sha }} \
             --level critical \
             --description "🚨 FAILURE  🚨"
