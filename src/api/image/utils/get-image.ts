@@ -1,4 +1,5 @@
 import { logger } from "@/api/logger";
+import env from "@/tools/dotenv-config";
 import type { GetResponse } from "@/types";
 import jimp from "jimp";
 
@@ -15,7 +16,7 @@ const DEFAULT_IMAGE: JimpImage = {
 	status: 400,
 };
 
-const BLUR_AMOUNT = Number(process.env.BLUR) || 10;
+const BLUR_AMOUNT = Number(env.BLUR) || 10;
 
 const getImage = async (url: string): Promise<JimpImage> => {
 	if (!url) {

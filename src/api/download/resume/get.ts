@@ -1,11 +1,10 @@
 import { logger } from "@/api/logger";
 import puppeteer from "@/api/utils/puppeteer";
+import env from "@/tools/dotenv-config";
 import type { GetResponse } from "@/types";
-import { config } from "dotenv";
 import pkg from "~/package.json";
-// TODO: check if needed now
-config();
-const isLocal = process.env.APP_ENV === "development";
+
+const isLocal = env.APP_ENV === "development";
 
 const getResume = async (): Promise<GetResponse> => {
 	let responseBody: GetResponse;

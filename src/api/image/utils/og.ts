@@ -3,14 +3,6 @@ import getImage from "@/api/image/utils/get-image";
 import puppeteer from "@/api/utils/puppeteer";
 import codes from "@/api/utils/status-codes";
 import type { GetResponse } from "@/types";
-import { config } from "dotenv";
-
-// TODO: check if needed now
-config();
-
-const IS_LOCAL = process.env.APP_ENV === "development";
-
-type RESPONSE_TYPE = Buffer | string | (Buffer | string)[];
 
 const og = async ({
 	url,

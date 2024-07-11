@@ -1,11 +1,9 @@
+import env from "@/tools/dotenv-config";
 import type { Level, Message } from "@/types/bots";
 import { program } from "commander";
 import merge from "deepmerge";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
-import { config } from "dotenv";
 import omit from "object.omit";
-
-config();
 
 const LEVEL = {
 	info: "#1982c4",
@@ -18,7 +16,7 @@ const LEVEL = {
 const DEFAULT_MESSAGE = {
 	level: "info",
 } as Message;
-const hook = new Webhook(process.env.DISCORD_WEBHOOK_URL as string);
+const hook = new Webhook(env.DISCORD_WEBHOOK_URL as string);
 
 const sendMessage = async (message: Message) => {
 	const { url, author, fields, title, image, footer, description, level } =
@@ -165,4 +163,6 @@ const Program = () => {
 	program.parse();
 };
 
-export default Program;
+(() => {
+	Program();
+})();

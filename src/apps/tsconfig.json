@@ -1,44 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "rootDir": "./",
-    "allowJs": false,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "incremental": true,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@cnpy/*": [
-        "./*"
-      ]
-    }
+    ]
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "/Users/ty-lerscott/Documents/workspace/canopy/src/apps/types/**/*.ts",
-    ".next2/types/**/*.ts",
     "/Users/ty-lerscott/Documents/workspace/canopy/src/apps/.next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }

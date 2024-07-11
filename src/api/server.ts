@@ -1,36 +1,51 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import APIController from "@/api/controllers";
+import { omit } from "@/api/utils";
+import env from "@/tools/dotenv-config";
+import "~/sentry.mjs";
+import * as Sentry from "@sentry/node";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { config } from "dotenv";
-import express, { type Request, type Response, NextFunction } from "express";
+import express, { type Request, type Response } from "express";
 import next from "next";
-
 import LoggerController from "./logger";
 
-// TODO: check if needed now
-config();
-
-const PORT = process.env.PORT || 3000;
-const IS_LOCAL = process.env.NODE_ENV === "development";
+const IS_LOCAL = env.NODE_ENV === "development";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
+const server = express();
 const app = next({ dev: IS_LOCAL, dir: appsDir });
 const nextHandler = app.getRequestHandler();
+
+Sentry.setupExpressErrorHandler(server);
 
 const Server = {
 	app,
 	async start() {
 		await this.app.prepare();
-		const server = express();
 
 		server.use(
 			bodyParser.urlencoded({
 				extended: true,
 			}),
 		);
+		server.use(express.urlencoded({ extended: false }));
+		server.use((req, res, next) => {
+			req.method = req.method.toUpperCase();
+
+			req.query = omit(req.query, [
+				"auto",
+				"w",
+				"fit",
+				"ixlib",
+				"ixid",
+			]) as Record<string, string>;
+
+			next();
+		});
+
 		server.use(bodyParser.json());
 		server.use(cors());
 		server.use(LoggerController);
@@ -61,9 +76,9 @@ const Server = {
 			return nextHandler(req, res);
 		});
 
-		server.listen(PORT, (err?: Error) => {
+		server.listen(env.PORT, (err?: Error) => {
 			if (err) throw err;
-			console.log(`> Ready on http://localhost:${PORT}`);
+			console.log(`> Ready on http://localhost:${env.PORT}`);
 		});
 	},
 };

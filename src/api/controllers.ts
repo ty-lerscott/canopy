@@ -1,21 +1,15 @@
-import { omit } from "@/api/utils";
-import type { NextFunction, Request, Response } from "express";
-
 import { DownloadController } from "@/api/download";
 import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
 import { ImageController } from "@/api/image";
+import type { NextFunction, Request, Response } from "express";
 
-const Controller = async (req: Request, res: Response, next: NextFunction) => {
-	const body = req.body;
-	const query = omit<Request["query"]>(req.query, [
-		"auto",
-		"w",
-		"fit",
-		"ixlib",
-		"ixid",
-	]);
-	const [base, ...pathname] = req.originalUrl
+const Controller = async (
+	{ body, query, originalUrl }: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	const [base, ...pathname] = originalUrl
 		.split("?")[0]
 		.replace(/^\//, "")
 		.split("/");

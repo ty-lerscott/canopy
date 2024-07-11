@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
+		"rootDir": ".",
 		"lib": ["ESNext.Array", "dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"skipLibCheck": true,
@@ -18,10 +19,9 @@
 		"outDir": "./dist",
 		"paths": {
 			"~/*": ["./*"],
-			"@/*": ["./src/*"],
-			"@cnpy/*": ["./src/apps/*"]
+			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": ["./**/*.ts", "./**/*.tsx"],
 	"exclude": ["node_modules"]
 }
