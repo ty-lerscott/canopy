@@ -55,7 +55,8 @@ jobs:
             rm ${{ secrets.BUNDLE_NAME }};
             pm2 restart canopy
 
-      - name: Notify Discord
+      - name: Notify Discord - Success
+        if: ${{ success() }}
         run: |
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
@@ -68,7 +69,7 @@ jobs:
             --field "Commit Hash%${{ github.sha }}%true" \
             --description "🎉 SUCCESS: ${{ github.repository }} deployed 🎉"
 
-      - name: Notify Discord Catch All
+      - name: Notify Discord - Failure
         if: ${{ failure() }}
         run: |
           npm run discord -- \
