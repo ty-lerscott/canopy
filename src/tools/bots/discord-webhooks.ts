@@ -2,7 +2,10 @@ import type { Level, Message } from "@/types/bots";
 import { program } from "commander";
 import merge from "deepmerge";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
+import { config } from "dotenv";
 import omit from "object.omit";
+
+config();
 
 const LEVEL = {
 	info: "#1982c4",
