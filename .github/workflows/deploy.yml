@@ -63,7 +63,7 @@ jobs:
       - name: Notify Discord
         run: |
           npm run discord -- \
-            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
+            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ env.COMMIT_HASH }} \
             --level success \
             --title ${{ env.COMMIT_TITLE }} \
             --author.url https://github.com/${{ github.actor }} \
