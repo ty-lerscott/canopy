@@ -36,7 +36,7 @@ jobs:
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
-            --description ${{ github.reposity }} status: 🎉 SUCCESS  🎉
+            --description "${{ github.repository }} status: 🎉 SUCCESS  🎉"
       - name: Notify Discord Catch All
         if: ${{ failure() }}
         run: |    
@@ -47,4 +47,4 @@ jobs:
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
-            --description ${{ github.reposity }} status: 🚨 FAILURE  🚨
+            --description ${{ github.repository }} status: 🚨 FAILURE  🚨
