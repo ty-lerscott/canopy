@@ -65,7 +65,7 @@ jobs:
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --level success \
-            --title ${{ env.COMMIT_TITLE }}  "Commit Hash: ${{ github.event.head_commit.message }}" \
+            --title ${{ env.COMMIT_TITLE }} \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
@@ -80,7 +80,7 @@ jobs:
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --level critical \
-            --title "Commit Hash: ${{ github.event.head_commit.message }}" \
+            --title ${{ env.COMMIT_TITLE }} \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \

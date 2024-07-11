@@ -9,10 +9,12 @@ export default defineConfig({
 	format: "esm",
 	env,
 	define: {
-		"process.env.PORT": JSON.stringify(process.env.PORT),
-		"process.env.BLUR": JSON.stringify(process.env.BLUR),
-		"process.env.APP_ENV": JSON.stringify(process.env.APP_ENV),
-		"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+		"process.env.PORT": JSON.stringify(process.env.PORT || 3000),
+		"process.env.BLUR": JSON.stringify(process.env.BLUR || 10),
+		"process.env.APP_ENV": JSON.stringify(process.env.APP_ENV || "production"),
+		"process.env.NODE_ENV": JSON.stringify(
+			process.env.NODE_ENV || "production",
+		),
 		"process.env.DISCORD_WEBHOOK_URL": JSON.stringify(
 			process.env.DISCORD_WEBHOOK_URL,
 		),
