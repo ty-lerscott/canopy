@@ -59,7 +59,8 @@ const sendMessage = async (message: Message) => {
 	}
 
 	if (url) {
-		embed = embed.setUrl(url);
+		// @ts-ignore
+		embed = embed.setURL(url);
 	}
 
 	if (Array.isArray(fields) && fields.length) {
