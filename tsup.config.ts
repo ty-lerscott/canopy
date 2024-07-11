@@ -15,7 +15,7 @@ export default defineConfig({
 			process.env.NODE_ENV || "production",
 		),
 		"process.env.DISCORD_WEBHOOK_URL": JSON.stringify(
-			process.env.DISCORD_WEBHOOK_URL || env?.DISCORD_WEBHOOK_URL || "",
+			process.env.DISCORD_WEBHOOK_URL || "",
 		),
 	},
 });
