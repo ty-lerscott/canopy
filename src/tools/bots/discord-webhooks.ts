@@ -75,7 +75,8 @@ const Program = () => {
 		.option("-t, --title, <string>")
 		.option("-i, --image, <string>")
 		.option("-d, --description, <string>")
-		.option("--footer, <string>%<string>")
+		.option("--footer.value, <string>")
+		.option("--footer.image, <string>")
 		.option(
 			"-f, --field, <string>%<string>%<string>",
 			"Collect Args",
@@ -86,7 +87,6 @@ const Program = () => {
 			async ({
 				field,
 				dryRun,
-				footer,
 				...props
 			}: {
 				field?: string;
@@ -99,6 +99,8 @@ const Program = () => {
 					"author.name",
 					"author.avatar",
 					"author.url",
+					"footer.value",
+					"footer.image",
 				]);
 				const fields = Array.isArray(field)
 					? field.map((item) => {
@@ -129,18 +131,26 @@ const Program = () => {
 							avatar: authorAvatar,
 						}
 					: undefined;
-				const [footerValue, footerImage] = footer ? separate(footer) : [];
+
+				const footerValue = (
+					props as unknown as Record<"footer.value", string>
+				)["footer.value"];
+				const footerImage = (
+					props as unknown as Record<"footer.image", string>
+				)["footer.image"];
+
+				const footer = footerValue
+					? {
+							value: footerValue,
+							image: footerImage,
+						}
+					: undefined;
 
 				const message = merge<Message>(DEFAULT_MESSAGE, {
 					...flags,
 					fields,
 					...(author && { author }),
-					...(footerValue && {
-						footer: {
-							value: footerValue,
-							image: footerImage,
-						},
-					}),
+					...(footer && { footer }),
 				});
 
 				if (dryRun) {

@@ -14,6 +14,9 @@ jobs:
       NODE_ENV: ${{ secrets.NODE_ENV }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
+      - name: Get start time
+        run: echo "START_TIME=${{ github.run_started_at }}" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -54,6 +57,22 @@ jobs:
             tar -xzf ${{ secrets.BUNDLE_NAME }};
             rm ${{ secrets.BUNDLE_NAME }};
             pm2 restart canopy
+      - name: Calculate Build Time
+        run: |
+          end_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          start_time=$(date -u -d "${{ env.START_TIME }}" +"%s")
+          end_time_seconds=$(date -u -d "$end_time" +"%s")
+          
+          # Calculate the difference in seconds
+          diff=$((end_time_seconds - start_time))
+          
+          # Convert to hours, minutes, seconds
+          hours=$((diff / 3600))
+          minutes=$(( (diff % 3600) / 60 ))
+          seconds=$((diff % 60))
+          
+          echo "Build completed in ${hours}h ${minutes}m ${seconds}s"
+          echo "BUILD_TIME=${hours}h ${minutes}m ${seconds}s" >> $GITHUB_ENV
 
       - name: Notify Discord - Success
         if: ${{ success() }}
@@ -66,12 +85,14 @@ jobs:
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Commit Hash%${{ github.sha }}%true" \
+            --field "Build Duration%${{ eva.BUILD_TIME }}%true" \
+            --footer.value ${{ github.sha }} \
             --description "🎉 SUCCESS: ${{ github.repository }} deployed 🎉"
 
       - name: Notify Discord - Failure
         if: ${{ failure() }}
         run: |
+          
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --title "${{ github.event.head_commit.message }}" \
@@ -79,6 +100,7 @@ jobs:
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Commit Hash%${{ github.sha }}%true" \
+            --field "Build Duration%${{ eva.BUILD_TIME }}%true" \
+            --footer.value ${{ github.sha }} \
             --level critical \
             --description "🚨 FAILURE  🚨"
