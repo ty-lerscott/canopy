@@ -1,13 +1,12 @@
 import dotenv from "dotenv";
 import { defineConfig } from "tsup";
 
-const env = dotenv.config().parsed;
+dotenv.config();
 
 export default defineConfig({
 	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts"],
 	outDir: "./src",
 	format: "esm",
-	env,
 	define: {
 		"process.env.PORT": JSON.stringify(process.env.PORT || 3000),
 		"process.env.BLUR": JSON.stringify(process.env.BLUR || 10),
