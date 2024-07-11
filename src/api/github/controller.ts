@@ -3,7 +3,7 @@ import type { Controller } from "@/types";
 const GithubController = async ({ body, res, next, pathname }: Controller) => {
 	const [subject] = pathname;
 
-	console.group("GITHUB CONTROLLERR");
+	console.group("GITHUB CONTROLLER");
 	console.dir(body, { depth: null });
 	console.groupEnd();
 
