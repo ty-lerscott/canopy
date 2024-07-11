@@ -8,6 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      BLUR: ${{ secrets.BLUR }}
+      APP_ENV: ${{ secrets.APP_ENV }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
