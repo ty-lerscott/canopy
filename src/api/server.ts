@@ -1,10 +1,12 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import APIController from "@/api/controllers";
+import bodyParser from "body-parser";
 import cors from "cors";
 import { config } from "dotenv";
 import express, { type Request, type Response, NextFunction } from "express";
 import next from "next";
+
 import LoggerController from "./logger";
 
 // TODO: check if needed now
@@ -24,6 +26,12 @@ const Server = {
 		await this.app.prepare();
 		const server = express();
 
+		server.use(
+			bodyParser.urlencoded({
+				extended: true,
+			}),
+		);
+		server.use(bodyParser.json());
 		server.use(cors());
 		server.use(LoggerController);
 		server.use("/_next", express.static(resolve(__dirname, ".next")));

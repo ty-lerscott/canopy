@@ -84,7 +84,7 @@ jobs:
             --field "Build Duration%${{ env.BUILD_TIME }}%true" \
             --footer.value ${{ github.sha }} \
             --level success \
-            --description "🎉${{ github.repository }} deployed 🎉"
+            --description "🎉 ${{ github.repository }} deployed 🎉"
 
       - name: Notify Discord - Failure
         if: ${{ failure() }}
@@ -99,4 +99,4 @@ jobs:
             --field "Build Duration%${{ env.BUILD_TIME }}%true" \
             --footer.value ${{ github.sha }} \
             --level critical \
-            --description "🚨${{ github.repository }} build failed 🚨"
+            --description "🚨 ${{ github.repository }} build failed 🚨"
