@@ -143,6 +143,7 @@ const Program = () => {
 				if (dryRun) {
 					console.log(message);
 				} else {
+					console.dir({ message }, { depth: null });
 					await sendMessage(message);
 				}
 			},
