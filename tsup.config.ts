@@ -8,7 +8,7 @@ const IS_LOCAL =
 console.log({ IS_LOCAL, DISCORD: process.env.DISCORD_WEBHOOK_URL });
 
 export default defineConfig({
-	entry: ["./src/api/*.ts", "./src/tools/*.ts"],
+	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts"],
 	outDir: "./src",
 	format: "esm",
 	...(IS_LOCAL ? { env } : {}),
