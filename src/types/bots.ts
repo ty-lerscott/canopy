@@ -1,10 +1,9 @@
 export type Level = "info" | "notice" | "success" | "warning" | "critical";
 
-export type Bot = {
+export type User = {
 	url: string;
 	name: string;
 	avatar: string;
-	webhook: string;
 };
 
 type Field = {
@@ -15,8 +14,9 @@ type Field = {
 
 export type Message = {
 	url?: string;
-	fields?: Field[];
+	user?: User;
 	level?: Level;
+	fields?: Field[];
 	title?: string;
 	image?: string;
 	description?: string;

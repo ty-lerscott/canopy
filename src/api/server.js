@@ -1,6 +1,6 @@
 import {
   controllers_default
-} from "../chunk-HUAUJACK.js";
+} from "../chunk-3R2U44QS.js";
 import {
   logger_default
 } from "../chunk-TLAM4LCM.js";
@@ -13,8 +13,8 @@ import { config } from "dotenv";
 import express from "express";
 import next from "next";
 config();
-var PORT = process.env.PORT || 3e3;
-var IS_LOCAL = process.env.NODE_ENV === "development";
+var PORT = "3100";
+var IS_LOCAL = true;
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
