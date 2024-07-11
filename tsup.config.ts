@@ -8,10 +8,10 @@ export default defineConfig({
 	outDir: "./src",
 	format: "esm",
 	env: {
-		PORT: JSON.stringify(process.env.PORT || 3000),
-		BLUR: JSON.stringify(process.env.BLUR || 10),
-		APP_ENV: JSON.stringify(process.env.APP_ENV || "production"),
-		NODE_ENV: JSON.stringify(process.env.NODE_ENV || "production"),
-		DISCORD_WEBHOOK_URL: JSON.stringify(process.env.DISCORD_WEBHOOK_URL || ""),
+		BLUR: process.env.BLUR || "10",
+		PORT: process.env.PORT || "3000",
+		APP_ENV: process.env.APP_ENV || "production",
+		NODE_ENV: process.env.NODE_ENV || "production",
+		DISCORD_WEBHOOK_URL: process.env.DISCORD_WEBHOOK_URL || "",
 	},
 });
