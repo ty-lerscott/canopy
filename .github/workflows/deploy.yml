@@ -15,7 +15,7 @@ jobs:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
       - name: Get start time
-        run: echo "START_TIME=${{ github.run_started_at }}" >> $GITHUB_ENV
+        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -59,20 +59,15 @@ jobs:
             pm2 restart canopy
       - name: Calculate Build Time
         run: |
-          end_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          start_time=$(date -u -d "${{ env.START_TIME }}" +"%s")
-          end_time_seconds=$(date -u -d "$end_time" +"%s")
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
           
-          # Calculate the difference in seconds
-          diff=$((end_time_seconds - start_time))
+          HOURS=$((DURATION / 3600))
+          MINUTES=$(( (DURATION % 3600) / 60 ))
+          SECONDS=$((DURATION % 60))
           
-          # Convert to hours, minutes, seconds
-          hours=$((diff / 3600))
-          minutes=$(( (diff % 3600) / 60 ))
-          seconds=$((diff % 60))
-          
-          echo "Build completed in ${hours}h ${minutes}m ${seconds}s"
-          echo "BUILD_TIME=${hours}h ${minutes}m ${seconds}s" >> $GITHUB_ENV
+          echo "Build completed in ${HOURS}h ${MINUTES}m ${SECONDS}s"
+          echo "BUILD_TIME=${HOURS}h ${MINUTES}m ${SECONDS}s" >> $GITHUB_ENV
 
       - name: Notify Discord - Success
         if: ${{ success() }}
