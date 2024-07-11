@@ -2,6 +2,7 @@ import { omit } from "@/api/utils";
 import type { NextFunction, Request, Response } from "express";
 
 import { DownloadController } from "@/api/download";
+import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
 import { ImageController } from "@/api/image";
 
@@ -30,6 +31,9 @@ const Controller = async (req: Request, res: Response, next: NextFunction) => {
 			break;
 		case "html":
 			await HTMLController(props);
+			break;
+		case "github":
+			await GithubController(props);
 			break;
 		default:
 			break;
