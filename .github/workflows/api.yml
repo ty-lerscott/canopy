@@ -1,7 +1,10 @@
-name: Deploying Canopy
+name: Deploy API
 
 on:
   push:
+    paths:
+      - 'src/api/**'
+      - 'src/tools/**'
     branches:
       - main
 
@@ -14,7 +17,7 @@ jobs:
       NODE_ENV: ${{ secrets.NODE_ENV }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
-      - name: Get start time
+      - name: Set Start Time
         run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
 
       - name: Checkout repository
@@ -29,7 +32,7 @@ jobs:
         run: npm i
 #
       - name: Build application
-        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm run build
+        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm run build:ts
 
       - name: Bundle files for transfer
         run: |
@@ -57,6 +60,7 @@ jobs:
             tar -xzf ${{ secrets.BUNDLE_NAME }};
             rm ${{ secrets.BUNDLE_NAME }};
             pm2 restart canopy
+
       - name: Calculate Build Time
         run: |
           END_TIME=$(date +%s)
@@ -74,7 +78,6 @@ jobs:
         run: |
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
-            --level success \
             --title "${{ github.event.head_commit.message }}" \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
@@ -82,12 +85,12 @@ jobs:
             --field "Branch%${{ github.ref }}%true" \
             --field "Build Duration%${{ env.BUILD_TIME }}%true" \
             --footer.value ${{ github.sha }} \
-            --description "🎉 SUCCESS: ${{ github.repository }} deployed 🎉"
+            --level success \
+            --description "🎉${{ github.repository }} API deployed 🎉"
 
       - name: Notify Discord - Failure
         if: ${{ failure() }}
         run: |
-          
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --title "${{ github.event.head_commit.message }}" \
@@ -98,4 +101,4 @@ jobs:
             --field "Build Duration%${{ env.BUILD_TIME }}%true" \
             --footer.value ${{ github.sha }} \
             --level critical \
-            --description "🚨 FAILURE  🚨"
+            --description "🚨${{ github.repository }} API build failed 🚨"
