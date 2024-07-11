@@ -11,5 +11,5 @@ export default defineConfig({
 	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts"],
 	outDir: "./src",
 	format: "esm",
-	...(IS_LOCAL ? { env } : {}),
+	env,
 });
