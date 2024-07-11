@@ -2,9 +2,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { config } from "dotenv";
 
-config({
-	path: ".env.local",
-});
+// TODO: check if needed now
+config();
 
 const IS_LOCAL = process.env.NODE_ENV === "development";
 const __filename = fileURLToPath(import.meta.url);

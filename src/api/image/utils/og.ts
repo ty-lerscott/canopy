@@ -5,9 +5,8 @@ import codes from "@/api/utils/status-codes";
 import type { GetResponse } from "@/types";
 import { config } from "dotenv";
 
-config({
-	path: ".env.local",
-});
+// TODO: check if needed now
+config();
 
 const IS_LOCAL = process.env.APP_ENV === "development";
 

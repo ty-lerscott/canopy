@@ -1,19 +1,13 @@
 import { defineConfig } from "tsup";
 
-import { config } from "dotenv";
+import dotenv from "dotenv";
 
 const IS_LOCAL = process.env.NODE_ENV === "development";
 
 console.log("PROCESS ARGS", process.env.NODE_ENV);
 console.log("IS_LOCAL", IS_LOCAL);
 
-config(
-	IS_LOCAL
-		? {
-				path: ".env.local",
-			}
-		: undefined,
-);
+dotenv.config();
 
 console.log("PROCESS ARGS", process.env.NODE_ENV);
 console.log(

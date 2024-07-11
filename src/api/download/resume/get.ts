@@ -3,9 +3,8 @@ import puppeteer from "@/api/utils/puppeteer";
 import type { GetResponse } from "@/types";
 import { config } from "dotenv";
 import pkg from "~/package.json";
-config({
-	path: ".env.local",
-});
+// TODO: check if needed now
+config();
 const isLocal = process.env.APP_ENV === "development";
 
 const getResume = async (): Promise<GetResponse> => {

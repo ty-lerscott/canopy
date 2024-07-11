@@ -7,9 +7,8 @@ import express, { type Request, type Response, NextFunction } from "express";
 import next from "next";
 import LoggerController from "./logger";
 
-config({
-	path: ".env.local",
-});
+// TODO: check if needed now
+config();
 
 const PORT = process.env.PORT || 3000;
 const IS_LOCAL = process.env.NODE_ENV === "development";
