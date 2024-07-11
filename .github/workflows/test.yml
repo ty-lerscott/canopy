@@ -32,19 +32,19 @@ jobs:
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --level success \
-            --title ${{ github.repository }} repo \
+            --title Commit Hash: ${{ github.event.head_commit.message }} \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
-            --description Status: 🎉 SUCCESS  🎉
+            --description ${{ github.reposity }} status: 🎉 SUCCESS  🎉
       - name: Notify Discord Catch All
         if: ${{ failure() }}
         run: |    
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --level critical \
-            --title ${{ github.repository }} repo \
+            --title Commit Hash: ${{ github.event.head_commit.message }} \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
-            --description Status: 🚨 FAILURE  🚨
+            --description ${{ github.reposity }} status: 🚨 FAILURE  🚨

@@ -6,7 +6,7 @@
 		"dev": "NODE_ENV=development tsx watch src/api/server.ts",
 		"dev:apps": "PORT=3101 next dev ./src/apps",
 		"dev:tools": "NODE_ENV=development tsx watch src/tools/index.ts",
-		"build": "npm run build:apps && NODE_ENV=production tsup",
+		"build": "NODE_ENV=production tsup",
 		"build:apps": "NODE_ENV=production next build ./src/apps",
 		"build:ts": "NODE_ENV=production tsup",
 		"start": "node ./src/api/server.js",
