@@ -14,7 +14,7 @@ type Field = {
 
 export type Message = {
 	url?: string;
-	user?: User;
+	author?: User;
 	level?: Level;
 	fields?: Field[];
 	title?: string;

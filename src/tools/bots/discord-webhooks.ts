@@ -1,4 +1,4 @@
-import type { Level, Message, User as UserType } from "@/types/bots";
+import type { Level, Message } from "@/types/bots";
 import { program } from "commander";
 import merge from "deepmerge";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
@@ -12,49 +12,29 @@ const LEVEL = {
 	critical: "#ff595e",
 } as Record<Level, string>;
 
-const FIXTURE = {
-	info: "💡",
-	notice: "📢",
-	success: "🎉",
-	warning: "☢",
-	critical: "🚨",
-} as Record<Level, string>;
-
 const DEFAULT_MESSAGE = {
 	level: "info",
 } as Message;
-console.log(
-	"HELLO WORLD",
-	process.env.DISCORD_WEBHOOK_URL ===
-		"https://discord.com/api/webhooks/1260671221453033623/ZFLliap4q9pAIs-hfXbuZit3vi4PM5QfRrvXY719KS5LT2mLjYhu0Ard5zU-zG7kb_p2",
-);
 const hook = new Webhook(process.env.DISCORD_WEBHOOK_URL as string);
 
-const wrap = (message: string, level: Level) => {
-	const fixture = FIXTURE[level];
-
-	return `${fixture} ${message} ${fixture}`;
-};
 const sendMessage = async (message: Message) => {
-	const { url, user, fields, title, image, footer, description, level } =
+	const { url, author, fields, title, image, footer, description, level } =
 		merge<Message>(DEFAULT_MESSAGE, message);
 
 	let embed = new MessageBuilder()
 		.setTimestamp()
 		.setColor(LEVEL[level as Level] as unknown as number);
 
-	if (user) {
-		embed.setAuthor(user.name, user.avatar, user.url);
+	if (author) {
+		embed.setAuthor(author.name, author.avatar, author.url);
 	}
 
 	if (title) {
-		embed = embed.setTitle(wrap(title, level as Level));
+		embed = embed.setTitle(title);
 	}
 
 	if (description) {
-		embed = embed.setDescription(
-			title ? description : wrap(description, level as Level),
-		);
+		embed = embed.setDescription(description);
 	}
 
 	if (url) {
@@ -85,9 +65,9 @@ const Program = () => {
 	program
 		.option("-u, --url, <string>")
 		.option("-dry, --dry-run")
-		.option("--user.url, <string>")
-		.option("--user.name, <string>")
-		.option("--user.avatar, <string>")
+		.option("--author.url, <string>")
+		.option("--author.name, <string>")
+		.option("--author.avatar, <string>")
 		.option("-l, --level, <string>")
 		.option("-t, --title, <string>")
 		.option("-i, --image, <string>")
@@ -112,7 +92,11 @@ const Program = () => {
 				props: Record<string, string>;
 			}) => {
 				// @ts-ignore
-				const flags = omit(props, ["user.name", "user.avatar", "user.url"]);
+				const flags = omit(props, [
+					"author.name",
+					"author.avatar",
+					"author.url",
+				]);
 				const fields = Array.isArray(field)
 					? field.map((item) => {
 							const [name, value, isInline] = separate(item);
@@ -125,21 +109,21 @@ const Program = () => {
 						})
 					: undefined;
 
-				const userName = (props as unknown as Record<"user.name", string>)[
-					"user.name"
+				const authorName = (props as unknown as Record<"author.name", string>)[
+					"author.name"
 				];
-				const userAvatar = (props as unknown as Record<"user.avatar", string>)[
-					"user.avatar"
-				];
-				const userUrl = (props as unknown as Record<"user.url", string>)[
-					"user.url"
+				const authorAvatar = (
+					props as unknown as Record<"author.avatar", string>
+				)["author.avatar"];
+				const authorUrl = (props as unknown as Record<"author.url", string>)[
+					"author.url"
 				];
 
-				const user = userName
+				const author = authorName
 					? {
-							url: userUrl,
-							name: userName,
-							avatar: userAvatar,
+							url: authorUrl,
+							name: authorName,
+							avatar: authorAvatar,
 						}
 					: undefined;
 				const [footerValue, footerImage] = footer ? separate(footer) : [];
@@ -147,7 +131,7 @@ const Program = () => {
 				const message = merge<Message>(DEFAULT_MESSAGE, {
 					...flags,
 					fields,
-					...(user && { user }),
+					...(author && { author }),
 					...(footerValue && {
 						footer: {
 							value: footerValue,
