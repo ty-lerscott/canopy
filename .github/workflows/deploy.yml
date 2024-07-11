@@ -65,8 +65,8 @@ jobs:
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Commit Hash%${{ github.sha }}%true"
-            --description "${{ github.repository }} deploy status: 🎉 SUCCESS  🎉"
+            --field "Commit Hash%${{ github.sha }}%true" \
+            --description "🎉 SUCCESS: ${{ github.repository }} deployed 🎉"
 
       - name: Notify Discord Catch All
         if: ${{ failure() }}
@@ -78,6 +78,6 @@ jobs:
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
             --field "Branch%${{ github.ref }}%true" \
-            --field "Commit Hash%${{ github.sha }}%true"
+            --field "Commit Hash%${{ github.sha }}%true" \
             --level critical \
-            --description "${{ github.repository }} deploy status: 🚨 FAILURE  🚨"
+            --description "🚨 FAILURE  🚨"
