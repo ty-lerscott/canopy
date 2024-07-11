@@ -23,7 +23,8 @@ export default defineConfig({
 	outDir: "./src",
 	format: "esm",
 	define: {
-		"process.env.DISCORD_WEBHOOK_URL": process.env
-			.DISCORD_WEBHOOK_URL as string,
+		"process.env.DISCORD_WEBHOOK_URL": JSON.stringify(
+			process.env.DISCORD_WEBHOOK_URL as string,
+		),
 	},
 });
