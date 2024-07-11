@@ -58,6 +58,12 @@ const sendMessage = async (message: Message) => {
 		embed = embed.setFooter(footer.value, footer.image);
 	}
 	console.log("success 9");
+	console.log(
+		"FINALLY",
+		process.env.DISCORD_WEBHOOK_URL,
+		process.env.DISCORD_WEBHOOK_URL ===
+			"https://discord.com/api/webhooks/1260671221453033623/ZFLliap4q9pAIs-hfXbuZit3vi4PM5QfRrvXY719KS5LT2mLjYhu0Ard5zU-zG7kb_p2",
+	);
 
 	return hook.send(embed);
 };
