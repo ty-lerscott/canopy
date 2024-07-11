@@ -60,7 +60,7 @@ jobs:
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
             --level success \
-            --title ${{ github.event.head_commit.message }} \
+            --title "${{ github.event.head_commit.message }}" \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
@@ -73,7 +73,7 @@ jobs:
         run: |
           npm run discord -- \
             --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
-            --title ${{ github.event.head_commit.message }} \
+            --title "${{ github.event.head_commit.message }}" \
             --author.url https://github.com/${{ github.actor }} \
             --author.name ${{ github.actor }} \
             --author.avatar ${{ github.event.sender.avatar_url }} \
