@@ -24,7 +24,6 @@ const start = async () => {
 	const __dirname = dirname(__filename);
 	const IS_LOCAL = process.env.NODE_ENV === "development";
 	const appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
-	console.log({ appsDir });
 
 	const app = next({ dev: IS_LOCAL, dir: appsDir });
 	const requestHandler = app.getRequestHandler();
@@ -35,23 +34,18 @@ const start = async () => {
 	const nextHandler = (req: ExpressRequest, res: Response) =>
 		requestHandler(req, res);
 
-	console.log("start?");
 	await app.prepare();
-	console.log("app isnt started");
+
 	server.use(cors());
 	server.use(bodyParser.json());
 	server.use(urlEncoded);
-	console.log("what");
 	server.use(RequestMiddleware as RequestHandler);
 	server.use(LoggerController);
-	console.log("more");
 	server.use(ImagesMiddleware as RequestHandler);
 	server.use("/_next", express.static(resolve(appsDir, "apps")));
 	server.use(APIController as unknown as RequestHandler);
-	console.log("I bet this is it");
 	server.get("*", (req, res) => nextHandler(req, res));
 
-	console.log("hello?");
 	server.listen(process.env.PORT, (err?: Error) => {
 		if (err) throw err;
 		console.log(`> Ready on http://localhost:${process.env.PORT}`);
@@ -59,7 +53,5 @@ const start = async () => {
 };
 
 (async () => {
-	console.log("this runs?");
 	await start();
-	console.log("this ends?");
 })();
