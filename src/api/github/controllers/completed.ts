@@ -23,7 +23,7 @@ const CompletedController = async (
 			},
 		} = body as GHCompletedAction;
 
-		const projectName = `${repository.name}${workflow_name === pkg.name ? "" : `/${workflow_name}`}`;
+		const projectName = `${repository.name}${workflow_name === pkg.name ? "" : ` ${workflow_name}`}`;
 		const wasSuccessful = status === "completed";
 		const level = wasSuccessful ? "success" : "critical";
 		const duration = dayjs.duration(
@@ -31,6 +31,8 @@ const CompletedController = async (
 		);
 		const minutes = duration.minutes();
 		const seconds = duration.seconds();
+		const minutesCombined = `${minutes ? `${minutes} minute` : ""}${minutes === 1 ? "" : "s"}`;
+		const secondsCombined = `${seconds ? `${seconds} second` : ""}${seconds === 1 ? "" : "s"}`;
 
 		await discord({
 			level,
@@ -49,7 +51,7 @@ const CompletedController = async (
 				},
 				{
 					name: "Build Duration",
-					value: `${minutes} minute${minutes === 1 ? "" : "s"} and ${seconds} second${seconds === 1 ? "" : "s"}`,
+					value: `${minutesCombined}${minutesCombined ? " and " : ""}${secondsCombined}`,
 					isInline: true,
 				},
 			],
