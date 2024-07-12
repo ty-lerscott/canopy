@@ -1,4 +1,5 @@
-import type { Level, Message } from "@/types/discord";
+import { logger } from "@/api/utils/logger";
+import type { Level, Message, MessageOptions } from "@/types/discord";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 import { config } from "dotenv";
 
@@ -73,11 +74,23 @@ const sendMessage = async ({
 	return hook.send(embed);
 };
 
-const Bot = async (message: Message) => {
+const Bot = async (
+	message: Message,
+	options?: MessageOptions,
+): Promise<void> => {
 	message.level = message.level || "info";
 
-	console.dir({ message }, { depth: null });
-	await sendMessage(message);
+	if (options?.debug) {
+		console.log(message);
+		return Promise.resolve();
+	}
+
+	try {
+		await sendMessage(message);
+		logger.info("pushed to discord");
+	} catch (error) {
+		logger.error("failed to pushed to discord", (error as Error).message);
+	}
 };
 
 export default Bot;

@@ -1,4 +1,4 @@
-import { logger } from "@/api/logger";
+import { logger } from "@/api/utils/logger";
 import puppeteer from "@/api/utils/puppeteer";
 import type { GetResponse } from "@/types";
 import { config } from "dotenv";

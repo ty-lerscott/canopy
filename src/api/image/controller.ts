@@ -1,4 +1,4 @@
-import { logger } from "@/api/logger";
+import { logger } from "@/api/utils/logger";
 import type { Controller } from "@/types";
 
 import blurImage from "./utils/blur";

@@ -1,7 +1,7 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import APIController from "@/api/controllers";
 import { omit } from "@/api/utils";
+import APIController from "@/api/utils/controllers";
 import { config } from "dotenv";
 import "~/sentry.mjs";
 import * as Sentry from "@sentry/node";
@@ -9,7 +9,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express, { type Request, type Response } from "express";
 import next from "next";
-import LoggerController from "./logger";
+import LoggerController from "./utils/logger";
 
 config();
 

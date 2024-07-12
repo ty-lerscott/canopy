@@ -25,3 +25,7 @@ export type Message = {
 		image?: string;
 	};
 };
+
+export type MessageOptions = {
+	debug?: boolean;
+};

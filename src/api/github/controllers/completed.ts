@@ -1,3 +1,4 @@
+import { logger } from "@/api/utils/logger";
 import discord from "@/tools/bots/discord";
 import type { GHCompletedAction } from "@/types/github";
 import dayjs from "@/utils/dayjs";
@@ -46,7 +47,7 @@ const CompletedController = async (
 				},
 				{
 					name: "Build Duration",
-					value: `${minutes} minute${minutes === 1 ? "s" : ""} and ${seconds} second${seconds === 1 ? "s" : ""}`,
+					value: `${minutes} minute${minutes === 1 ? "" : "s"} and ${seconds} second${seconds === 1 ? "" : "s"}`,
 					isInline: true,
 				},
 			],

@@ -1,4 +1,4 @@
-import { logger } from "@/api/logger";
+import { logger } from "@/api/utils/logger";
 import type { GetResponse } from "@/types";
 import { config } from "dotenv";
 import jimp from "jimp";

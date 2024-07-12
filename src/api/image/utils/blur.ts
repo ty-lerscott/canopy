@@ -1,4 +1,4 @@
-import { logger } from "@/api/logger";
+import { logger } from "@/api/utils/logger";
 import codes from "@/api/utils/status-codes";
 import type { GetResponse } from "@/types";
 import getImage from "./get-image";
