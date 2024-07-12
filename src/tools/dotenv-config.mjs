@@ -1,14 +1,15 @@
 import { config } from "dotenv";
 
 /**
- *
  * @returns {DotenvParseOutput}
  */
 const getConfig = () => {
-	return config({
+	const configObj = config({
 		processEnv:
 			process.env.NODE_ENV === "development" ? config().parsed : process.env,
-	}).parsed;
+	});
+
+	return configObj.parsed;
 };
 
 export default getConfig();
