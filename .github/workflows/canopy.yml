@@ -79,7 +79,7 @@ jobs:
       - name: Deploy with rsync
         uses: burnett01/rsync-deployments@5.2.1
         with:
-          switches: -avzc --delete --exclude="*.ts" --exclude=".git" --exclude="node_modules"
+          switches: -avzc --delete --exclude="*.ts" --exclude=".git"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
