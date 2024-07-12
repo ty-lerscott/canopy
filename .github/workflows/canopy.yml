@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # This ensures all history is fetched
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,30 +30,46 @@ jobs:
       - name: Check for changes
         id: check_for_changes
         run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref name: ${{ github.ref_name }}"
+          
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            BASE_SHA=${{ github.event.pull_request.base.sha }}
+          BASE_SHA=${{ github.event.pull_request.base.sha }}
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
           else
-            BASE_SHA=$(git rev-parse origin/${{ github.ref_name }}^)
+          BASE_SHA=$(git rev-parse HEAD^)
+          HEAD_SHA=${{ github.sha }}
           fi
-          CHANGED_FILES=$(git diff --name-only $BASE_SHA HEAD)
+          
+          echo "Base SHA: $BASE_SHA"
+          echo "Head SHA: $HEAD_SHA"
+          
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          
+          CHANGED_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA)
           echo "API_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/api" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
           echo "TOOLS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/tools" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
           echo "UTILS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/utils" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
           echo "APPS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/apps" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+          echo "PACKAGE_JSON_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^package.json$" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+
 
       - name: Install dependencies
         if: |
           steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true' ||
-          steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
+          steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         run: npm i
 
       - name: Build API
         if: |
           steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
-          steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true'
+          steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true' || 
+          steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         run: |
           npm run build:ts
 
