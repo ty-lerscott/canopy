@@ -1,1 +1,0 @@
-{"version":3,"sources":["api/utils/status-codes.ts"],"sourcesContent":["const codes = {\n\tNOT_FOUND: 404,\n\tBAD_REQUEST: 400,\n\tSERVER_ERROR: 500,\n\tOK: 200,\n};\n\nexport default codes;\n"],"mappings":"AAAA,IAAMA,EAAQ,CACb,UAAW,IACX,YAAa,IACb,aAAc,IACd,GAAI,GACL,EAEOC,EAAQD","names":["codes","status_codes_default"]}

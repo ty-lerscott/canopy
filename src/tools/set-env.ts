@@ -13,8 +13,7 @@ const defaultConfig = readFileSync(envPath, "utf-8")
 		(envVarAcc, line) => {
 			const [envVar] = line.split("=");
 
-			envVarAcc[envVar] =
-				envVar === "ANALYTICS_API_KEY" ? createId() : env[envVar];
+			envVarAcc[envVar] = envVar === "API_KEY" ? createId() : env[envVar];
 
 			return envVarAcc;
 		},

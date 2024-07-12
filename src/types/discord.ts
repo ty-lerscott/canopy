@@ -16,9 +16,9 @@ export type Message = {
 	url?: string;
 	author?: User;
 	level?: Level;
-	fields?: Field[];
 	title?: string;
 	image?: string;
+	fields?: Field[];
 	description?: string;
 	footer?: {
 		value: string;

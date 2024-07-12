@@ -11,9 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BLUR: ${{ secrets.BLUR }}
+      PORT: ${{ secrets.PORT }}
+      API_KEY: ${{ secrets.API_KEY }}
       APP_ENV: ${{ secrets.APP_ENV }}
       NODE_ENV: ${{ secrets.NODE_ENV }}
+      SENTRY_URL: ${{ secrets.SENTRY_URL }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     steps:
       - name: Set Start Time
         run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV

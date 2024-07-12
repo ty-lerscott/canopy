@@ -12,6 +12,7 @@ node_modules
 logs
 dist
 src/app/node_modules
+*.js.map
 
 *.js
 *.jsx

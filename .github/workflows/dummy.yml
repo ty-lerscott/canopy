@@ -1,0 +1,25 @@
+name: DUMMY
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Start Time
+        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Calculate Build Time
+        run: |
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+          
+          HOURS=$((DURATION / 3600))
+          MINUTES=$(( (DURATION % 3600) / 60 ))
+          SECONDS=$((DURATION % 60))
+          
+          echo "Build completed in ${HOURS}h ${MINUTES}m ${SECONDS}s"
+          echo "BUILD_TIME=${HOURS}h ${MINUTES}m ${SECONDS}s" >> $GITHUB_ENV

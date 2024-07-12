@@ -1,20 +1,29 @@
+import {
+	CreatedController,
+	InProgressController,
+} from "@/api/github/controllers";
 import type { Controller } from "@/types";
 
-const GithubController = async ({ body, res, next, pathname }: Controller) => {
-	const [subject] = pathname;
+const GithubController = async ({ body, res }: Controller) => {
+	switch (body.action) {
+		case "created": {
+			console.group("CreatedController");
+			await CreatedController(body);
+			console.groupEnd();
 
-	console.group("GITHUB CONTROLLER");
-	console.dir(body, { depth: null });
-	console.groupEnd();
-
-	switch (subject) {
+			break;
+		}
+		case "in_progress": {
+			await InProgressController(body);
+			break;
+		}
 		default: {
-			res.status(200);
-			res.end();
 			break;
 		}
 	}
-	next();
+
+	res.status(200);
+	res.redirect("/");
 };
 
 export default GithubController;
