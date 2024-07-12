@@ -1,13 +1,36 @@
 name: Deploy Canopy
-description: 'Composite action for deployment steps'
+description: 'Actions for deploying canopy'
 
 on:
   workflow_call:
+    inputs:
+      BLUR:
+        required: true
+        type: string
+      PORT:
+        required: true
+        type: string
+      API_KEY:
+        required: true
+        type: string
+      APP_ENV:
+        required: true
+        type: string
+      NODE_ENV:
+        required: true
+        type: string
+      SENTRY_URL:
+        required: true
+        type: string
+      SENTRY_AUTH_TOKEN:
+        required: true
+        type: string
+      DISCORD_WEBHOOK_URL:
+        required: true
+        type: string
 
-runs:
-  using: 'composite'
-#jobs:
-#  deploy_canopy:
+jobs:
+  deploy_canopy:
   steps:
     - name: Install dependencies
       shell: bash
@@ -27,18 +50,18 @@ runs:
       with:
         switches: -avzc --delete --exclude="*.ts" --exclude=".git"
         path: ./
-        remote_path: ${{ input.TARGET_DIR }}
-        remote_host: ${{ input.HOST }}
-        remote_user: ${{ input.USER }}
-        remote_key: ${{ input.SSH_KEY }}
+        remote_path: ${{ inputs.TARGET_DIR }}
+        remote_host: ${{ inputs.HOST }}
+        remote_user: ${{ inputs.USER }}
+        remote_key: ${{ inputs.SSH_KEY }}
 
     - name: Restart Canopy
       shell: bash
       uses: appleboy/ssh-action@v1.0.3
       with:
-        host: ${{ input.HOST }}
-        username: ${{ input.USER }}
-        key: ${{ input.SSH_KEY }}
+        host: ${{ inputs.HOST }}
+        username: ${{ inputs.USER }}
+        key: ${{ inputs.SSH_KEY }}
         port: 22
         script: pm2 restart canopy
 
