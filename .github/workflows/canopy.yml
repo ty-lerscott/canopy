@@ -6,5 +6,7 @@ on:
 
 jobs:
   deploy:
-    uses: ./.github/workflows/jobs/deploy-canopy.yml
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run deployment steps
+        uses: ./.github/workflow/steps/deploy-canopy
