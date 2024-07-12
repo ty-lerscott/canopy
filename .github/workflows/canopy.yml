@@ -76,10 +76,39 @@ jobs:
         if: steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
         run: npm run build:apps
 
-      - name: Deploy with rsync
+      - name: Check if package.json changed
+        id: check_for_package_json
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref name: ${{ github.ref_name }}"
+          
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE_SHA=${{ github.event.pull_request.base.sha }}
+            HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          else
+            BASE_SHA=$(git rev-parse HEAD^)
+            HEAD_SHA=${{ github.sha }}
+          fi
+          
+          CHANGED_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA)
+          echo "PACKAGE_JSON_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^package.json$" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+
+      - name: Sync All
+        if: steps.check_for_package_json.outputs.PACKAGE_JSON_CHANGED == 'true'
         uses: burnett01/rsync-deployments@5.2.1
         with:
           switches: -avzc --delete --exclude="*.ts" --exclude=".git"
+          path: ./
+          remote_path: ${{ secrets.TARGET_DIR }}
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: Sync Canopy
+        if: steps.check_for_package_json.outputs.PACKAGE_JSON_CHANGED == 'false'
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avzc --delete --exclude="*.ts" --exclude="node_modules" --exclude=".git"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
