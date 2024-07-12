@@ -81,7 +81,7 @@ jobs:
 
       - name: Bundle files for transfer
         run: |
-          tar -czf ${{ secrets.BUNDLE_NAME }} .
+          tar --exclude="${{ secrets.BUNDLE_NAME }}" -czf ${{ secrets.BUNDLE_NAME }} .
 
       - name: SCP file transfer
         uses: nogsantos/scp-deploy@master
