@@ -18,14 +18,30 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Run deployment steps
-        uses: ./.github/actions/deploy-canopy
+      - name: Install dependencies
+        run: npm i
+
+      - name: Build API
+        run: npm run build:ts
+
+      - name: Build Apps
+        run: npm run build:apps
+
+      - name: Deploy with rsync
+        uses: burnett01/rsync-deployments@5.2.1
         with:
-          BLUR: ${{ secrets.BLUR }}
-          PORT: ${{ secrets.PORT }}
-          API_KEY: ${{ secrets.API_KEY }}
-          APP_ENV: ${{ secrets.APP_ENV }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          switches: -avzc --delete --exclude="*.ts" --exclude=".git"
+          path: ./
+          remote_path: ${{ inputs.TARGET_DIR }}
+          remote_host: ${{ inputs.HOST }}
+          remote_user: ${{ inputs.USER }}
+          remote_key: ${{ inputs.SSH_KEY }}
+
+      - name: Restart Canopy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ inputs.HOST }}
+          username: ${{ inputs.USER }}
+          key: ${{ inputs.SSH_KEY }}
+          port: 22
+          script: pm2 restart canopy
