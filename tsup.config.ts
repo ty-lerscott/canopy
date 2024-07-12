@@ -8,6 +8,6 @@ export default defineConfig({
 	minify: true,
 	sourcemap: true,
 	external: ["dayjs"],
-	// dts: true
+	dts: true,
 	env,
 });
