@@ -6,6 +6,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -19,3 +20,12 @@ jobs:
 
     - name: Run deployment steps
       uses: ./.github/actions/deploy-canopy
+      with:
+        BLUR: ${{ inputs.BLUR }}
+        PORT: ${{ inputs.PORT }}
+        API_KEY: ${{ inputs.API_KEY }}
+        APP_ENV: ${{ inputs.APP_ENV }}
+        NODE_ENV: ${{ inputs.NODE_ENV }}
+        SENTRY_URL: ${{ inputs.SENTRY_URL }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.SENTRY_AUTH_TOKEN }}
+        DISCORD_WEBHOOK_URL: ${{ inputs.DISCORD_WEBHOOK_URL }}
