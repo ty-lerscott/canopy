@@ -1,11 +1,13 @@
 import pkg from "@/apps/package.json";
-import env from "@/tools/dotenv-config.mjs";
+import { config } from "dotenv";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import "./globals.css";
 
-const IS_LOCAL = env.APP_ENV === "development";
+config();
+
+const IS_LOCAL = process.env.APP_ENV === "development";
 const LOCAL_PREFIX = IS_LOCAL ? "🌑" : "🌕";
 const appName = `${pkg.name[0].toUpperCase()}${pkg.name.substring(1)}`;
 

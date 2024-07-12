@@ -2,7 +2,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import APIController from "@/api/controllers";
 import { omit } from "@/api/utils";
-import env from "@/tools/dotenv-config.mjs";
+import { config } from "dotenv";
 import "~/sentry.mjs";
 import * as Sentry from "@sentry/node";
 import bodyParser from "body-parser";
@@ -11,7 +11,9 @@ import express, { type Request, type Response } from "express";
 import next from "next";
 import LoggerController from "./logger";
 
-const IS_LOCAL = env.NODE_ENV === "development";
+config();
+
+const IS_LOCAL = process.env.NODE_ENV === "development";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
@@ -76,9 +78,9 @@ const Server = {
 			return nextHandler(req, res);
 		});
 
-		server.listen(env.PORT, (err?: Error) => {
+		server.listen(process.env.PORT, (err?: Error) => {
 			if (err) throw err;
-			console.log(`> Ready on http://localhost:${env.PORT}`);
+			console.log(`> Ready on http://localhost:${process.env.PORT}`);
 		});
 	},
 };

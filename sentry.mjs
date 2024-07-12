@@ -1,9 +1,11 @@
 import * as Sentry from "@sentry/node";
 import { nodeProfilingIntegration } from "@sentry/profiling-node";
-import env from "./src/tools/dotenv-config.mjs";
+import { config } from "dotenv";
+
+config();
 
 Sentry.init({
-	dsn: env.SENTRY_URL,
+	dsn: process.env.SENTRY_URL,
 	integrations: [nodeProfilingIntegration()],
 	// Performance Monitoring
 	tracesSampleRate: 1.0, //  Capture 100% of the transactions

@@ -1,6 +1,8 @@
-import env from "@/tools/dotenv-config.mjs";
 import type { Level, Message } from "@/types/discord";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
+import { config } from "dotenv";
+
+config();
 
 const LEVEL = {
 	info: "#1982c4",
@@ -18,7 +20,7 @@ const FIXTURE = {
 	critical: "🚨",
 } as Record<Level, string>;
 
-const hook = new Webhook(env.DISCORD_WEBHOOK_URL as string);
+const hook = new Webhook(process.env.DISCORD_WEBHOOK_URL as string);
 const prefixTitle = (title: string, level: Level) => {
 	const fixture = FIXTURE[level];
 	return `${fixture} ${title} ${fixture}`;
