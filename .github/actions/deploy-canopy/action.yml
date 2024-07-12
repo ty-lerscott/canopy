@@ -9,6 +9,7 @@ runs:
 #jobs:
 #  deploy_canopy:
   steps:
+  shell: bash
     - name: Install dependencies
       run: npm i
 
