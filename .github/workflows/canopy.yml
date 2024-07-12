@@ -29,9 +29,31 @@ jobs:
 
       - name: Install dependencies
         run: npm i
-      #
-      - name: Build application
-        run: npm run build
+      - name: Check for changes
+        id: check_for_changes
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}..HEAD)
+          echo "API_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/api" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+          echo "TOOLS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/tools" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+          echo "UTILS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/utils" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+          echo "APPS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/apps" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+
+      - name: Build API
+        if: |
+          steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true'
+        run: |
+          npm run build:ts
+
+      - name: Build Apps
+        if: |
+          steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true'
+        run: |
+          npm run build:apps
 
       - name: Bundle files for transfer
         run: |
