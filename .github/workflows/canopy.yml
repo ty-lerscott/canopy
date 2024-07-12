@@ -1,4 +1,4 @@
-name: canopy
+name: Manual Deploy
 
 on:
   push:
@@ -70,14 +70,11 @@ jobs:
           steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true' || 
           steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
-        run: |
-          npm run build:ts
+        run: npm run build:ts
 
       - name: Build Apps
-        if: |
-          steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
-        run: |
-          npm run build:apps
+        if: steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
+        run: npm run build:apps
 
       - name: Deploy with rsync
         uses: burnett01/rsync-deployments@5.2.1
