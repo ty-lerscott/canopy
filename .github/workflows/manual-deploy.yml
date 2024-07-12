@@ -42,9 +42,9 @@ jobs:
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         with:
           switches: |
-            -avzc
-            --exclude="src/apps/app"
-            --exclude=".*"
+            -avzc \
+            --exclude="src/apps/app" \
+            --exclude=".*" \
             --exclude="src/api" --exclude="src/tools" --exclude="src/types" --exclude="src/utils"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
