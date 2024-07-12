@@ -17,6 +17,20 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Check for changes
+        id: check_for_changes
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE_SHA=${{ github.event.pull_request.base.sha }}
+            HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          else
+            BASE_SHA=$(git rev-parse HEAD^)
+            HEAD_SHA=${{ github.sha }}
+          fi
+          
+          CHANGED_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA)
+          echo "PACKAGE_JSON_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^package.json$" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+
       - name: Install dependencies
         run: npm i
 
@@ -26,21 +40,34 @@ jobs:
       - name: Build Apps
         run: npm run build:apps
 
-      - name: Deploy with rsync
+
+      - name: Deploy with rsync (node_modules)
         uses: burnett01/rsync-deployments@5.2.1
+        if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         with:
           switches: -avzc --delete --exclude="*.ts" --exclude=".git"
           path: ./
-          remote_path: ${{ inputs.TARGET_DIR }}
-          remote_host: ${{ inputs.HOST }}
-          remote_user: ${{ inputs.USER }}
-          remote_key: ${{ inputs.SSH_KEY }}
+          remote_path: ${{ secrets.TARGET_DIR }}
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: Deploy with rsync
+        uses: burnett01/rsync-deployments@5.2.1
+        if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false'
+        with:
+          switches: -avzc --delete --exclude="*.ts" --exclude="node_modules" --exclude=".git"
+          path: ./
+          remote_path: ${{ secrets.TARGET_DIR }}
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
 
       - name: Restart Canopy
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ inputs.HOST }}
-          username: ${{ inputs.USER }}
-          key: ${{ inputs.SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
           port: 22
-          script: pm2 restart canopy
+          script: pm2 restart canopyy
