@@ -26,6 +26,9 @@ importers:
       '@types/express':
         specifier: 4.17.21
         version: 4.17.21
+      '@types/node':
+        specifier: '20'
+        version: 20.14.10
       '@types/object.omit':
         specifier: 3.0.3
         version: 3.0.3
@@ -86,6 +89,9 @@ importers:
       tailwindcss:
         specifier: 3.4.4
         version: 3.4.4
+      tsup:
+        specifier: 8.1.0
+        version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
       tsx:
         specifier: 4.16.2
         version: 4.16.2
@@ -96,12 +102,6 @@ importers:
       '@biomejs/biome':
         specifier: 1.8.3
         version: 1.8.3
-      '@types/node':
-        specifier: '20'
-        version: 20.14.10
-      tsup:
-        specifier: 8.1.0
-        version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
       typescript:
         specifier: 5.5.3
         version: 5.5.3
