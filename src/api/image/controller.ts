@@ -1,12 +1,13 @@
-import { logger } from "@/api/utils/logger";
 import type { Controller } from "@/types";
-
 import blurImage from "./utils/blur";
 import getOGImage from "./utils/og";
 
-const ImageController = async ({ query, res, next, pathname }: Controller) => {
-	const [subject] = pathname;
-
+const ImageController = async ({
+	query,
+	res,
+	next,
+	extendedPath: [subject],
+}: Controller) => {
 	switch (subject) {
 		case "blur": {
 			const { data, error, status, headers } = await blurImage(

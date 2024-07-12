@@ -1,8 +1,6 @@
 import * as Sentry from "@sentry/node";
 import { nodeProfilingIntegration } from "@sentry/profiling-node";
-import { config } from "dotenv";
-
-config();
+import "./dotenv.mjs";
 
 Sentry.init({
 	dsn: process.env.SENTRY_URL,

@@ -1,9 +1,22 @@
+import StatusCodes from "@/api/utils/status-codes";
 import type { Controller } from "@/types";
 import CompletedController from "./completed";
 import CreatedController from "./created";
 import InProgressController from "./in-progress";
 
-const GithubController = async ({ body, res }: Controller) => {
+const GithubController = async ({ body, res, method }: Controller) => {
+	if (method !== "POST") {
+		res.status(StatusCodes.METHOD_NOT_ALLOWED);
+		res.end();
+		return;
+	}
+
+	if (!body?.action) {
+		res.status(StatusCodes.CONTINUE);
+		res.end();
+		return;
+	}
+
 	switch (body.action) {
 		case "created": {
 			console.group("CreatedController");
@@ -35,8 +48,7 @@ const GithubController = async ({ body, res }: Controller) => {
 		}
 	}
 
-	res.status(200);
-	res.redirect("/");
+	res.status(200).end();
 };
 
 export default GithubController;

@@ -1,9 +1,7 @@
+import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import type { Level, Message, MessageOptions } from "@/types/discord";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
-import { config } from "dotenv";
-
-config();
 
 const LEVEL = {
 	info: "#1982c4",

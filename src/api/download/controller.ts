@@ -2,9 +2,11 @@ import type { Controller } from "@/types";
 
 import getResume from "./resume/get";
 
-const DownloadController = async ({ res, next, pathname }: Controller) => {
-	const [subject] = pathname;
-
+const DownloadController = async ({
+	res,
+	next,
+	extendedPath: [subject],
+}: Controller) => {
 	switch (subject) {
 		case "resume": {
 			const { data, error, status, headers } = await getResume();

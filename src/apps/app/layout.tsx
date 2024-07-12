@@ -1,11 +1,9 @@
 import pkg from "@/apps/package.json";
-import { config } from "dotenv";
+import "~/dotenv.mjs";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import "./globals.css";
-
-config();
 
 const IS_LOCAL = process.env.APP_ENV === "development";
 const LOCAL_PREFIX = IS_LOCAL ? "🌑" : "🌕";

@@ -3,9 +3,12 @@ import type { Controller } from "@/types";
 import getImage from "@/api/image/utils/get-image";
 import ogImageTemplate from "./templates/og-image";
 
-const HTMLController = async ({ query, res, next, pathname }: Controller) => {
-	const [subject] = pathname;
-
+const HTMLController = async ({
+	query,
+	res,
+	next,
+	extendedPath: [subject],
+}: Controller) => {
 	res.set({
 		"Content-Type": "text/html",
 	});
@@ -17,7 +20,7 @@ const HTMLController = async ({ query, res, next, pathname }: Controller) => {
 			const html = ogImageTemplate({
 				title: query?.title as string,
 				image: data?.toString("base64"),
-				subtitle: query.subtitle as string,
+				subtitle: query?.subtitle as string,
 			});
 
 			res.set({

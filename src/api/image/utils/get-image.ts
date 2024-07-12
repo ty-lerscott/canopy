@@ -1,9 +1,7 @@
+import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import type { GetResponse } from "@/types";
-import { config } from "dotenv";
 import jimp from "jimp";
-
-config();
 
 type JimpImage = GetResponse & {
 	data?: Buffer;

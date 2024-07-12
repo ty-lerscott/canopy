@@ -1,15 +1,26 @@
-import type { NextFunction, Request, Response } from "express";
+import type {
+	Request as ExpressRequest,
+	NextFunction,
+	Response,
+} from "express";
 
 export type Primitives = string | number | boolean | null | Buffer | undefined;
 export type PrimitiveObject = Record<string, Primitives | Primitives[]>;
+export type HTTP_METHODS =
+	| "GET"
+	| "POST"
+	| "PUT"
+	| "DELETE"
+	| "PATCH"
+	| "HEAD"
+	| "OPTIONS"
+	| "TRACE"
+	| "CONNECT";
 
-export type Controller = {
-	res: Response;
-	next: NextFunction;
-	pathname: string[];
-	// biome-ignore lint/suspicious/noExplicitAny: Incoming API requests can have any values in their body
-	body: Record<string, any>;
-	query: PrimitiveObject | Request["query"];
+export type Request = Omit<ExpressRequest, "method"> & {
+	method: HTTP_METHODS;
+	basePath: string;
+	extendedPath: string[];
 };
 
 export type Data =
@@ -17,6 +28,15 @@ export type Data =
 	| Primitives[]
 	| PrimitiveObject
 	| (Primitives | PrimitiveObject)[];
+
+export type Controller = {
+	res: Response;
+	body?: Record<string, Data>;
+	next: NextFunction;
+	method: HTTP_METHODS;
+	extendedPath: string[];
+	query?: PrimitiveObject | Request["query"];
+};
 
 export type GetResponse<T = Data> = {
 	data?: T;

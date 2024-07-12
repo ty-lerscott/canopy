@@ -1,10 +1,8 @@
+import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import puppeteer from "@/api/utils/puppeteer";
 import type { GetResponse } from "@/types";
-import { config } from "dotenv";
 import pkg from "~/package.json";
-
-config();
 
 const isLocal = process.env.APP_ENV === "development";
 

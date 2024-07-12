@@ -2,21 +2,24 @@ import { DownloadController } from "@/api/download";
 import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
 import { ImageController } from "@/api/image";
-import type { NextFunction, Request, Response } from "express";
+import type { Controller as ControllerProps, Request } from "@/types";
+import type { NextFunction, Response } from "express";
 
 const Controller = async (
-	{ body, query, originalUrl }: Request,
+	{ body, query, method, basePath, extendedPath }: Request,
 	res: Response,
 	next: NextFunction,
 ) => {
-	const [base, ...pathname] = originalUrl
-		.split("?")[0]
-		.replace(/^\//, "")
-		.split("/");
+	const props: ControllerProps = {
+		body,
+		query,
+		res,
+		next,
+		method,
+		extendedPath,
+	};
 
-	const props = { body, query, res, next, pathname };
-
-	switch (base) {
+	switch (basePath) {
 		case "download":
 			await DownloadController(props);
 			break;
