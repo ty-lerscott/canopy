@@ -13,9 +13,9 @@ type Field = {
 };
 
 export type Message = {
+	level: Level;
 	url?: string;
 	author?: User;
-	level?: Level;
 	title?: string;
 	image?: string;
 	fields?: Field[];

@@ -1,6 +1,5 @@
 import env from "@/tools/dotenv-config.mjs";
 import type { Level, Message } from "@/types/discord";
-import merge from "deepmerge";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 
 const LEVEL = {
@@ -11,8 +10,19 @@ const LEVEL = {
 	critical: "#ff595e",
 } as Record<Level, string>;
 
-const hook = new Webhook(env.DISCORD_WEBHOOK_URL as string);
+const FIXTURE = {
+	info: "i",
+	notice: "🔔",
+	success: "🌟",
+	warning: "🚧",
+	critical: "🚨",
+} as Record<Level, string>;
 
+const hook = new Webhook(env.DISCORD_WEBHOOK_URL as string);
+const prefixTitle = (title: string, level: Level) => {
+	const fixture = FIXTURE[level];
+	return `${fixture} ${title} ${fixture}`;
+};
 const sendMessage = async ({
 	url,
 	author,
@@ -21,9 +31,9 @@ const sendMessage = async ({
 	image,
 	footer,
 	description,
-	level,
+	level = "info",
 }: Message) => {
-	let embed = new MessageBuilder()
+	const embed = new MessageBuilder()
 		.setTimestamp()
 		.setColor(LEVEL[level as Level] as unknown as number);
 
@@ -32,30 +42,30 @@ const sendMessage = async ({
 	}
 
 	if (title) {
-		embed = embed.setTitle(title);
+		embed.setTitle(prefixTitle(title, level));
 	}
 
 	if (description) {
-		embed = embed.setDescription(description);
+		embed.setDescription(description);
 	}
 
 	if (url) {
 		// @ts-ignore
-		embed = embed.setURL(url);
+		embed.setURL(url);
 	}
 
 	if (fields?.length) {
 		for (const field of fields) {
-			embed = embed.addField(field.name, field.value, field.isInline);
+			embed.addField(field.name, field.value, field.isInline);
 		}
 	}
 
 	if (image) {
-		embed = embed.setImage(image);
+		embed.setImage(image);
 	}
 
 	if (footer) {
-		embed = embed.setFooter(footer.value, footer.image);
+		embed.setFooter(footer.value, footer.image);
 	}
 
 	return hook.send(embed);

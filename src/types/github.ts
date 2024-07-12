@@ -297,6 +297,33 @@ export type GHDeploymentStatus = {
 	performed_via_github_app: boolean | null;
 };
 
+export type GHWorkflowJob = {
+	id: number;
+	run_id: number;
+	workflow_name: string;
+	head_branch: string;
+	run_url: string;
+	run_attempt: number;
+	node_id: string;
+	head_sha: string;
+	url: string;
+	html_url: string;
+	status: string;
+	conclusion: string;
+	created_at: string;
+	started_at: string;
+	completed_at: string;
+	name: string;
+	check_run_url: string;
+	labels: string[];
+	runner_id: number;
+	runner_name: string;
+	runner_group_id: number;
+	runner_group_name: string;
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	steps: Record<any, any>[];
+};
+
 export type GHCommentAction = {
 	action: "created";
 	comment: GHComment;
@@ -319,6 +346,13 @@ export type GHDeploymentAction = {
 	check_run: string | null;
 	workflow: string | null;
 	workflow_run: string | null;
+	repository: GHRepository;
+	sender: GHUser;
+};
+
+export type GHCompletedAction = {
+	action: "completed";
+	workflow_job: GHWorkflowJob;
 	repository: GHRepository;
 	sender: GHUser;
 };

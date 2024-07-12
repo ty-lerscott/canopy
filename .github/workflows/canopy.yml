@@ -1,4 +1,4 @@
-name: Deploy Canopy
+name: Canopy
 
 on:
   workflow_run:
@@ -16,12 +16,9 @@ jobs:
       APP_ENV: ${{ secrets.APP_ENV }}
       NODE_ENV: ${{ secrets.NODE_ENV }}
       SENTRY_URL: ${{ secrets.SENTRY_URL }}
-      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
-      - name: Set Start Time
-        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -34,7 +31,7 @@ jobs:
         run: npm i
       #
       - name: Build application
-        run: PORT=${{ secrets.PORT }} APP_ENV=${{ secrets.APP_ENV }} npm run build
+        run: npm run build
 
       - name: Bundle files for transfer
         run: |
@@ -62,45 +59,3 @@ jobs:
             tar -xzf ${{ secrets.BUNDLE_NAME }};
             rm ${{ secrets.BUNDLE_NAME }};
             pm2 restart canopy
-
-      - name: Calculate Build Time
-        run: |
-          END_TIME=$(date +%s)
-          DURATION=$((END_TIME - START_TIME))
-          
-          HOURS=$((DURATION / 3600))
-          MINUTES=$(( (DURATION % 3600) / 60 ))
-          SECONDS=$((DURATION % 60))
-          
-          echo "Build completed in ${HOURS}h ${MINUTES}m ${SECONDS}s"
-          echo "BUILD_TIME=${HOURS}h ${MINUTES}m ${SECONDS}s" >> $GITHUB_ENV
-
-#      - name: Notify Discord - Success
-#        if: ${{ success() }}
-#        run: |
-#          npm run discord -- \
-#            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
-#            --title "${{ github.event.head_commit.message }}" \
-#            --author.url https://github.com/${{ github.actor }} \
-#            --author.name ${{ github.actor }} \
-#            --author.avatar ${{ github.event.sender.avatar_url }} \
-#            --field "Branch%${{ github.ref }}%true" \
-#            --field "Build Duration%${{ env.BUILD_TIME }}%true" \
-#            --footer.value ${{ github.sha }} \
-#            --level success \
-#            --description "🎉 ${{ github.repository }} deployed 🎉"
-#
-#      - name: Notify Discord - Failure
-#        if: ${{ failure() }}
-#        run: |
-#          npm run discord -- \
-#            --url ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} \
-#            --title "${{ github.event.head_commit.message }}" \
-#            --author.url https://github.com/${{ github.actor }} \
-#            --author.name ${{ github.actor }} \
-#            --author.avatar ${{ github.event.sender.avatar_url }} \
-#            --field "Branch%${{ github.ref }}%true" \
-#            --field "Build Duration%${{ env.BUILD_TIME }}%true" \
-#            --footer.value ${{ github.sha }} \
-#            --level critical \
-#            --description "🚨 ${{ github.repository }} build failed 🚨"
