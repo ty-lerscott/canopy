@@ -1,5 +1,5 @@
 import { logger } from "@/api/logger";
-import env from "@/tools/dotenv-config";
+import env from "@/tools/dotenv-config.mjs";
 import type { GetResponse } from "@/types";
 import jimp from "jimp";
 

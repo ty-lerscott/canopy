@@ -21,11 +21,11 @@ const defaultConfig = readFileSync(envPath, "utf-8")
 		{} as Record<string, string>,
 	);
 
-const asPlainObject = Object.entries(defaultConfig).reduce(
-	(acc, [key, value]) => {
-		return `${acc}${key}=${value}\n`;
-	},
-	"",
-);
+const asPlainObject = Object.entries(defaultConfig)
+	.reduce((acc, [key, value]) => {
+		acc.push(`${key}=${value}`);
+		return acc;
+	}, [] as string[])
+	.join("\n");
 
 writeFileSync(envPath, asPlainObject, "utf-8");

@@ -1,6 +1,6 @@
 import { logger } from "@/api/logger";
 import puppeteer from "@/api/utils/puppeteer";
-import env from "@/tools/dotenv-config";
+import env from "@/tools/dotenv-config.mjs";
 import type { GetResponse } from "@/types";
 import pkg from "~/package.json";
 

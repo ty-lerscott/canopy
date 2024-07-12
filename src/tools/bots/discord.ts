@@ -1,4 +1,4 @@
-import env from "@/tools/dotenv-config";
+import env from "@/tools/dotenv-config.mjs";
 import type { Level, Message } from "@/types/bots";
 import { program } from "commander";
 import merge from "deepmerge";

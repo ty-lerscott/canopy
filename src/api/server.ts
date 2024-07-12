@@ -2,7 +2,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import APIController from "@/api/controllers";
 import { omit } from "@/api/utils";
-import env from "@/tools/dotenv-config";
+import env from "@/tools/dotenv-config.mjs";
 import "~/sentry.mjs";
 import * as Sentry from "@sentry/node";
 import bodyParser from "body-parser";

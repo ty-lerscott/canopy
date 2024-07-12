@@ -1,4 +1,4 @@
-import env from "@/tools/dotenv-config";
+import env from "@/tools/dotenv-config.mjs";
 import { defineConfig } from "tsup";
 
 export default defineConfig({

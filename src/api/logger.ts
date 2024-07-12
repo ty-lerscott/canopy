@@ -20,7 +20,10 @@ const LoggerController = (req: Request, res: Response, next: NextFunction) => {
 	const hasQuery = Object.values(query).some(Boolean);
 	const url = req.url.split("?")[0];
 
-	logger.info(`${req.method} ${url}`, hasQuery && { query });
+	if (!/^\/(monitoring|_next)/.test(url)) {
+		logger.info(`${req.method} ${url}`, hasQuery && { query });
+	}
+
 	next();
 };
 
