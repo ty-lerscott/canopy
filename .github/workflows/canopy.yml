@@ -1,8 +1,8 @@
-name: Canopy
+name: canopy
 
 on:
   workflow_run:
-    workflows: [ "API", "APPS" ]
+    workflows: [ "api", "apps" ]
     types:
       - completed
 

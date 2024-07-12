@@ -2,6 +2,7 @@ import { logger } from "@/api/utils/logger";
 import discord from "@/tools/bots/discord";
 import type { GHCompletedAction } from "@/types/github";
 import dayjs from "@/utils/dayjs";
+import pkg from "~/package.json";
 
 const CompletedController = async (
 	// biome-ignore lint/suspicious/noExplicitAny: For any action with "created" the request body can be anything
@@ -22,6 +23,7 @@ const CompletedController = async (
 			},
 		} = body as GHCompletedAction;
 
+		const projectName = `${repository.name}${workflow_name === pkg.name ? "" : `/${workflow_name}`}`;
 		const wasSuccessful = status === "completed";
 		const level = wasSuccessful ? "success" : "critical";
 		const duration = dayjs.duration(
@@ -33,7 +35,7 @@ const CompletedController = async (
 		await discord({
 			level,
 			url: repository.url,
-			title: `${repository.name} ${workflow_name} pipeline ${wasSuccessful ? "completed" : "failed"}`,
+			title: `${projectName} pipeline ${wasSuccessful ? "completed" : "failed"}`,
 			author: {
 				url: sender.url,
 				name: sender.login,
