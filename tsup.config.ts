@@ -7,6 +7,7 @@ export default defineConfig({
 	format: "esm",
 	minify: true,
 	sourcemap: true,
+	external: ["dayjs"],
 	// dts: true
 	env,
 });
