@@ -26,7 +26,6 @@ const CompletedController = async (
 		const duration = dayjs.duration(
 			dayjs(completed_at).diff(dayjs(started_at)),
 		);
-
 		const minutes = duration.minutes();
 		const seconds = duration.seconds();
 
