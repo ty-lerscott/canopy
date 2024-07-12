@@ -70,4 +70,4 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          script: pm2 restart canopyy
+          script: pm2 restart canopy
