@@ -25,17 +25,27 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm i
       - name: Check for changes
         id: check_for_changes
         run: |
-          git fetch origin ${{ github.base_ref }}
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}..HEAD)
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE_SHA=${{ github.event.pull_request.base.sha }}
+          else
+            BASE_SHA=$(git rev-parse origin/${{ github.ref_name }}^)
+          fi
+          CHANGED_FILES=$(git diff --name-only $BASE_SHA HEAD)
           echo "API_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/api" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
           echo "TOOLS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/tools" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
           echo "UTILS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/utils" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
           echo "APPS_DIR_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^src/apps" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        if: |
+          steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true' ||
+          steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
+        run: npm i
 
       - name: Build API
         if: |
@@ -47,9 +57,7 @@ jobs:
 
       - name: Build Apps
         if: |
-          steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
-          steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
-          steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true'
+          steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
         run: |
           npm run build:apps
 
