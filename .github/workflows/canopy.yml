@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run deployment steps
-        uses: ./.github/workflow/steps/deploy-canopy
+        uses: ./.github/actions/deploy-canopy
