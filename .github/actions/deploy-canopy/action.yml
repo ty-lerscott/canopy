@@ -1,18 +1,9 @@
 name: Deploy Canopy
 description: 'Composite action for deployment steps'
 
-#env:
-#  BLUR: ${{ secrets.BLUR }}
-#  PORT: ${{ secrets.PORT }}
-#  API_KEY: ${{ secrets.API_KEY }}
-#  APP_ENV: ${{ secrets.APP_ENV }}
-#  NODE_ENV: ${{ secrets.NODE_ENV }}
-#  SENTRY_URL: ${{ secrets.SENTRY_URL }}
-#  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-#  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+on:
+  workflow_call:
 
-runs:
-  using: "composite"
 #  env:
 #      BLUR: ${{ secrets.BLUR }}
 #      PORT: ${{ secrets.PORT }}
@@ -22,6 +13,9 @@ runs:
 #      SENTRY_URL: ${{ secrets.SENTRY_URL }}
 #      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 #      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+jobs:
+  deploy_canopy:
   steps:
     - name: Checkout repository
       uses: actions/checkout@v4
