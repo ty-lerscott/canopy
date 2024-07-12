@@ -4,7 +4,7 @@ on:
   workflow_call:  # This allows the workflow to be called by other workflows
 
 jobs:
-  deploy:
+  deploy_canopy:
     runs-on: ubuntu-latest
     env:
       BLUR: ${{ secrets.BLUR }}
