@@ -62,7 +62,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2.1
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         with:
-          switches: -avzc --delete --exclude="*.ts" --exclude=".git"
+          switches: -avzc --exclude="*.ts" --exclude=".git"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
@@ -73,7 +73,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2.1
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false'
         with:
-          switches: -avzc --delete --exclude="*.ts" --exclude="node_modules" --exclude=".git"
+          switches: -avzc --exclude="*.ts" --exclude="node_modules" --exclude=".git"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
