@@ -21,17 +21,17 @@ jobs:
       with:
         switches: -avzc --delete --exclude="*.ts" --exclude=".git"
         path: ./
-        remote_path: ${{ inputs.TARGET_DIR }}
-        remote_host: ${{ inputs.HOST }}
-        remote_user: ${{ inputs.USER }}
-        remote_key: ${{ inputs.SSH_KEY }}
+        remote_path: ${{ input.TARGET_DIR }}
+        remote_host: ${{ input.HOST }}
+        remote_user: ${{ input.USER }}
+        remote_key: ${{ input.SSH_KEY }}
 
     - name: Restart Canopy
       uses: appleboy/ssh-action@v1.0.3
       with:
-        host: ${{ inputs.HOST }}
-        username: ${{ inputs.USER }}
-        key: ${{ inputs.SSH_KEY }}
+        host: ${{ input.HOST }}
+        username: ${{ input.USER }}
+        key: ${{ input.SSH_KEY }}
         port: 22
         script: pm2 restart canopy
 
