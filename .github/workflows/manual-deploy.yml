@@ -20,7 +20,7 @@ jobs:
 
     - name: Run deployment steps
       uses: ./.github/actions/deploy-canopy
-      with:
+      env:
         BLUR: ${{ secrets.BLUR }}
         PORT: ${{ secrets.PORT }}
         API_KEY: ${{ secrets.API_KEY }}

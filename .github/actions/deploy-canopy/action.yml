@@ -4,8 +4,10 @@ description: 'Composite action for deployment steps'
 on:
   workflow_call:
 
-jobs:
-  deploy_canopy:
+runs:
+  using: 'composite'
+#jobs:
+#  deploy_canopy:
   steps:
     - name: Install dependencies
       run: npm i
