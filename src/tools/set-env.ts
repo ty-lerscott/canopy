@@ -4,7 +4,6 @@ import { createId } from "@paralleldrive/cuid2";
 import { config } from "dotenv";
 
 const env = config().parsed as Record<string, string>;
-
 const envPath = resolve(process.cwd(), ".env");
 
 const defaultConfig = readFileSync(envPath, "utf-8")

@@ -2,7 +2,7 @@
 const InProgressController = (body: Record<string, any>) => {
 	return new Promise<void>((resolve) => {
 		setTimeout(() => {
-			console.log("In Progress fake promise");
+			console.log(body);
 			resolve();
 		}, 500);
 	});
