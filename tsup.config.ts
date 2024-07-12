@@ -2,7 +2,7 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
 	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts", "./src/utils/**/*.ts"],
-	outDir: "./src",
+	outDir: "./dist",
 	format: "esm",
 	minify: true,
 	sourcemap: true,

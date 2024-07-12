@@ -16,44 +16,50 @@ import LoggerController from "./utils/logger";
 import ImagesMiddleware from "./utils/middleware/images";
 import RequestMiddleware from "./utils/middleware/request";
 
-const IS_LOCAL = process.env.NODE_ENV === "development";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
-const server = express();
-const app = next({ dev: IS_LOCAL, dir: appsDir });
-const requestHandler = app.getRequestHandler();
-const urlEncoded = bodyParser.urlencoded({
-	extended: true,
-});
+const start = async () => {
+	const server = express();
+	Sentry.setupExpressErrorHandler(server);
 
-const nextHandler = (req: ExpressRequest, res: Response) =>
-	requestHandler(req, res);
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = dirname(__filename);
+	const IS_LOCAL = process.env.NODE_ENV === "development";
+	const appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
+	console.log({ appsDir });
 
-Sentry.setupExpressErrorHandler(server);
+	const app = next({ dev: IS_LOCAL, dir: appsDir });
+	const requestHandler = app.getRequestHandler();
+	const urlEncoded = bodyParser.urlencoded({
+		extended: true,
+	});
 
-const Server = {
-	app,
-	async start() {
-		await this.app.prepare();
+	const nextHandler = (req: ExpressRequest, res: Response) =>
+		requestHandler(req, res);
 
-		server.use(cors());
-		server.use(bodyParser.json());
-		server.use(urlEncoded);
-		server.use(RequestMiddleware as RequestHandler);
-		server.use(LoggerController);
-		server.use(ImagesMiddleware as RequestHandler);
-		server.use("/_next", express.static(resolve(__dirname, ".next")));
-		server.use(APIController as unknown as RequestHandler);
-		server.get("*", (req, res) => nextHandler(req, res));
+	console.log("start?");
+	await app.prepare();
+	console.log("app isnt started");
+	server.use(cors());
+	server.use(bodyParser.json());
+	server.use(urlEncoded);
+	console.log("what");
+	server.use(RequestMiddleware as RequestHandler);
+	server.use(LoggerController);
+	console.log("more");
+	server.use(ImagesMiddleware as RequestHandler);
+	server.use("/_next", express.static(resolve(appsDir, "apps")));
+	server.use(APIController as unknown as RequestHandler);
+	console.log("I bet this is it");
+	server.get("*", (req, res) => nextHandler(req, res));
 
-		server.listen(process.env.PORT, (err?: Error) => {
-			if (err) throw err;
-			console.log(`> Ready on http://localhost:${process.env.PORT}`);
-		});
-	},
+	console.log("hello?");
+	server.listen(process.env.PORT, (err?: Error) => {
+		if (err) throw err;
+		console.log(`> Ready on http://localhost:${process.env.PORT}`);
+	});
 };
 
 (async () => {
-	await Server.start();
+	console.log("this runs?");
+	await start();
+	console.log("this ends?");
 })();
