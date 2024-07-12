@@ -1,4 +1,4 @@
-name: Manual Deploy
+name: Canopy
 
 on:
   push:
