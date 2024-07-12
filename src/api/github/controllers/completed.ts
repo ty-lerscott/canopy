@@ -12,12 +12,12 @@ const CompletedController = async (
 			sender,
 			repository,
 			workflow_job: {
-				head_sha,
-				head_branch,
 				status,
-				conclusion,
+				head_sha,
 				started_at,
+				head_branch,
 				completed_at,
+				workflow_name,
 			},
 		} = body as GHCompletedAction;
 
@@ -32,7 +32,7 @@ const CompletedController = async (
 		await discord({
 			level,
 			url: repository.url,
-			title: `${repository.name} pipeline ${wasSuccessful ? "completed" : "failed"}`,
+			title: `${repository.name} ${workflow_name} pipeline ${wasSuccessful ? "completed" : "failed"}`,
 			author: {
 				url: sender.url,
 				name: sender.login,
