@@ -2,7 +2,7 @@ name: Canopy
 
 on:
   workflow_run:
-    workflows: [ "Deploy API" ]
+    workflows: [ "API", "APPS" ]
     types:
       - completed
 
