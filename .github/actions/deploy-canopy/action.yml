@@ -9,17 +9,20 @@ runs:
 #jobs:
 #  deploy_canopy:
   steps:
-  shell: bash
     - name: Install dependencies
+      shell: bash
       run: npm i
 
     - name: Build API
+      shell: bash
       run: npm run build:ts
 
     - name: Build Apps
+      shell: bash
       run: npm run build:apps
 
     - name: Deploy with rsync
+      shell: bash
       uses: burnett01/rsync-deployments@5.2.1
       with:
         switches: -avzc --delete --exclude="*.ts" --exclude=".git"
@@ -30,6 +33,7 @@ runs:
         remote_key: ${{ input.SSH_KEY }}
 
     - name: Restart Canopy
+      shell: bash
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ input.HOST }}
