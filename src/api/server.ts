@@ -48,7 +48,9 @@ const start = async () => {
 
 	server.listen(process.env.PORT, (err?: Error) => {
 		if (err) throw err;
-		console.log(`> Ready on http://localhost:${process.env.PORT}`);
+		console.log(
+			`> Ready on canopy.lerscott.${IS_LOCAL ? `local:${process.env.PORT}` : "com"}`,
+		);
 	});
 };
 
