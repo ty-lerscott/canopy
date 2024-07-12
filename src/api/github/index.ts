@@ -1,1 +1,1 @@
-export { default as GithubController } from "./controller";
+export { default as GithubController } from "./controllers";
