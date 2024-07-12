@@ -37,7 +37,7 @@ jobs:
 
       - name: Bundle files for transfer
         run: |
-          tar -czf ${{ secrets.BUNDLE_NAME }} src public node_modules package.json next.config.mjs postcss.config.mjs tailwind.config.ts tsconfig.json tsup.config.ts;
+          tar -czf ${{ secrets.BUNDLE_NAME }} src public node_modules package.json next.config.mjs postcss.config.mjs tailwind.config.ts tsconfig.json tsup.config.ts sentry.mjs;
 
       - name: SCP file transfer
         uses: nogsantos/scp-deploy@master
