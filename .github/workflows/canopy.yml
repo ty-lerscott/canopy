@@ -20,12 +20,4 @@ jobs:
 
       - name: Run deployment steps
         uses: ./.github/actions/deploy-canopy
-        with:
-          BLUR: ${{ secrets.BLUR }}
-          PORT: ${{ secrets.PORT }}
-          API_KEY: ${{ secrets.API_KEY }}
-          APP_ENV: ${{ secrets.APP_ENV }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        secrets: inherit
