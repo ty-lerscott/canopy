@@ -17,16 +17,6 @@ on:
 jobs:
   deploy_canopy:
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # This ensures all history is fetched
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: "20"
-
     - name: Install dependencies
       run: npm i
 
