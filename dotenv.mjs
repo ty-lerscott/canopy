@@ -1,8 +1,5 @@
-import * as dotenv from "dotenv";
-dotenv.config(
-	process.env.NODE_ENV !== "development"
-		? {
-				processEnv: process.env,
-			}
-		: undefined,
-);
+import { config } from "@dotenvx/dotenvx";
+
+const configVars = config();
+
+export default configVars.parsed;

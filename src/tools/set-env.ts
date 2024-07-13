@@ -1,9 +1,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createId } from "@paralleldrive/cuid2";
-import { config } from "dotenv";
+import config from "~/dotenv.mjs";
 
-const env = config().parsed as Record<string, string>;
 const envPath = resolve(process.cwd(), ".env");
 
 const defaultConfig = readFileSync(envPath, "utf-8")
@@ -12,7 +11,8 @@ const defaultConfig = readFileSync(envPath, "utf-8")
 		(envVarAcc, line) => {
 			const [envVar] = line.split("=");
 
-			envVarAcc[envVar] = envVar === "API_KEY" ? createId() : env[envVar];
+			envVarAcc[envVar] =
+				envVar === "API_KEY" ? createId() : config?.[envVar] || "";
 
 			return envVarAcc;
 		},

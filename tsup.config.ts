@@ -1,5 +1,7 @@
-import "~/dotenv.mjs";
 import { defineConfig } from "tsup";
+import config from "~/dotenv.mjs";
+
+console.log({ config });
 
 export default defineConfig({
 	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts", "./src/utils/**/*.ts"],
