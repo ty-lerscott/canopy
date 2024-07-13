@@ -83,7 +83,6 @@ const Bot = async (
 	}
 
 	try {
-		console.log(message);
 		await sendMessage(message);
 		logger.info("pushed to discord");
 	} catch (error) {

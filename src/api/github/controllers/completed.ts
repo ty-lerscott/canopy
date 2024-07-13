@@ -15,17 +15,9 @@ const CompletedController = async (
 		const {
 			sender,
 			repository,
-			workflow_job: {
-				status,
-				head_sha,
-				started_at,
-				head_branch,
-				completed_at,
-				workflow_name,
-			},
+			workflow_job: { status, head_sha, started_at, head_branch, completed_at },
 		} = body as GHCompletedAction;
 
-		const projectName = `${repository.name}${workflow_name === pkg.name ? "" : `/${workflow_name}`}`;
 		const wasSuccessful = status === "completed";
 		const level = wasSuccessful ? "success" : "critical";
 		const duration = dayjs.duration(
@@ -39,10 +31,10 @@ const CompletedController = async (
 		await discord({
 			level,
 			url: repository.html_url,
-			title: `${projectName} pipeline ${wasSuccessful ? "completed" : "failed"}`,
+			title: `${repository.name} pipeline ${wasSuccessful ? "completed" : "failed"}`,
 			author: {
-				url: sender.url,
 				name: sender.login,
+				url: sender.html_url,
 				avatar: sender.avatar_url,
 			},
 			fields: [
