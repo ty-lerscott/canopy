@@ -1,8 +1,11 @@
+import "~/dotenv.mjs";
 import { execSync } from "node:child_process";
 import discord from "@/tools/bots/discord";
 import type { GHCompletedAction } from "@/types/github";
 import dayjs from "@/utils/dayjs";
 import pkg from "~/package.json";
+
+const IS_LOCAL = process.env.NODE_ENV === "development";
 
 const CompletedController = async (
 	// biome-ignore lint/suspicious/noExplicitAny: For any action with "created" the request body can be anything
@@ -60,7 +63,9 @@ const CompletedController = async (
 			},
 		});
 
-		execSync(`pm2 restart ${pkg.name}`);
+		if (!IS_LOCAL) {
+			execSync(`pm2 restart ${pkg.name}`);
+		}
 	}
 
 	console.group("UNHANDLED COMPLETE ACTION");

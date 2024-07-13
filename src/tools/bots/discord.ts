@@ -19,6 +19,8 @@ const FIXTURE = {
 	critical: "🚨",
 } as Record<Level, string>;
 
+console.log("DISCORD_WEBHOOK_URL", process.env.DISCORD_WEBHOOK_URL);
+
 const hook = new Webhook(process.env.DISCORD_WEBHOOK_URL as string);
 const prefixTitle = (title: string, level: Level) => {
 	const fixture = FIXTURE[level];
