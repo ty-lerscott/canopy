@@ -48,11 +48,11 @@ jobs:
       - name: Create .env file
         run: |
           echo "# .env file created by GitHub Actions" > .env
+          echo "NODE_ENV=production" >> .env
           echo "BLUR=${{ secrets.BLUR }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "API_KEY=${{ secrets.API_KEY }}" >> .env
           echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
-          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
           echo "SENTRY_URL=${{ secrets.SENTRY_URL }}" >> .env
           echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
           echo "DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}" >> .env
@@ -69,12 +69,16 @@ jobs:
         if: steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
         run: npm run build:apps
 
-      - name: Delete .env
-        run: rm .env
-
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1
-        if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
+        if: |
+          steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true' &&
+          (
+            steps.check_for_changes.outputs.API_DIR_CHANGED  == 'true' ||
+            steps.check_for_changes.outputs.TOOLS_DIR_CHANGED  == 'true' ||
+            steps.check_for_changes.outputs.UTILS_DIR_CHANGED  == 'true' ||
+            steps.check_for_changes.outputs.APPS_DIR_CHANGED  == 'true'
+          )
         with:
           switches: -avzc --exclude="src/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="src/api" --exclude="src/tools" --exclude="src/types" --exclude="src/utils"
           path: ./
@@ -83,9 +87,16 @@ jobs:
           remote_user: ${{ secrets.USER }}
           remote_key: ${{ secrets.SSH_KEY }}
           
-      - name: Deploy with rsync
+      - name: Deploy with rsync w/o node_modules
         uses: burnett01/rsync-deployments@5.2.1
-        if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false'
+        if: |
+          steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false' ||
+          (
+              steps.check_for_changes.outputs.API_DIR_CHANGED  == 'true' ||
+              steps.check_for_changes.outputs.TOOLS_DIR_CHANGED  == 'true' ||
+              steps.check_for_changes.outputs.UTILS_DIR_CHANGED  == 'true' ||
+              steps.check_for_changes.outputs.APPS_DIR_CHANGED  == 'true'
+          )
         with:
           switches: -avzc --exclude="src/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="node_modules" --exclude="src/api" --exclude="src/tools" --exclude="src/types" --exclude="src/utils"
           path: ./

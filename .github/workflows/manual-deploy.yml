@@ -49,9 +49,6 @@ jobs:
       - name: Build
         run: npm run build:all
 
-      - name: Delete .env
-        run: rm .env
-
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
