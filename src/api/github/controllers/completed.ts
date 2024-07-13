@@ -23,8 +23,12 @@ const CompletedController = async (body: GHCompletedAction): Promise<void> => {
 		);
 		const minutes = duration.minutes();
 		const seconds = duration.seconds();
-		const minutesCombined = `${minutes ? `${minutes} minute` : ""}${minutes === 1 ? "" : "s"}`;
-		const secondsCombined = `${seconds ? `${seconds} second` : ""}${seconds === 1 ? "" : "s"}`;
+		const minutesCombined = minutes
+			? `${minutes} minute${minutes === 1 ? "" : "s"}`
+			: "";
+		const secondsCombined = seconds
+			? `${seconds} second${seconds === 1 ? "" : "s"}`
+			: "";
 
 		try {
 			await discord({
