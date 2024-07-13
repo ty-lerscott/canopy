@@ -60,7 +60,7 @@ jobs:
           remote_user: ${{ secrets.USER }}
           remote_key: ${{ secrets.SSH_KEY }}
 
-      - name: Deploy with rsync
+      - name: Deploy with rsync w/o node_modules
         uses: burnett01/rsync-deployments@5.2.1
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false'
         with:

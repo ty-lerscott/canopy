@@ -6,7 +6,7 @@ console.log({ config });
 export default defineConfig({
 	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts", "./src/utils/**/*.ts"],
 	outDir: "./dist",
-	format: "esm",
+	format: ["esm", "cjs"],
 	minify: true,
 	sourcemap: true,
 	external: ["dayjs"],

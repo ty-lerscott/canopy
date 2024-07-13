@@ -8,7 +8,7 @@
 		"dev:all": "npm run keygen && NODE_ENV=development NODE_OPTIONS=\"--import ./sentry.mjs\" tsx watch src/api/server.ts",
 		"build:ts": "tsup",
 		"build:apps": "NODE_OPTIONS=\"--import ./sentry.mjs\" next build ./src/apps",
-		"build:all": "npm run build:apps && npm run build:ts",
+		"build:all": "npm run keygen && npm run build:apps && npm run build:ts",
 		"start:apps": "NODE_OPTIONS=\"--import ./sentry.mjs\" next start ./src/apps",
 		"start:all": "NODE_OPTIONS=\"--import ./sentry.mjs\" node ./dist/api/server.js",
 		"lint": "biome lint ./src",
