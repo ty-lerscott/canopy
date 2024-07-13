@@ -60,7 +60,12 @@ jobs:
           steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true' || 
           steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
-        run: npm run build:ts
+        run: |
+          BLUR=${{ secrets.BLUR }} PORT=${{ secrets.PORT }} API_KEY=${{ secrets.API_KEY }}
+          APP_ENV=${{ secrets.APP_ENV }} NODE_ENV=${{ secrets.NODE_ENV }} SENTRY_URL=${{ secrets.SENTRY_URL }}
+          SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}
+          
+          npm run build:ts
 
       - name: Build Apps
         if: steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
