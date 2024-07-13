@@ -90,7 +90,7 @@ jobs:
       - name: Deploy with rsync w/o node_modules
         uses: burnett01/rsync-deployments@5.2.1
         if: |
-          steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false' ||
+          steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false' &&
           (
               steps.check_for_changes.outputs.API_DIR_CHANGED  == 'true' ||
               steps.check_for_changes.outputs.TOOLS_DIR_CHANGED  == 'true' ||
