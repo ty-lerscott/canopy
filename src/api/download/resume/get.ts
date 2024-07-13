@@ -1,4 +1,3 @@
-import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import puppeteer from "@/api/utils/puppeteer";
 import type { GetResponse } from "@/types";

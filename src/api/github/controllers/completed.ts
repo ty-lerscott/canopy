@@ -1,4 +1,3 @@
-import "~/dotenv.mjs";
 import { execSync } from "node:child_process";
 import discord from "@/tools/bots/discord";
 import type { GHCompletedAction } from "@/types/github";

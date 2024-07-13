@@ -1,4 +1,4 @@
-import "~/dotenv.mjs";
+import env from "~/dotenv.mjs";
 import "~/sentry.mjs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,7 +22,7 @@ const start = async () => {
 
 	const __filename = fileURLToPath(import.meta.url);
 	const __dirname = dirname(__filename);
-	const IS_LOCAL = process.env.NODE_ENV === "development";
+	const IS_LOCAL = env.NODE_ENV === "development";
 	const appsDir = resolve(__dirname, "..", IS_LOCAL ? "" : "../src", "apps");
 
 	const app = next({ dev: IS_LOCAL, dir: appsDir });
@@ -46,10 +46,10 @@ const start = async () => {
 	server.use(APIController as unknown as RequestHandler);
 	server.get("*", (req, res) => nextHandler(req, res));
 
-	server.listen(process.env.PORT, (err?: Error) => {
+	server.listen(env.PORT, (err?: Error) => {
 		if (err) throw err;
 		console.log(
-			`> Ready on canopy.lerscott.${IS_LOCAL ? `local:${process.env.PORT}` : "com"}`,
+			`> Ready on canopy.lerscott.${IS_LOCAL ? `local:${env.PORT}` : "com"}`,
 		);
 	});
 };

@@ -1,4 +1,3 @@
-// import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import type { Level, Message, MessageOptions } from "@/types/discord";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
@@ -18,8 +17,6 @@ const FIXTURE = {
 	warning: "🚧",
 	critical: "🚨",
 } as Record<Level, string>;
-
-console.log("DISCORD_WEBHOOK_URL", process.env.DISCORD_WEBHOOK_URL);
 
 const hook = new Webhook(process.env.DISCORD_WEBHOOK_URL as string);
 const prefixTitle = (title: string, level: Level) => {

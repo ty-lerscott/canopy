@@ -1,4 +1,3 @@
-import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import type { GetResponse } from "@/types";
 import jimp from "jimp";

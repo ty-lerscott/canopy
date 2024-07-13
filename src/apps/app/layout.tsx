@@ -1,5 +1,5 @@
-import pkg from "@/apps/package.json";
 import "~/dotenv.mjs";
+import pkg from "@/apps/package.json";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
