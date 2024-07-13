@@ -34,9 +34,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm i
-          cd node_modules/fdir/dist/src
-          ls -asl
-          echo "TYLER WILLIAMS"
 
       - name: Create .env file
         run: |
