@@ -32,7 +32,11 @@ jobs:
           echo "PACKAGE_JSON_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^package.json$" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
-        run: npm i
+        run: |
+          npm i
+          cd node_modules/fdir/dist/src
+          ls -asl
+          echo "TYLER WILLIAMS"
 
       - name: Create .env file
         run: |
