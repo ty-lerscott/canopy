@@ -65,7 +65,7 @@ jobs:
           APP_ENV=${{ secrets.APP_ENV }} NODE_ENV=${{ secrets.NODE_ENV }} SENTRY_URL=${{ secrets.SENTRY_URL }}
           SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}
           
-          npm run build:ts
+          npm run build:all
 
       - name: Build Apps
         if: steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
