@@ -84,10 +84,11 @@ const Bot = async (
 	}
 
 	try {
+		console.log(message);
 		await sendMessage(message);
 		logger.info("pushed to discord");
 	} catch (error) {
-		logger.error("failed to pushed to discord", (error as Error).message);
+		logger.error(`failed to pushed to discord: ${(error as Error).message}`);
 	}
 };
 
