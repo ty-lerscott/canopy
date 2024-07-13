@@ -34,8 +34,23 @@ jobs:
       - name: Install dependencies
         run: npm i
 
+      - name: Create .env file
+        run: |
+          echo "# .env file created by GitHub Actions" > .env
+          echo "BLUR=${{ secrets.BLUR }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env
+          echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          echo "SENTRY_URL=${{ secrets.SENTRY_URL }}" >> .env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+          echo "DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}" >> .env
+
       - name: Build
         run: npm run build:all
+
+      - name: Delete .env
+        run: rm .env
 
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1

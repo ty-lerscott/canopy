@@ -45,32 +45,32 @@ jobs:
           steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         run: npm i
 
+      - name: Create .env file
+        run: |
+          echo "# .env file created by GitHub Actions" > .env
+          echo "BLUR=${{ secrets.BLUR }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env
+          echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          echo "SENTRY_URL=${{ secrets.SENTRY_URL }}" >> .env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+          echo "DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}" >> .env
+
       - name: Build API
-        env:
-          BLUR: ${{ secrets.BLUR }}
-          PORT: ${{ secrets.PORT }}
-          API_KEY: ${{ secrets.API_KEY }}
-          APP_ENV: ${{ secrets.APP_ENV }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          SENTRY_URL: ${{ secrets.SENTRY_URL }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         if: |
           steps.check_for_changes.outputs.API_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.TOOLS_DIR_CHANGED == 'true' ||
           steps.check_for_changes.outputs.UTILS_DIR_CHANGED == 'true' || 
           steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
-        run: |
-          BLUR=${{ secrets.BLUR }} PORT=${{ secrets.PORT }} API_KEY=${{ secrets.API_KEY }}
-          APP_ENV=${{ secrets.APP_ENV }} NODE_ENV=${{ secrets.NODE_ENV }} SENTRY_URL=${{ secrets.SENTRY_URL }}
-          SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }} DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}
-          
-          npm run build:all
+        run: npm run build:all
 
       - name: Build Apps
         if: steps.check_for_changes.outputs.APPS_DIR_CHANGED == 'true'
         run: npm run build:apps
 
+      - name: Delete .env
+        run: rm .env
 
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1
