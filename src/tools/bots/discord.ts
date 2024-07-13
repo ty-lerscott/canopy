@@ -1,4 +1,4 @@
-import "~/dotenv.mjs";
+// import "~/dotenv.mjs";
 import { logger } from "@/api/utils/logger";
 import type { Level, Message, MessageOptions } from "@/types/discord";
 import { MessageBuilder, Webhook } from "discord-webhook-node";

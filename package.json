@@ -4,8 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev:apps": "next dev ./src/apps",
-		"dev:tools": "NODE_ENV=development tsx watch src/tools/index.ts",
-		"dev:all": "npm run keygen && NODE_ENV=development NODE_OPTIONS=\"--import ./sentry.mjs\" tsx watch src/api/server.ts",
+		"dev:tools": "tsx watch src/tools/index.ts",
+		"dev:all": "npm run keygen && NODE_OPTIONS=\"--import ./sentry.mjs\" tsx watch src/api/server.ts",
 		"build:ts": "tsup",
 		"build:apps": "NODE_OPTIONS=\"--import ./sentry.mjs\" next build ./src/apps",
 		"build:all": "npm run keygen && npm run build:apps && npm run build:ts",

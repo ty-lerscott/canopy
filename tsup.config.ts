@@ -1,7 +1,5 @@
 import { defineConfig } from "tsup";
-import config from "~/dotenv.mjs";
-
-console.log(config);
+import env from "~/dotenv.mjs";
 
 // TODO: test if passing env directly is needed
 export default defineConfig({
@@ -11,5 +9,5 @@ export default defineConfig({
 	minify: true,
 	sourcemap: true,
 	external: ["dayjs"],
-	env: config,
+	env,
 });
