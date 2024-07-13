@@ -8,14 +8,14 @@ const InProgressController = async ({
 	...body
 }: GHInProgressAction): Promise<void> => {
 	if (body.workflow_job) {
-		const { head_branch, run_url, status, head_sha } =
+		const { head_branch, html_url, status, head_sha } =
 			body.workflow_job as GHWorkflowJob;
 
 		switch (status) {
 			case "in_progress": {
 				try {
 					await discord({
-						url: run_url,
+						url: html_url,
 						level: "notice",
 						title: `${repository.name} build started`,
 						author: {
