@@ -1,4 +1,4 @@
-import { logger } from "@/api/utils/logger";
+import { execSync } from "node:child_process";
 import discord from "@/tools/bots/discord";
 import type { GHCompletedAction } from "@/types/github";
 import dayjs from "@/utils/dayjs";
@@ -60,7 +60,7 @@ const CompletedController = async (
 			},
 		});
 
-		return;
+		execSync(`pm2 restart ${pkg.name}`);
 	}
 
 	console.group("UNHANDLED COMPLETE ACTION");
