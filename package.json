@@ -10,7 +10,7 @@
 		"stop:pm2": "turbo stop:pm2",
 		"restart:pm2": "turbo restart:pm2",
 		"delete:pm2": "turbo delete:pm2",
-		"clean": "find ./apps -type f \\( -name \"*.js\" -o -name \"*.js.map\" \\) -delete && rm -rf ./apps/api/dist ./apps/api/logs ./config/dist ./apps/resume/dist"
+		"clean": "find . -type d \\( -name 'dist' -o -name 'logs' -o -name '.turbo' -o -name '.idea' -o -name 'node_modules' \\) -print -exec rm -rf {} +\n"
 	},
 	"packageManager": "pnpm@9.5.0",
 	"engines": {
