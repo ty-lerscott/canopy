@@ -4,14 +4,26 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$"],
-      "outputs": ["api/dist/**"]
+      "cache": false,
+      "outputs": ["$TURBO_WORKDIR/apps/api/dist", "$TURBO_WORKDIR/apps/resume/dist/**","$TURBO_WORKDIR/config/dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "start": {
-      "cache": true,
-      "persistent": true
+      "cache": true
+    },
+    "start:pm2": {
+      "cache": false
+    },
+    "stop:pm2": {
+      "cache": false
+    },
+    "restart:pm2": {
+      "cache": false
+    },
+    "delete:pm2": {
+      "cache": false
     },
     "dev": {
       "cache": false,

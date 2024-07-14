@@ -1,12 +1,16 @@
 {
-	"name": "canopy",
+	"name": "maestro",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "turbo dev",
 		"build": "turbo build",
 		"start": "turbo start",
-		"clean": "find ./apps -type f \\( -name \"*.js\" -o -name \"*.js.map\" \\) -delete && rm -rf dist logs"
+		"start:pm2": "turbo start:pm2",
+		"stop:pm2": "turbo stop:pm2",
+		"restart:pm2": "turbo restart:pm2",
+		"delete:pm2": "turbo delete:pm2",
+		"clean": "find ./apps -type f \\( -name \"*.js\" -o -name \"*.js.map\" \\) -delete && rm -rf ./apps/api/dist ./apps/api/logs ./config/dist ./apps/resume/dist"
 	},
 	"packageManager": "pnpm@9.5.0",
 	"engines": {
