@@ -1,7 +1,6 @@
-import env from "@/lib/dotenv.mjs";
+import env from "@/lib/dotenv";
 import "@/lib/sentry.mjs";
-import APIController from "@/api/utils/controllers";
-import * as Sentry from "@sentry/node";
+import APIController from "./utils/controllers";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express, {
@@ -12,8 +11,7 @@ import ImagesMiddleware from "./utils/middleware/images";
 import RequestMiddleware from "./utils/middleware/request";
 
 const server = express();
-Sentry.setupExpressErrorHandler(server);
-const IS_LOCAL = env.NODE_ENV === "development";
+const IS_LOCAL = env.NODE_ENV !== "production";
 const urlEncoded = bodyParser.urlencoded({
 	extended: true,
 });

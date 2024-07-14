@@ -5,7 +5,7 @@ import type { GHCompletedAction } from "@/types/github";
 import dayjs from "@/utils/dayjs";
 import pkg from "~/package.json";
 
-const IS_LOCAL = process.env.NODE_ENV === "development";
+const IS_LOCAL = process.env.NODE_ENV !== "production";
 
 const CompletedController = async (body: GHCompletedAction): Promise<void> => {
 	// NOTE: Github Action completed

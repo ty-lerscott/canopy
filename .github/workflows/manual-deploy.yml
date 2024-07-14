@@ -54,7 +54,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2.1
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         with:
-          switches: -avzc --exclude="src/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="src/api" --exclude="src/tools" --exclude="src/types" --exclude="src/utils"
+          switches: -avzc --exclude="api/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="api/api" --exclude="api/tools" --exclude="api/types" --exclude="api/utils"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
@@ -65,7 +65,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2.1
         if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false'
         with:
-          switches: -avzc --exclude="src/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="node_modules" --exclude="src/api" --exclude="src/tools" --exclude="src/types" --exclude="src/utils"
+          switches: -avzc --exclude="api/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="node_modules" --exclude="api/api" --exclude="api/tools" --exclude="api/types" --exclude="api/utils"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
