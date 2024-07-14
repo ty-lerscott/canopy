@@ -8,5 +8,8 @@ export default defineConfig({
 	minify: true,
 	sourcemap: true,
 	external: ["dayjs"],
-	env,
+	env: {
+		...env,
+		NODE_ENV: 'production'
+	}
 });

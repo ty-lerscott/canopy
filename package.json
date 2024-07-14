@@ -3,7 +3,10 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "turbo dev"
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"start": "turbo start",
+		"clean": "find ./apps -type f \\( -name \"*.js\" -o -name \"*.js.map\" \\) -delete && rm -rf dist logs"
 	},
 	"packageManager": "pnpm@9.5.0",
 	"engines": {

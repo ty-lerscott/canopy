@@ -2,6 +2,7 @@ import env from "@/lib/dotenv";
 import "@/lib/sentry.mjs";
 import APIController from "./utils/controllers";
 import bodyParser from "body-parser";
+import helmet from "helmet";
 import cors from "cors";
 import express, {
 	type RequestHandler,
@@ -18,6 +19,7 @@ const urlEncoded = bodyParser.urlencoded({
 
 const start = async () => {
 	server.use(cors());
+	server.use(helmet());
 	server.use(bodyParser.json());
 	server.use(urlEncoded);
 	server.use(RequestMiddleware as RequestHandler);
