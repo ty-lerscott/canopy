@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createId } from "@paralleldrive/cuid2";
-import config from "~/dotenv.mjs";
+import config from "@/lib/dotenv.mjs";
 
 const envPath = resolve(process.cwd(), ".env");
 

@@ -1,8 +1,8 @@
 import { defineConfig } from "tsup";
-import env from "~/dotenv.mjs";
+import env from "@/lib/dotenv.mjs";
 
 export default defineConfig({
-	entry: ["./src/api/**/*.ts", "./src/tools/**/*.ts", "./src/utils/**/*.ts"],
+	entry: ["./src/**/*.(ts|mjs)"],
 	outDir: "./dist",
 	format: ["esm"],
 	minify: true,
