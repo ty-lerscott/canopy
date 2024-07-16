@@ -4,8 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS=\"--import ./src/lib/sentry.mjs\" tsx watch ./src/index.ts",
+    "dev:temp": "NODE_OPTIONS=\"--import ./src/lib/sentry.mjs\" tsx watch ./src/api/drizzle/client.ts",
     "build": "tsup",
     "start": "NODE_OPTIONS=\"--import ./dist/lib/sentry.js\" node ./dist/index.js",
+    "start:studio": "drizzle-kit studio",
+    "migrate": "drizzle-kit push",
+    "clean": "drizzle-kit drop",
     "lint": "biome lint ./src",
     "format": "biome format ./src --write",
     "check": "biome check ./src",
@@ -23,6 +27,8 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "1.6.2",
+    "@faker-js/faker": "8.4.1",
+    "@libsql/client": "0.7.0",
     "@paralleldrive/cuid2": "2.2.2",
     "@sentry/node": "8.17.0",
     "@sentry/profiling-node": "8.17.0",
@@ -38,6 +44,8 @@
     "dayjs": "1.11.11",
     "deepmerge": "4.3.1",
     "discord-webhook-node": "1.1.8",
+    "drizzle-kit": "0.23.0",
+    "drizzle-orm": "0.32.0",
     "express": "4.19.2",
     "fdir": "6.1.1",
     "helmet": "7.1.0",
@@ -51,7 +59,6 @@
     "winston": "3.13.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
     "typescript": "5.5.3"
   }
 }

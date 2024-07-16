@@ -1,0 +1,11 @@
+{
+  "name": "oasis",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:db": "docker-compose up -d"
+  },
+  "author": "Tyler Scott",
+  "license": "ISC"
+}
