@@ -4,9 +4,7 @@ import APIController from "./utils/controllers";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import cors from "cors";
-import express, {
-	type RequestHandler,
-} from "express";
+import express, { type RequestHandler } from "express";
 import LoggerController from "./utils/logger";
 import ImagesMiddleware from "./utils/middleware/images";
 import RequestMiddleware from "./utils/middleware/request";
@@ -35,5 +33,5 @@ const start = async () => {
 	});
 };
 
-export {server};
+export { server };
 export default start;
