@@ -1,11 +1,12 @@
 {
-  "name": "oasis",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start:db": "docker-compose up -d"
-  },
-  "author": "Tyler Scott",
-  "license": "ISC"
+	"name": "oasis",
+	"version": "0.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start:db": "docker-compose up -d",
+		"stop:db": "docker-compose down"
+	},
+	"author": "Tyler Scott",
+	"license": "ISC"
 }

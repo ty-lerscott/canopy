@@ -2,6 +2,7 @@ import { DownloadController } from "@/api/download";
 import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
 import { ImageController } from "@/api/image";
+import { ResumeController } from "@/api/resume";
 import type { Controller as ControllerProps, Request } from "@/types";
 import type { NextFunction, Response } from "express";
 
@@ -31,6 +32,9 @@ const Controller = async (
 			break;
 		case "github":
 			await GithubController(props);
+			break;
+		case "resume":
+			await ResumeController(props);
 			break;
 		default:
 			break;

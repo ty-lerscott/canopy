@@ -9,8 +9,13 @@ import {
 	generateSkill,
 	generateUser,
 } from "./generators";
-import { experienceTable, resumeTable, skillsTable } from "./schemas/resume";
-import { educationTable, userTable } from "./schemas/user";
+import {
+	education,
+	experiences,
+	resumes,
+	skills,
+	users,
+} from "./schemas/schemas";
 
 const databasePath = resolve(process.cwd(), "..", "database");
 
@@ -25,13 +30,13 @@ const client = createClient({
 });
 
 const db = drizzle(client);
-const resumeId = "fq79nwv7eu20b1ff02sz30j0";
-const userId = "aho1bnzhrw6eoz1dvwji8v3h";
+const resumeId = "e87cfqo0vxvm3rjat4tpdiw4";
+const userId = "bt3a07borc0rbuvu630f5zhy";
 
 (async () => {
-	// for (let i = 1; i <= 2; i++) {
-	// 	// const experience = generateEducation(userId);
-	//
-	// 	// await db.insert(educationTable).values(experience).run();
-	// }
+	for (let i = 1; i <= 20; i++) {
+		// const user = generateSkill(resumeId);
+		// await db.insert(skills).values(user).run();
+		// console.log(user.id);
+	}
 })();
