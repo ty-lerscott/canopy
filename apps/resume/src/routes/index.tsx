@@ -1,181 +1,278 @@
-import {z} from 'zod';
-import dayjs from 'dayjs';
-import cn from '@/utils/class-name'
-import { useSearch, createFileRoute, type AnyRoute} from '@tanstack/react-router'
-import type {IconType} from "react-icons";
-import { FaRegCalendar } from "react-icons/fa6";
+import cn from "@/utils/class-name";
+import { useSession, useUser } from "@clerk/clerk-react";
+import type { ActiveSessionResource, UserResource } from "@clerk/types";
+import { createId } from "@paralleldrive/cuid2";
+import { useQuery } from "@tanstack/react-query";
+import {
+	type AnyRoute,
+	createFileRoute,
+	useSearch,
+} from "@tanstack/react-router";
+import dayjs from "dayjs";
+import Markdown from "markdown-to-jsx";
+import type { IconType } from "react-icons";
 import { AiFillLinkedin } from "react-icons/ai";
-import { MdEmail, MdPhone, MdHouse } from "react-icons/md";
-import Rating from '../components/rating';
+import { FaRegCalendar } from "react-icons/fa6";
+import { MdEmail, MdHouse, MdPhone } from "react-icons/md";
+import { z } from "zod";
+import Rating from "../components/rating";
 
-import styles from './styles.module.css'
+import styles from "./styles.module.css";
 
 type Header = {
-    header: string;
-    subheader?: string;
-}
+	header: string;
+	subheader?: string;
+};
 
 type Text = {
-    text: string;
-}
+	text: string;
+};
 
 type Experience = {
-    role: string;
-    company: string;
-    location: string;
-    startDate: string;
-    endDate?: string;
-    body: [];
-}
+	role: string;
+	company: string;
+	location: string;
+	startDate: string;
+	endDate?: string;
+	body: [];
+};
 
 type ResumeSkill = {
-    name: string;
-    comfortLevel: number;
-}
+	name: string;
+	comfortLevel: number;
+};
 
-const personalInfo: Record<string, string | IconType>[]= [
-    {
-        Icon: MdEmail,
-        value: 'ty@lerscott.com'
-    },
-    {
-        Icon: MdPhone,
-        value: '607 882 0531'
-    },
-    {
-        Icon: MdHouse,
-        value: 'Hampton, VA'
-    },
-    {
-        Icon: AiFillLinkedin,
-        value: 'linkedin.com/in/tylerscottwilliams'
-    },
-]
+const Socials = {
+	LinkedIn: AiFillLinkedin,
+};
 
-const experiences: Experience[] = [
-    {role: 'Senior Software Engineer - Contract', company: 'Diageo', location: 'UK', startDate: '2021-07-15T19:19:14.660Z', body: []}
-]
+const resumeSkills: ResumeSkill[] = [{ name: "Sample", comfortLevel: 10 }];
 
-const education: Header[] = [
-    {
-        header: 'Cornell University',
-        subheader:'Fine Arts | 2015',
-    }
-]
+type Education = {
+	id: string;
+	school: string;
+	degree: string;
+	startDate: string;
+	endDate: string;
+};
 
-const resumeSkills: ResumeSkill[] = [
-    {name: 'Sample', comfortLevel: 10}
-];
+type Social = {
+	id: string;
+	name: string;
+	href: string;
+};
+
+type User = {
+	firstName: string;
+	lastName: string;
+	profession: string;
+	emailAddress: string;
+	address: string;
+	phoneNumber: string;
+	socials: Social[];
+	education: Education[];
+};
+
+type Resume = {
+	skills: ResumeSkill[];
+	experiences: Experience[];
+	user: User;
+};
+
+const fetchResume = async (
+	user: UserResource,
+	session: ActiveSessionResource,
+): Promise<Resume> => {
+	if (!user.id) {
+		return Promise.resolve({} as Resume);
+	}
+
+	const sessionToken = await session?.getToken();
+	const searchParams = new URLSearchParams();
+	searchParams.set("resume", user.id);
+
+	try {
+		const resp = await fetch(`/resume?${searchParams.toString()}}`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${sessionToken}`,
+			},
+		});
+
+		return await resp.json();
+	} catch (err) {
+		console.log("Error in getResumeQuery", (err as Error).message);
+		return Promise.resolve({} as Resume);
+	}
+};
 
 const Index = () => {
-    const hasPadding = useSearch<AnyRoute & {
-        padding?: boolean;
-    }>({
-        from: '/',
-        select: ({padding}) => Boolean(padding)
-    });
+	const { session, isLoaded } = useSession();
+	const { isSignedIn, user } = useUser();
+	const forPrint = useSearch<
+		AnyRoute & {
+			padding?: boolean;
+		}
+	>({
+		from: "/",
+		select: ({ print }) => Boolean(print),
+	});
 
-  return (
-      <div className={cn(styles.Page, !hasPadding && styles.PagePaddless)}
-           data-testid="Page-Index">
-          <div>
-              <h1 className={styles.Name}>Tyler Scott</h1>
-              <h2 className={styles.Profession}>
-                  Senior Software Engineer
-              </h2>
-          </div>
-          <div className={styles.Contact}>
-              {personalInfo.map(({value, Icon}) => {
-                  return (
-                      <div key={value as string} className={styles.ContactItem}>
-                          <div>
-                              <Icon className={styles.Icon}/>
-                          </div>
-                          <p>{value as string}</p>
-                      </div>
-                  );
-              })}
-          </div>
-          <div className={styles.Body}>
-              <div className={styles.WorkExperiences}>
-                  <h2 className={styles.Header}>Work Experience</h2>
-                  {experiences.map(
-                      ({role, company, location, startDate, endDate, body}) => {
-                          const date = `${dayjs(startDate).format("MMM YYYY")} -
+	const { data, isPending } = useQuery({
+		queryKey: ["getResume", user?.id],
+		queryFn: () =>
+			fetchResume(user as UserResource, session as ActiveSessionResource),
+	});
+
+	if (!isLoaded || !isSignedIn || isPending || !data) {
+		// Handle loading state however you like
+		return null;
+	}
+
+	const {
+		user: {
+			firstName,
+			lastName,
+			profession,
+			emailAddress,
+			phoneNumber,
+			address,
+			socials,
+			education,
+		},
+		skills,
+		experiences,
+	} = data;
+
+	const personalInfo: Record<string, string | IconType>[] = [
+		{
+			Icon: MdEmail,
+			value: emailAddress,
+		},
+		{
+			Icon: MdPhone,
+			value: phoneNumber,
+		},
+		{
+			Icon: MdHouse,
+			value: address,
+		},
+	];
+
+	return (
+		<div
+			className={cn(styles.Page, forPrint && styles.PagePaddless)}
+			data-testid="Page-Index"
+		>
+			<div>
+				<h1 className={styles.Name}>
+					{firstName} {lastName}
+				</h1>
+				<h2 className={styles.Profession}>{profession}</h2>
+			</div>
+			<div className={styles.Contact}>
+				{personalInfo.map(({ value, Icon }) => {
+					return (
+						<div key={value as string} className={styles.ContactItem}>
+							<div>
+								<Icon className={styles.Icon} />
+							</div>
+							<p>{value as string}</p>
+						</div>
+					);
+				})}
+				{socials.map(({ name, href }) => {
+					const Icon = Socials[name as keyof typeof Socials];
+
+					return (
+						<div key={name} className={styles.ContactItem}>
+							<div>
+								<Icon className={styles.Icon} />
+							</div>
+							<p>{href}</p>
+						</div>
+					);
+				})}
+			</div>
+			<div className={styles.Body}>
+				<div className={styles.WorkExperiences}>
+					<h2 className={styles.Header}>Work Experience</h2>
+					{experiences.map(
+						({ role, company, location, startDate, endDate, body }) => {
+							const date = `${dayjs(startDate).format("MMM YYYY")} -
                           ${
-                              endDate
-                                  ? dayjs(endDate).format("MMM YYYY")
-                                  : "Present"
-                          }`;
-                          return (
-                              <div key={`experience-${role}-${company}`} className={styles.Experience}>
-                                  <h3>{role}</h3>
-                                  <p className={styles.ExperienceCompanyLocation}>
-                                      {company} &#x2022; {location}
-                                  </p>
-                                  <p className={styles.ExperienceDate}>
-                                      <FaRegCalendar className={styles.ExperienceCalendar}/>{" "}
-                                      <span>{date}</span>
-                                  </p>
-                                  {(body || []).map((bodyItem) => {
-                                      return (
-                                          <p
-                                              key={`${role}-${company}`}
-                                              className={styles.ExperienceBody}
-                                          >
-                                              {(bodyItem as Header).header ? (
-                                                  <>
-                                                      <span>{(bodyItem as Header).header}: </span>
-                                                      {(bodyItem as Header).subheader ? (
-                                                          <span>{(bodyItem as Header).subheader}</span>
-                                                      ) : null}
-                                                  </>
-                                              ) : (
-                                                  (bodyItem as Text).text
-                                              )}
-                                          </p>
-                                      );
-                                  })}
-                              </div>
-                          );
-                      },
-                  )}
-              </div>
-              <div className={styles.Sidebar}>
-                  <h2 className={styles.Header}>Education</h2>
+														endDate
+															? dayjs(endDate).format("MMM YYYY")
+															: "Present"
+													}`;
+							return (
+								<div
+									key={`experience-${role}-${company}`}
+									className={styles.Experience}
+								>
+									<h3>{role}</h3>
+									<p className={styles.ExperienceCompanyLocation}>
+										{company} &#x2022; {location}
+									</p>
+									<p className={styles.ExperienceDate}>
+										<FaRegCalendar className={styles.ExperienceCalendar} />{" "}
+										<span>{date}</span>
+									</p>
+									{(body || []).map((bodyItem) => {
+										return (
+											<Markdown
+												key={`body-${createId()}`}
+												className={styles.ExperienceBody}
+											>
+												{bodyItem}
+											</Markdown>
+										);
+									})}
+								</div>
+							);
+						},
+					)}
+				</div>
+				<div className={styles.Sidebar}>
+					<h2 className={styles.Header}>Education</h2>
 
-                <div className={styles.EducationList}>
-                  {education.map((item) => {
-                      return (
-                          <div className={styles.Education} key={item.header as string}>
-                              <h5>{item.header}</h5>
-                              <p className={styles.EducationDuration}>{item.subheader}</p>
-                          </div>
-                      );
-                  })}
-                </div>
+					<div className={styles.EducationList}>
+						{education.map(({ id, school, degree, startDate, endDate }) => {
+							const duration = `${dayjs(startDate).format("YYYY")} - ${dayjs(endDate).format("YYYY")}`;
+							return (
+								<div className={styles.Education} key={id}>
+									<h5>{school}</h5>
+									<p className={styles.EducationDuration}>
+										{degree} {duration}
+									</p>
+								</div>
+							);
+						})}
+					</div>
 
-                  <h2 className={styles.Header}>Skills</h2>
+					<h2 className={styles.Header}>Skills</h2>
 
-                  {resumeSkills.map((item) => {
-                      return (
-                          <div key={item.name} className={styles.Skill}>
-                              <p>{item.name}</p>
-                              <Rating rating={item.comfortLevel / 2} invert/>
-                          </div>
-                      );
-                  })}
-              </div>
-          </div>
-      </div>
-  )
-}
+					{skills.map((skill) => {
+						return (
+							<div key={skill.name} className={styles.Skill}>
+								<p>{skill.name}</p>
+								<Rating rating={skill.comfortLevel / 2} invert />
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		</div>
+	);
+};
 
-export const Route = createFileRoute('/')({
-    component: Index,
-    validateSearch: (search: Record<string, unknown>) => {
-        return z.object({
-            padding: z.boolean().optional()
-        }).parse(search)
-    }
-})
+export const Route = createFileRoute("/")({
+	component: Index,
+	validateSearch: (search: Record<string, unknown>) => {
+		return z
+			.object({
+				print: z.boolean().optional(),
+			})
+			.parse(search);
+	},
+});

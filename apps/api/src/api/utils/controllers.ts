@@ -1,3 +1,4 @@
+import { ClerkController } from "@/api/clerk";
 import { DownloadController } from "@/api/download";
 import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
@@ -6,17 +7,18 @@ import { ResumeController } from "@/api/resume";
 import type { Controller as ControllerProps, Request } from "@/types";
 import type { NextFunction, Response } from "express";
 
-const Controller = async (
-	{ body, query, method, basePath, extendedPath }: Request,
-	res: Response,
-	next: NextFunction,
-) => {
+const Controller = async (req: Request, res: Response, next: NextFunction) => {
+	const [basePath, ...extendedPath] = req.originalUrl
+		.split("?")[0]
+		.replace(/^\//, "")
+		.split("/");
+
+	console.log("THIS IS THE REQUEST", req.method);
+
 	const props: ControllerProps = {
-		body,
-		query,
+		...req,
 		res,
 		next,
-		method,
 		extendedPath,
 	};
 
@@ -34,7 +36,12 @@ const Controller = async (
 			await GithubController(props);
 			break;
 		case "resume":
-			await ResumeController(props);
+			console.group("ResumeController");
+			await ResumeController({ req, res, next });
+			console.groupEnd();
+			break;
+		case "clerk":
+			await ClerkController(props);
 			break;
 		default:
 			break;

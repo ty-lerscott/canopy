@@ -34,6 +34,7 @@ export type Controller = {
 	body?: Record<string, Data>;
 	next: NextFunction;
 	method: HTTP_METHODS;
+	headers: Request["headers"];
 	extendedPath: string[];
 	query?: PrimitiveObject | Request["query"];
 };

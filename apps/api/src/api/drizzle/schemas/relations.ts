@@ -1,9 +1,17 @@
 import { relations } from "drizzle-orm";
-import { education, experiences, resumes, skills, users } from "./schemas";
+import {
+	education,
+	experiences,
+	resumes,
+	skills,
+	socials,
+	users,
+} from "./index";
 
 export const userRelations = relations(users, ({ many, one }) => ({
 	resumes: many(resumes),
 	education: many(education),
+	socials: many(socials),
 }));
 
 export const resumesRelations = relations(resumes, ({ one, many }) => ({
@@ -18,6 +26,13 @@ export const resumesRelations = relations(resumes, ({ one, many }) => ({
 export const educationRelations = relations(education, ({ one }) => ({
 	user: one(users, {
 		fields: [education.userId],
+		references: [users.id],
+	}),
+}));
+
+export const socialsRelations = relations(socials, ({ one }) => ({
+	user: one(users, {
+		fields: [socials.userId],
 		references: [users.id],
 	}),
 }));

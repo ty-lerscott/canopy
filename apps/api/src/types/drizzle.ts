@@ -33,6 +33,7 @@ export type User = {
 	firstName: string;
 	lastName: string;
 	profession: string;
+	displayName: string;
 	phoneNumber: string;
 	emailAddress: string;
 };

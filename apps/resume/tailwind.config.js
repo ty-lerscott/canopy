@@ -1,96 +1,77 @@
-import plugin from "tailwindcss/plugin";
-
-const HeaderStyles = (
-    theme,
-    extension = {}
-) => ({
-    letterSpacing: "0.05em",
-    fontWeight: theme("fontWeight.medium"),
-    ...extension
-});
-
-const DEFAULT_SCREEN_SIZE = "1024px";
-
-const SCREENS = {
-  xs: "480px",
-  sm: "768px",
-  md: DEFAULT_SCREEN_SIZE,
-  DEFAULT: DEFAULT_SCREEN_SIZE,
-};
-
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
-      theme: {
-  screens: SCREENS,
-      fontSize: {
-    "2xs": "0.625rem",
-        xs: "0.75rem",
-        sm: "0.875rem",
-        base: "1rem",
-        lg: "1.125rem",
-        xl: "1.25rem",
-        "2xl": "1.5rem",
-        "3xl": "1.875rem",
-        "4xl": "2.25rem",
-        "5xl": "3rem",
-        "6xl": "3.75rem",
-        "7xl": "4.5rem",
-        "8xl": "6rem",
-        "9xl": "8rem",
-  },
-  extend: {
+  prefix: "",
+  theme: {
     container: {
       center: true,
-          padding: "2rem",
-          screens: {
-        xs: "100vw",
-            sm: "640px",
-            md: "768px",
-            lg: "1024px",
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-},
-  plugins: [
-    plugin(({ addBase, theme }) => {
-      addBase({
-        "*": {
-          lineHeight: "1",
-        },
-        body: {
-          display: "grid",
-          gridTemplateRows: "auto auto 1fr auto",
-          minHeight: theme("minHeight.screen"),
-        },
-        h1: HeaderStyles(theme, {
-            fontSize: theme("fontSize.3xl"),
-        }),
-        h2: HeaderStyles(theme, {
-            fontSize: theme("fontSize.2xl"),
-        }),
-        h3: HeaderStyles(theme, {
-          fontSize: theme("fontSize.xl"),
-        }),
-        h4: HeaderStyles(theme, {
-          fontSize: theme("fontSize.lg"),
-        }),
-        h5: HeaderStyles(theme),
-        h6: HeaderStyles(theme, {
-          fontSize: theme("fontSize.sm"),
-        }),
-        p: {
-          lineHeight: theme("lineHeight.normal"),
-        },
-        small: {
-          fontSize: theme("fontSize.sm"),
-        },
-      });
-    }),
-  ],
+  plugins: [require("tailwindcss-animate")],
 }
-
-/** @type {import('tailwindcss').Config} */
-export default config

@@ -6,6 +6,7 @@ export const users = sqliteTable("users", {
 	lastName: text("Last Name"),
 	firstName: text("First Name"),
 	profession: text("Profession"),
+	displayName: text("Display Name"),
 	emailAddress: text("Email Address"),
 	phoneNumber: integer("Phone Number"),
 });
@@ -44,5 +45,12 @@ export const education = sqliteTable("education", {
 	degree: text("Degree"),
 	startDate: text("Start Date"),
 	endDate: text("End Date"),
+	userId: text("User Id").references(() => users.id),
+});
+
+export const socials = sqliteTable("socials", {
+	id: text("id").primaryKey(),
+	name: text("Name"),
+	href: text("Href"),
 	userId: text("User Id").references(() => users.id),
 });

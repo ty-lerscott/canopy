@@ -93,6 +93,7 @@ const generateUser = (): User => {
 		phoneNumber: faker.phone.number(),
 		profession: faker.person.jobTitle(),
 		emailAddress: faker.internet.email(),
+		displayName: faker.internet.userName(),
 		address: `${faker.location.city()}, ${faker.location.state()}`,
 	};
 };

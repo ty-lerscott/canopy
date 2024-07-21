@@ -27,6 +27,8 @@
 		"linkedin": "linkedin.com/in/tylerscottwilliams"
 	},
 	"dependencies": {
+		"@clerk/clerk-sdk-node": "^5.0.16",
+		"@clerk/types": "^4.8.0",
 		"@dotenvx/dotenvx": "1.6.2",
 		"@faker-js/faker": "8.4.1",
 		"@libsql/client": "0.7.0",
