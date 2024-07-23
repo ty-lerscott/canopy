@@ -21,7 +21,7 @@ import { useSession, useUser } from "@clerk/clerk-react";
 import type { ActiveSessionResource } from "@clerk/types";
 import { createId } from "@paralleldrive/cuid2";
 import { useForm } from "@tanstack/react-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import omit from "object.omit";
 import { useState } from "react";
 import type { IconType } from "react-icons";
@@ -97,6 +97,7 @@ const ProfileDialog = ({
 	isOpen,
 	setIsOpen,
 }: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) => {
+	const queryClient = useQueryClient();
 	const [socialsKey, setSocialsKey] = useState(createId());
 	const [socials, setSocials] = useState<User["socials"]>([]);
 	const { user, isLoaded: isUserLoaded } = useUser();
@@ -143,6 +144,10 @@ const ProfileDialog = ({
 		mutationFn: updateUser(session as ActiveSessionResource),
 		onSuccess: async () => {
 			await refetch();
+			await queryClient.invalidateQueries({
+				queryKey: ["getResume"],
+				exact: false,
+			});
 		},
 		onError: (error) => {
 			console.error(error);

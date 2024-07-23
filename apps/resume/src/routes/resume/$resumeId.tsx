@@ -14,7 +14,13 @@ import {
 import dayjs from "dayjs";
 import Markdown from "markdown-to-jsx";
 import type { IconType } from "react-icons";
-import { AiFillLinkedin } from "react-icons/ai";
+import {
+	AiFillFacebook,
+	AiFillGithub,
+	AiFillInstagram,
+	AiFillLinkedin,
+	AiFillTwitterCircle,
+} from "react-icons/ai";
 import { FaRegCalendar } from "react-icons/fa6";
 import { MdEmail, MdHouse, MdPhone } from "react-icons/md";
 import type { Resume } from "~/apps/api/src/types/drizzle.ts";
@@ -22,7 +28,11 @@ import type { Resume } from "~/apps/api/src/types/drizzle.ts";
 import styles from "@/routes/styles.module.css";
 
 const Socials = {
+	Facebook: AiFillFacebook,
+	GitHub: AiFillGithub,
+	Instagram: AiFillInstagram,
 	LinkedIn: AiFillLinkedin,
+	Twitter: AiFillTwitterCircle,
 };
 
 const ResumeLayout = () => {
@@ -81,8 +91,6 @@ const ResumeLayout = () => {
 			value: address,
 		},
 	];
-
-	return null;
 
 	return (
 		<div
