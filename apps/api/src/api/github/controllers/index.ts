@@ -4,7 +4,7 @@ import CompletedController from "./completed";
 import CreatedController from "./created";
 import InProgressController from "./in-progress";
 
-const GithubController = async ({ body, res, method }: Controller) => {
+const GithubController = async ({ req: { body }, res, method }: Controller) => {
 	if (method !== "POST") {
 		res.status(StatusCodes.METHOD_NOT_ALLOWED);
 		res.end();

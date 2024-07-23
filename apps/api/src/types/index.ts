@@ -20,6 +20,8 @@ export type HTTP_METHODS =
 export type Request = Omit<ExpressRequest, "method"> & {
 	method: HTTP_METHODS;
 	basePath: string;
+	host: string;
+	headers: ExpressRequest["headers"];
 	extendedPath: string[];
 };
 
@@ -31,12 +33,8 @@ export type Data =
 
 export type Controller = {
 	res: Response;
-	body?: Record<string, Data>;
+	req: Request;
 	next: NextFunction;
-	method: HTTP_METHODS;
-	headers: Request["headers"];
-	extendedPath: string[];
-	query?: PrimitiveObject | Request["query"];
 };
 
 export type GetResponse<T = Data> = {

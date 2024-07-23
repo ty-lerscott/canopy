@@ -1,21 +1,40 @@
 import type { Controller } from "@/types";
-
-import GetController from "./controllers/get";
+import { getResume, getResumes } from "./controllers/get";
 
 const ResumeController = async ({ res, next, req }: Controller) => {
 	switch (req.method) {
-		case "GET":
-			console.group("GET CONTROLLER");
-			await GetController({
-				req,
-				res,
-			});
-			console.groupEnd();
+		case "GET": {
+			const { status, data, error } = await getResume({ req, res });
+
+			if (status === 200) {
+				res.json({ data });
+			} else {
+				res.status(status).send(error);
+			}
 			break;
+		}
 		default:
 			break;
 	}
 	next();
 };
 
-export { ResumeController };
+const ResumesController = async ({ res, next, req }: Controller) => {
+	switch (req.method) {
+		case "GET": {
+			const { status, data, error } = await getResumes({ req, res });
+
+			if (status === 200) {
+				res.json({ data });
+			} else {
+				res.status(status).send(error);
+			}
+			break;
+		}
+		default:
+			break;
+	}
+	next();
+};
+
+export { ResumeController, ResumesController };

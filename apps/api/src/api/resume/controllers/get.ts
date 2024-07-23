@@ -1,91 +1,140 @@
 import db from "@/api/drizzle/client";
-import type { Controller } from "@/types";
-import omit from "object.omit";
-// import { clerkClient } from "@clerk/clerk-sdk-node";
-// const { isSignedIn } = await clerkClient.authenticateRequest({
-// 	url: `${req.protocol}://${req.get("host")}${req.originalUrl}`,
-// 	headers: req.headers,
-// } as Request);
-// const resp = await clerkClient.verifyToken(
-// 	req.headers.authorization.split(" ")[1],
-// );
+import StatusCodes from "@/api/utils/status-codes";
+import type { Controller, GetResponse } from "@/types";
+import type { Resume } from "@/types/drizzle";
+import { clerkClient } from "@clerk/clerk-sdk-node";
 
-const DEFAULT_RESUME = {
+const DEFAULT_RESUME: Resume = {
+	id: "",
+	userId: "",
 	user: {
-		firstName: "",
-		lastName: "",
-		profession: "",
-		emailAddress: "",
-		phoneNumber: "",
+		id: "",
 		address: "",
 		socials: [],
+		firstName: "",
+		lastName: "",
 		education: [],
+		profession: "",
+		displayName: "",
+		phoneNumber: "",
+		emailAddress: "",
 	},
 	skills: [],
 	experiences: [],
+	isEditable: false,
 };
 
-const GetResumeController = async ({ req, res }: Controller) => {
+type User = {
+	userId: string;
+};
+
+const getResume = async ({
+	req,
+}: Omit<Controller, "next">): Promise<GetResponse<Resume>> => {
+	const { resume } = req.query;
+
+	if (!resume) {
+		return Promise.resolve({
+			status: StatusCodes.BAD_REQUEST,
+			error: "Resume ID is required",
+		});
+	}
+
 	try {
-		console.log("Get ResumeController");
-		const results = await db.query.resumes.findFirst({
-			where: (resumes, { eq }) => eq(resumes.id, req.query.resume),
-			columns: {
-				id: false,
-				userId: false,
-			},
-			with: {
-				skills: {
-					columns: {
-						id: true,
-						name: true,
-						endDate: true,
-						isActive: true,
-						favorite: true,
-						startDate: true,
-						comfortLevel: true,
-					},
-				},
-				experiences: {
-					columns: {
-						id: true,
-						role: true,
-						company: true,
-						endDate: true,
-						location: true,
-						workStyle: true,
-						startDate: true,
-						body: true,
-					},
-				},
-				user: {
-					with: {
-						socials: {
-							columns: {
-								name: true,
-								href: true,
-							},
-						},
-						education: {
-							columns: {
-								id: true,
-								school: true,
-								degree: true,
-								startDate: true,
-								endDate: true,
-							},
-						},
-					},
-				},
-			},
+		const { isSignedIn, toAuth } = await clerkClient.authenticateRequest({
+			url: `${req.protocol}://${req.hostname}${req.originalUrl}`,
+			// @ts-ignore
+			headers: req.headers,
 		});
 
-		res.json(results || DEFAULT_RESUME);
+		const result = (await db.query.resumes.findFirst({
+			where: (resumes, { eq }) => eq(resumes.id, resume as string),
+			with: {
+				skills: true,
+				experiences: true,
+				user: {
+					with: {
+						socials: true,
+						education: true,
+					},
+				},
+			},
+		})) as unknown as Resume;
+
+		result.isEditable = false;
+		if (isSignedIn && result) {
+			const { userId } = toAuth() as User;
+
+			result.isEditable = userId === result.userId;
+		}
+
+		return {
+			status: StatusCodes.OK,
+			data: result || DEFAULT_RESUME,
+		};
 	} catch (err) {
 		console.log("getting resume error", (err as Error).message);
 
-		res.status(404).end();
+		return {
+			status: StatusCodes.SERVER_ERROR,
+			error: (err as Error).message,
+		};
 	}
 };
 
-export default GetResumeController;
+const getResumes = async ({
+	req,
+}: Omit<Controller, "next">): Promise<GetResponse<Resume[]>> => {
+	const DEFAULT_REQUEST: GetResponse<Resume[]> = {
+		status: StatusCodes.BAD_REQUEST,
+		data: [],
+	};
+
+	const { isSignedIn, toAuth } = await clerkClient.authenticateRequest({
+		url: `${req.protocol}://${req.hostname}${req.originalUrl}`,
+		// @ts-ignore
+		headers: req.headers,
+	});
+
+	if (!isSignedIn) {
+		return Promise.resolve(DEFAULT_REQUEST);
+	}
+
+	try {
+		const { userId } = toAuth() as User;
+
+		const results = (await db.query.resumes.findMany({
+			where: (resumes, { eq }) => eq(resumes.userId, userId),
+			columns: {
+				userId: false,
+			},
+			with: {
+				skills: true,
+				experiences: true,
+				user: {
+					with: {
+						socials: true,
+						education: true,
+					},
+				},
+			},
+		})) as unknown as Resume[];
+
+		return {
+			status: StatusCodes.OK,
+			data: results.map((resume) => ({
+				...resume,
+				isEditable: true,
+			})),
+		};
+	} catch (err) {
+		console.log("getResumes error", (err as Error).message);
+
+		return {
+			status: StatusCodes.SERVER_ERROR,
+			error: (err as Error).message,
+		};
+	}
+};
+
+export { getResume, getResumes };

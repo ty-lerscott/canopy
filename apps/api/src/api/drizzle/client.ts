@@ -5,7 +5,7 @@ import { drizzle } from "drizzle-orm/libsql";
 import * as schemas from "./schemas";
 import * as relations from "./schemas/relations";
 
-const schema = {
+export const schema = {
 	...schemas,
 	...relations,
 };

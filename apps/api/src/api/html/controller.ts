@@ -4,10 +4,12 @@ import getImage from "@/api/image/utils/get-image";
 import ogImageTemplate from "./templates/og-image";
 
 const HTMLController = async ({
-	query,
 	res,
 	next,
-	extendedPath: [subject],
+	req: {
+		query,
+		extendedPath: [subject],
+	},
 }: Controller) => {
 	res.set({
 		"Content-Type": "text/html",

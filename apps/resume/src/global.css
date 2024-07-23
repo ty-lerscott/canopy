@@ -4,5 +4,9 @@
 
 body {
     --border: theme("colors.gray.200");
+    --popover: theme("colors.gray.50");
     --ghost: theme("colors.gray.400");
+    --primary: #62c1a4;
+    --secondary: #35876f;
+    --text-on-primary: theme("colors.gray.50");
 }

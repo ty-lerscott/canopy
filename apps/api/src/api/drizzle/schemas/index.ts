@@ -1,7 +1,8 @@
+import { createId } from "@paralleldrive/cuid2";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
-	id: text("id").primaryKey(),
+	id: text("id").primaryKey().$defaultFn(createId),
 	address: text("Address"),
 	lastName: text("Last Name"),
 	firstName: text("First Name"),
@@ -12,12 +13,12 @@ export const users = sqliteTable("users", {
 });
 
 export const resumes = sqliteTable("resumes", {
-	id: text("id").primaryKey(),
+	id: text("id").primaryKey().$defaultFn(createId),
 	userId: text("User Id").references(() => users.id),
 });
 
 export const experiences = sqliteTable("experiences", {
-	id: text("id").primaryKey(),
+	id: text("id").primaryKey().$defaultFn(createId),
 	role: text("Role"),
 	company: text("Company"),
 	endDate: text("End Date"),
@@ -29,7 +30,7 @@ export const experiences = sqliteTable("experiences", {
 });
 
 export const skills = sqliteTable("skills", {
-	id: text("id").primaryKey(),
+	id: text("id").primaryKey().$defaultFn(createId),
 	name: text("Name"),
 	endDate: text("End Date"),
 	isActive: integer("Is Active", { mode: "boolean" }),
@@ -40,7 +41,7 @@ export const skills = sqliteTable("skills", {
 });
 
 export const education = sqliteTable("education", {
-	id: text("id").primaryKey(),
+	id: text("id").primaryKey().$defaultFn(createId),
 	school: text("School"),
 	degree: text("Degree"),
 	startDate: text("Start Date"),
@@ -49,7 +50,7 @@ export const education = sqliteTable("education", {
 });
 
 export const socials = sqliteTable("socials", {
-	id: text("id").primaryKey(),
+	id: text("id").primaryKey().$defaultFn(createId),
 	name: text("Name"),
 	href: text("Href"),
 	userId: text("User Id").references(() => users.id),

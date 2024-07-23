@@ -3,10 +3,12 @@ import blurImage from "./utils/blur";
 import getOGImage from "./utils/og";
 
 const ImageController = async ({
-	query,
 	res,
 	next,
-	extendedPath: [subject],
+	req: {
+		query,
+		extendedPath: [subject],
+	},
 }: Controller) => {
 	switch (subject) {
 		case "blur": {

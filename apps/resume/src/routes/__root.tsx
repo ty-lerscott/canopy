@@ -1,30 +1,51 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "@/components/dropdown-menu";
+import ProfileDialog from "@/components/profile-dialog";
 import Separator from "@/components/separator";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
 import {
 	SignInButton,
 	SignedIn,
 	SignedOut,
-	UserButton,
+	useAuth,
+	useUser,
 } from "@clerk/clerk-react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
 	type AnyRoute,
 	Outlet,
 	createRootRoute,
 	useSearch,
 } from "@tanstack/react-router";
+import { useState } from "react";
 
-// Root component
 const Root = () => {
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const { isLoaded, signOut } = useAuth();
+	const { user } = useUser();
 	const forPrint = useSearch<
 		AnyRoute & {
 			padding?: boolean;
 		}
 	>({
-		from: "/",
+		from: window.location.pathname.includes("resume")
+			? "/resume/$resumeId"
+			: "/",
 		select: ({ print }) => Boolean(print),
 	});
+
+	const handleSignOut = async () => {
+		if (!isLoaded) {
+			return;
+		}
+		await signOut();
+	};
 
 	const queryClient = new QueryClient();
 
@@ -32,12 +53,41 @@ const Root = () => {
 		<QueryClientProvider client={queryClient}>
 			{forPrint ? null : (
 				<>
-					<header className="flex items-center p-2 justify-end">
+					<header className="flex items-center p-2 justify-between">
+						<h1 className="text-[--primary] font-bold">@maestro/resume</h1>
 						<SignedOut>
 							<SignInButton />
 						</SignedOut>
 						<SignedIn>
-							<UserButton />
+							<div>
+								<DropdownMenu>
+									<DropdownMenuTrigger>
+										<Avatar className="size-6">
+											<AvatarImage src={user?.imageUrl} />
+											<AvatarFallback className="bg-[--primary] text-2xs font-bold text-white">
+												{user?.fullName
+													?.split(" ")
+													.map((name) => name[0])
+													.join("")}
+											</AvatarFallback>
+										</Avatar>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent>
+										<DropdownMenuLabel>My Account</DropdownMenuLabel>
+										<DropdownMenuItem onSelect={() => setIsDialogOpen(true)}>
+											Profile
+										</DropdownMenuItem>
+										<Separator />
+										<DropdownMenuItem onClick={handleSignOut}>
+											Sign Out
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+								<ProfileDialog
+									isOpen={isDialogOpen}
+									setIsOpen={setIsDialogOpen}
+								/>
+							</div>
 						</SignedIn>
 					</header>
 					<Separator />
