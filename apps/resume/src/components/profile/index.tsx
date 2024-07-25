@@ -76,6 +76,7 @@ const ProfileDialog = ({
 				queryKey: ["getResume"],
 				exact: false,
 			});
+			setIsOpen(false);
 			toast.success("User updated successfully.");
 		},
 		onError: (error) => {

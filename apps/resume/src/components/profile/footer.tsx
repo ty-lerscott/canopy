@@ -12,11 +12,11 @@ type SubscribeProps = {
 };
 
 const FormFooter = ({
-	Subscribe,
 	reset,
+	Subscribe,
 }: {
-	Subscribe: FC<SubscribeProps>;
 	reset: () => void;
+	Subscribe: FC<SubscribeProps>;
 }) => {
 	return (
 		<Subscribe
