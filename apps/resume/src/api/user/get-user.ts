@@ -5,7 +5,7 @@ import type { User } from "~/apps/api/src/types/drizzle";
 type Options = {
 	socials?: boolean;
 	education?: boolean;
-	callback?: (socials: User["socials"]) => void;
+	callback?: (socials: User["socials"], education: User["education"]) => void;
 };
 
 const getUser =
@@ -54,7 +54,7 @@ const getUser =
 
 			const resp: User = await rawResp.json();
 
-			options?.callback?.(resp.socials);
+			options?.callback?.(resp.socials, resp.education);
 
 			return resp;
 		} catch (err) {

@@ -6,8 +6,9 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
-import ProfileDialog from "@/components/profile-dialog";
+import ProfileDialog from "@/components/profile";
 import Separator from "@/components/separator";
+import { Toaster } from "@/components/sonner";
 import {
 	SignInButton,
 	SignedIn,
@@ -106,6 +107,7 @@ const Root = () => {
 			)}
 
 			<Outlet />
+			<Toaster richColors />
 			<ReactQueryDevtools />
 		</QueryClientProvider>
 	);

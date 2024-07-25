@@ -44,6 +44,7 @@ export const education = sqliteTable("education", {
 	id: text("id").primaryKey().$defaultFn(createId),
 	school: text("School"),
 	degree: text("Degree"),
+	major: text("Major"),
 	startDate: text("Start Date"),
 	endDate: text("End Date"),
 	userId: text("User Id").references(() => users.id),

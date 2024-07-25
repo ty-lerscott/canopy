@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "NODE_OPTIONS=\"--import ./src/lib/sentry.mjs\" tsx watch ./src/index.ts",
-		"dev:temp": "NODE_OPTIONS=\"--import ./src/lib/sentry.mjs\" tsx watch ./src/api/drizzle/client.ts",
+		"dev:temp": "NODE_OPTIONS=\\\"--import ./src/lib/sentry.mjs\\\" tsx watch src/utils/drizzle/client.ts",
 		"build": "tsup",
 		"start": "NODE_OPTIONS=\"--import ./dist/lib/sentry.js\" node ./dist/index.js",
 		"start:studio": "drizzle-kit studio",

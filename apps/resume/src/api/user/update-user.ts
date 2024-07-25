@@ -6,19 +6,23 @@ const updateUser =
 	async ({
 		mutationKey,
 	}: {
-		mutationKey: [
-			string,
-			{
-				user: User;
-				isLoaded: boolean;
-			},
-		];
+		mutationKey: [string, user: User];
 	}): Promise<User> => {
-		const { isLoaded, user } = mutationKey[1];
+		const user = mutationKey[1];
 
-		if (!session || !isLoaded) {
+		if (!session) {
 			return Promise.resolve({} as User);
 		}
+
+		user.socials = user.socials.map((social) => ({
+			...social,
+			userId: user.id,
+		}));
+
+		user.education = user.education.map((education) => ({
+			...education,
+			userId: user.id,
+		}));
 
 		const token = await session.getToken();
 

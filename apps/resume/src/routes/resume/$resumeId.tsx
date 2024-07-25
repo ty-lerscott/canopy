@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
 	type AnyRoute,
 	createFileRoute,
+	useNavigate,
 	useParams,
 	useSearch,
 } from "@tanstack/react-router";
@@ -36,6 +37,7 @@ const Socials = {
 };
 
 const ResumeLayout = () => {
+	const navigate = useNavigate();
 	const resumeId = useParams({
 		from: "/resume/$resumeId",
 		select: ({ resumeId }) => resumeId,
@@ -54,7 +56,11 @@ const ResumeLayout = () => {
 
 	const { data, isPending } = useQuery({
 		queryKey: ["getResume", { isLoaded }],
-		queryFn: getResume(resumeId, session as ActiveSessionResource),
+		queryFn: getResume({
+			resumeId,
+			session: session as ActiveSessionResource,
+			navigate,
+		}),
 	});
 
 	if (!isLoaded || isPending) {

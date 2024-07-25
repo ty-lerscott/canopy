@@ -1,7 +1,7 @@
-import db from "@/api/drizzle/client";
 import StatusCodes from "@/api/utils/status-codes";
 import type { Controller, GetResponse } from "@/types";
 import type { Resume } from "@/types/drizzle";
+import db from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
 const DEFAULT_RESUME: Resume = {
@@ -18,6 +18,7 @@ const DEFAULT_RESUME: Resume = {
 		displayName: "",
 		phoneNumber: "",
 		emailAddress: "",
+		isEditable: false,
 	},
 	skills: [],
 	experiences: [],
@@ -60,6 +61,13 @@ const getResume = async ({
 				},
 			},
 		})) as unknown as Resume;
+
+		if (!result) {
+			return Promise.resolve({
+				status: StatusCodes.BAD_REQUEST,
+				error: "Resume not found",
+			});
+		}
 
 		result.isEditable = false;
 		if (isSignedIn && result) {

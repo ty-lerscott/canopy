@@ -1,8 +1,17 @@
 import type { ActiveSessionResource } from "@clerk/types";
+import type { UseNavigateResult } from "@tanstack/react-router";
 import type { Resume } from "~/apps/api/src/types/drizzle";
 
 const getResume =
-	(resumeId: string, session: ActiveSessionResource) =>
+	({
+		resumeId,
+		session,
+		navigate,
+	}: {
+		resumeId: string;
+		session: ActiveSessionResource;
+		navigate: UseNavigateResult<string>;
+	}) =>
 	async ({
 		queryKey,
 	}: {
@@ -36,6 +45,10 @@ const getResume =
 			return resp.data;
 		} catch (err) {
 			console.log("Error in getResumeQuery", (err as Error).message);
+			await navigate({
+				from: "/resume/$resumeId",
+				to: "/",
+			});
 			return Promise.resolve({} as Resume);
 		}
 	};

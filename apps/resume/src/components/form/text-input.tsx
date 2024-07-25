@@ -45,7 +45,7 @@ const TextInput = ({
 				autoCorrect="off"
 				autoCapitalize="none"
 				placeholder={placeholder}
-				className="px-2 py-1 text-[--primary] bg-transparent"
+				className="px-2 py-1 text-[--primary] bg-transparent w-full"
 				onChange={(e) => onChange(e.target.value)}
 			/>
 		</div>
