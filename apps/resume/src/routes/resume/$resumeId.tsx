@@ -1,4 +1,6 @@
 import getResume from "@/api/resume/get-resume";
+import AddSkill from "@/components/add-skill";
+import { Button } from "@/components/button";
 import Rating from "@/components/rating";
 import cn from "@/utils/class-name";
 import { useSession } from "@clerk/clerk-react";
@@ -14,6 +16,7 @@ import {
 } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import Markdown from "markdown-to-jsx";
+import { useState } from "react";
 import type { IconType } from "react-icons";
 import {
 	AiFillFacebook,
@@ -23,8 +26,8 @@ import {
 	AiFillTwitterCircle,
 } from "react-icons/ai";
 import { FaRegCalendar } from "react-icons/fa6";
-import { MdEmail, MdHouse, MdPhone } from "react-icons/md";
-import type { Resume } from "~/apps/api/src/types/drizzle.ts";
+import { MdAddBox, MdEmail, MdHouse, MdPhone } from "react-icons/md";
+import type { Resume } from "~/apps/api/src/types/drizzle";
 
 import styles from "@/routes/styles.module.css";
 
@@ -37,6 +40,9 @@ const Socials = {
 };
 
 const ResumeLayout = () => {
+	const [skills, setSkills] = useState<Resume["skills"]>([]);
+	const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
+	const [experiences, setExperiences] = useState<Resume["experiences"]>([]);
 	const navigate = useNavigate();
 	const resumeId = useParams({
 		from: "/resume/$resumeId",
@@ -60,12 +66,40 @@ const ResumeLayout = () => {
 			resumeId,
 			session: session as ActiveSessionResource,
 			navigate,
+			onSuccess: (
+				skills: Resume["skills"],
+				experiences: Resume["experiences"],
+			) => {
+				setSkills(skills);
+				setExperiences(experiences);
+			},
 		}),
 	});
 
 	if (!isLoaded || isPending) {
 		return null;
 	}
+
+	const addWorkExperience = () => {
+		setExperiences((prevExperiences) => {
+			return prevExperiences.concat([
+				{
+					id: createId(),
+					role: "",
+					company: "",
+					location: "",
+					startDate: "",
+					endDate: "",
+					body: [""],
+					isEditable: true,
+				},
+			]);
+		});
+	};
+	const addEducation = () => {};
+	const addSkill = () => {
+		setIsSkillDialogOpen((prevState) => !prevState);
+	};
 
 	const {
 		user: {
@@ -78,8 +112,6 @@ const ResumeLayout = () => {
 			socials,
 			education,
 		},
-		skills,
-		experiences,
 		isEditable,
 	} = data as Resume;
 
@@ -138,7 +170,18 @@ const ResumeLayout = () => {
 			</div>
 			<div className={styles.Body}>
 				<div className={styles.WorkExperiences}>
-					<h2 className={styles.Header}>Work Experience</h2>
+					<h2 className={styles.Header}>
+						<span>Work Experience</span>
+						{isEditable ? (
+							<Button
+								variant="ghost"
+								onClick={addWorkExperience}
+								className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
+							>
+								<MdAddBox className="size-4" />
+							</Button>
+						) : null}
+					</h2>
 					{experiences.map(
 						({ role, company, location, startDate, endDate, body }) => {
 							const date = `${dayjs(startDate).format("MMM YYYY")} -
@@ -176,7 +219,18 @@ const ResumeLayout = () => {
 					)}
 				</div>
 				<div className={styles.Sidebar}>
-					<h2 className={styles.Header}>Education</h2>
+					<h2 className={styles.Header}>
+						<span>Education</span>
+						{isEditable ? (
+							<Button
+								variant="ghost"
+								onClick={addEducation}
+								className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
+							>
+								<MdAddBox className="size-4" />
+							</Button>
+						) : null}
+					</h2>
 
 					<div className={styles.EducationList}>
 						{(education || []).map(
@@ -196,13 +250,30 @@ const ResumeLayout = () => {
 						)}
 					</div>
 
-					<h2 className={styles.Header}>Skills</h2>
+					<h2 className={styles.Header}>
+						<span>Skills</span>
+						{isEditable ? (
+							<>
+								<Button
+									variant="ghost"
+									onClick={addSkill}
+									className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
+								>
+									<MdAddBox className="size-4" />
+								</Button>
+								<AddSkill
+									isOpen={isSkillDialogOpen}
+									setIsOpen={setIsSkillDialogOpen}
+								/>
+							</>
+						) : null}
+					</h2>
 
 					{skills.map((skill) => {
 						return (
 							<div key={skill.name} className={styles.Skill}>
 								<p>{skill.name}</p>
-								<Rating rating={skill.comfortLevel / 2} invert />
+								<Rating rating={skill.comfortLevel / 2} />
 							</div>
 						);
 					})}

@@ -31,7 +31,7 @@
 }
 
 .Header {
-    @apply border-b-4 border-[--primary] pb-2 mb-4 uppercase font-bold;
+    @apply flex border-b-4 border-[--primary] pb-2 mb-4 uppercase font-bold items-center;
 }
 
 .WorkExperiences {
@@ -76,5 +76,5 @@
 }
 
 .Skill {
-    @apply flex items-center justify-between even:my-1;
+    @apply flex items-center justify-between even:my-2;
 }

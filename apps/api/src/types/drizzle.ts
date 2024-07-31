@@ -19,6 +19,7 @@ export type Skill = {
 	favorite: boolean;
 	comfortLevel: number;
 	isEditable: boolean;
+	resumeId: string;
 };
 
 export type Education = {

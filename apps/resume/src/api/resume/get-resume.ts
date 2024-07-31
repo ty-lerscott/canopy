@@ -7,10 +7,15 @@ const getResume =
 		resumeId,
 		session,
 		navigate,
+		onSuccess,
 	}: {
 		resumeId: string;
 		session: ActiveSessionResource;
 		navigate: UseNavigateResult<string>;
+		onSuccess: (
+			skills: Resume["skills"],
+			experiences: Resume["experiences"],
+		) => void;
 	}) =>
 	async ({
 		queryKey,
@@ -41,6 +46,8 @@ const getResume =
 			});
 
 			const resp = await rawResp.json();
+
+			onSuccess(resp.data.skills, resp.data.experiences);
 
 			return resp.data;
 		} catch (err) {

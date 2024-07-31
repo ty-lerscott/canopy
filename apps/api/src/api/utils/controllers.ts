@@ -3,6 +3,7 @@ import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
 import { ImageController } from "@/api/image";
 import { ResumeController, ResumesController } from "@/api/resume";
+import { SkillController } from "@/api/skill";
 import { SocialsController } from "@/api/socials";
 import { UserController } from "@/api/user";
 import type { Controller as ControllerProps, Request } from "@/types";
@@ -47,6 +48,9 @@ const Controller = async (req: Request, res: Response, next: NextFunction) => {
 			break;
 		case "socials":
 			await SocialsController(props);
+			break;
+		case "skill":
+			await SkillController(props);
 			break;
 		default:
 			break;
