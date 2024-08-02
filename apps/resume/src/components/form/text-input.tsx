@@ -11,11 +11,13 @@ const TextInput = ({
 	className,
 	type = "text",
 	defaultValue,
+	placeholder,
 }: {
 	name: string;
 	label: string;
 	type?: string;
 	className?: string;
+	placeholder?: string;
 	defaultValue?: string;
 	value?: string | number;
 	onChange: (updater: Updater<string>) => void;
@@ -42,7 +44,8 @@ const TextInput = ({
 				autoComplete="off"
 				autoCorrect="off"
 				autoCapitalize="none"
-				className="px-2 py-1 text-[--primary] bg-transparent"
+				placeholder={placeholder}
+				className="px-2 py-1 text-[--primary] bg-transparent w-full"
 				onChange={(e) => onChange(e.target.value)}
 			/>
 		</div>

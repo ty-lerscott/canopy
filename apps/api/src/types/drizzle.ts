@@ -3,11 +3,12 @@ export type Experience = {
 	role: string;
 	company: string;
 	location: string;
-	workStyle?: "in-office" | "hybrid" | "remote";
+	workStyle: "in-office" | "hybrid" | "remote";
 	startDate: string;
 	endDate?: string;
-	body: string[];
+	body: string;
 	isEditable: boolean;
+	resumeId: string;
 };
 
 export type Skill = {

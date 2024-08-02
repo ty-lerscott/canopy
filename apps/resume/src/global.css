@@ -9,4 +9,16 @@ body {
     --primary: #62c1a4;
     --secondary: #35876f;
     --text-on-primary: theme("colors.gray.50");
+    font-family: "Inter Variable", "sans-serif";
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Zilla Slab", "serif";
+    @apply text-[--primary] font-semibold;
+}
+
+h1 { font-size: theme("fontSize.3xl"); }
+h2 { font-size: theme("fontSize.2xl"); }
+h3 { font-size: theme("fontSize.xl"); }
+h4 { font-size: theme("fontSize.lg"); }
+h6 { font-size: theme("fontSize.sm"); }

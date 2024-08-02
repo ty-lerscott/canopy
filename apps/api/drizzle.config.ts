@@ -4,7 +4,7 @@ import type { Config } from "drizzle-kit";
 
 const cwd = process.cwd();
 const databasePath = resolve(cwd, "..", "database");
-const schemaPath = resolve(cwd, "src", "api", "drizzle", "schemas");
+const schemaPath = resolve(cwd, "src", "utils", "drizzle", "schemas");
 const migrationPath = resolve(cwd, "..", "..", "dist", "migrations");
 
 const env =

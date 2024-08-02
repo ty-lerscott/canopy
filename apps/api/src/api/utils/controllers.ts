@@ -1,4 +1,5 @@
 import { DownloadController } from "@/api/download";
+import { ExperienceController } from "@/api/experience";
 import { GithubController } from "@/api/github";
 import { HTMLController } from "@/api/html";
 import { ImageController } from "@/api/image";
@@ -51,6 +52,9 @@ const Controller = async (req: Request, res: Response, next: NextFunction) => {
 			break;
 		case "skill":
 			await SkillController(props);
+			break;
+		case "experience":
+			await ExperienceController(props);
 			break;
 		default:
 			break;

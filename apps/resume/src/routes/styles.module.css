@@ -7,11 +7,11 @@
 }
 
 .Name {
-    @apply uppercase text-6xl font-semibold;
+    @apply text-black uppercase text-6xl font-semibold;
 }
 
 .Profession {
-    @apply text-[--primary] text-3xl font-semibold;
+    @apply text-3xl font-semibold;
 }
 
 .Contact {
@@ -38,23 +38,23 @@
     @apply col-span-2;
 
     .Experience {
-        @apply [&:not(:first-of-type)]:mt-4;
+        @apply [&:not(:first-of-type)]:mt-4 relative;
     }
 
     .ExperienceCompanyLocation {
-        @apply text-[--primary] mb-2 mt-1 leading-none;
+        @apply text-sm my-1 leading-none;
     }
 
     .ExperienceDate {
-        @apply flex gap-2 items-center text-xs font-bold leading-none;
+        @apply flex gap-2 items-center text-xs leading-none text-[--ghost];
     }
 
     .ExperienceCalendar {
-        @apply size-2.5;
+        @apply size-2.5 text-[--ghost];
     }
 
     .ExperienceBody {
-        @apply text-sm leading-4 mt-2;
+        @apply text-sm mt-2 grid gap-2 [&>*]:leading-5;
     }
 }
 
@@ -72,9 +72,9 @@
 
 
 .EducationDuration {
-    @apply text-sm text-[--primary];
+    @apply text-sm;
 }
 
 .Skill {
-    @apply flex items-center justify-between even:my-2;
+    @apply flex items-center justify-between even:my-2 text-sm;
 }

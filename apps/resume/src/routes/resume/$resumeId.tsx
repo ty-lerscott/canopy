@@ -1,11 +1,14 @@
 import getResume from "@/api/resume/get-resume";
+import AddExperience from "@/components/add-experience";
 import AddSkill from "@/components/add-skill";
 import { Button } from "@/components/button";
+import EditExperience from "@/components/edit-experience";
+import Markdown from "@/components/markdown";
 import Rating from "@/components/rating";
 import cn from "@/utils/class-name";
+import toSentenceCase from "@/utils/to-sentence-case";
 import { useSession } from "@clerk/clerk-react";
 import type { ActiveSessionResource } from "@clerk/types";
-import { createId } from "@paralleldrive/cuid2";
 import { useQuery } from "@tanstack/react-query";
 import {
 	type AnyRoute,
@@ -15,7 +18,6 @@ import {
 	useSearch,
 } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import Markdown from "markdown-to-jsx";
 import { useState } from "react";
 import type { IconType } from "react-icons";
 import {
@@ -26,10 +28,14 @@ import {
 	AiFillTwitterCircle,
 } from "react-icons/ai";
 import { FaRegCalendar } from "react-icons/fa6";
+import { MdModeEdit } from "react-icons/md";
 import { MdAddBox, MdEmail, MdHouse, MdPhone } from "react-icons/md";
 import type { Resume } from "~/apps/api/src/types/drizzle";
 
 import styles from "@/routes/styles.module.css";
+import "@fontsource/zilla-slab/500.css";
+import "@fontsource/zilla-slab/600.css";
+import "@fontsource-variable/inter";
 
 const Socials = {
 	Facebook: AiFillFacebook,
@@ -42,7 +48,11 @@ const Socials = {
 const ResumeLayout = () => {
 	const [skills, setSkills] = useState<Resume["skills"]>([]);
 	const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
+	const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
 	const [experiences, setExperiences] = useState<Resume["experiences"]>([]);
+	const [isEditExperienceOpen, setIsEditExperienceOpen] = useState<
+		null | string
+	>(null);
 	const navigate = useNavigate();
 	const resumeId = useParams({
 		from: "/resume/$resumeId",
@@ -81,20 +91,7 @@ const ResumeLayout = () => {
 	}
 
 	const addWorkExperience = () => {
-		setExperiences((prevExperiences) => {
-			return prevExperiences.concat([
-				{
-					id: createId(),
-					role: "",
-					company: "",
-					location: "",
-					startDate: "",
-					endDate: "",
-					body: [""],
-					isEditable: true,
-				},
-			]);
-		});
+		setIsExperienceDialogOpen((prevState) => !prevState);
 	};
 	const addEducation = () => {};
 	const addSkill = () => {
@@ -130,6 +127,10 @@ const ResumeLayout = () => {
 		},
 	];
 
+	const handleEditExperience = (id: string) => () => {
+		setIsEditExperienceOpen(id);
+	};
+
 	return (
 		<div
 			className={cn(styles.Page, forPrint && styles.PagePaddless)}
@@ -161,7 +162,12 @@ const ResumeLayout = () => {
 							<div>
 								<Icon className={styles.Icon} />
 							</div>
-							<a href={url} target="_blank" rel="noreferrer">
+							<a
+								href={url}
+								target="_blank"
+								rel="noreferrer"
+								className="transition-all underline underline-offset-4 hover:text-[--primary]"
+							>
 								{href}
 							</a>
 						</div>
@@ -173,17 +179,32 @@ const ResumeLayout = () => {
 					<h2 className={styles.Header}>
 						<span>Work Experience</span>
 						{isEditable ? (
-							<Button
-								variant="ghost"
-								onClick={addWorkExperience}
-								className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
-							>
-								<MdAddBox className="size-4" />
-							</Button>
+							<>
+								<Button
+									variant="ghost"
+									onClick={addWorkExperience}
+									className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
+								>
+									<MdAddBox className="size-4" />
+								</Button>
+								<AddExperience
+									isOpen={isExperienceDialogOpen}
+									setIsOpen={setIsExperienceDialogOpen}
+								/>
+							</>
 						) : null}
 					</h2>
 					{experiences.map(
-						({ role, company, location, startDate, endDate, body }) => {
+						({
+							id,
+							role,
+							company,
+							location,
+							startDate,
+							endDate,
+							body,
+							workStyle,
+						}) => {
 							const date = `${dayjs(startDate).format("MMM YYYY")} -
                           ${
 														endDate
@@ -193,26 +214,45 @@ const ResumeLayout = () => {
 							return (
 								<div
 									key={`experience-${role}-${company}`}
-									className={styles.Experience}
+									className={cn("group", styles.Experience)}
 								>
+									{isEditable ? (
+										<div className="absolute right-0 top-0">
+											<Button
+												size="sm"
+												variant="ghost"
+												onClick={handleEditExperience(id)}
+												className="text-[--primary] transition-all opacity-0 px-1 h-auto group-hover:opacity-100"
+											>
+												<MdModeEdit className="size-4" />
+											</Button>
+											<EditExperience
+												id={id}
+												setIsOpen={setIsEditExperienceOpen}
+												isOpen={isEditExperienceOpen === id}
+											/>
+										</div>
+									) : null}
 									<h3>{role}</h3>
 									<p className={styles.ExperienceCompanyLocation}>
-										{company} &#x2022; {location}
+										{[
+											company,
+											location,
+											workStyle !== "in-office"
+												? toSentenceCase(workStyle)
+												: null,
+										]
+											.filter(Boolean)
+											.join(" • ")}
 									</p>
 									<p className={styles.ExperienceDate}>
 										<FaRegCalendar className={styles.ExperienceCalendar} />{" "}
 										<span>{date}</span>
 									</p>
-									{(body || []).map((bodyItem) => {
-										return (
-											<Markdown
-												key={`body-${createId()}`}
-												className={styles.ExperienceBody}
-											>
-												{bodyItem}
-											</Markdown>
-										);
-									})}
+
+									<Markdown className={styles.ExperienceBody}>
+										{atob(body)}
+									</Markdown>
 								</div>
 							);
 						},

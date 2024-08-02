@@ -26,7 +26,7 @@ export const experiences = sqliteTable("experiences", {
 	workStyle: text("Work Style"),
 	startDate: text("Start Date"),
 	resumeId: text("Resume Id").references(() => resumes.id),
-	body: text("Body", { mode: "json" }).$type<string[]>(),
+	body: text("Body"),
 });
 
 export const skills = sqliteTable("skills", {
