@@ -59,7 +59,7 @@ const getUser = async (req: Controller["req"]): Promise<GetResponse<User>> => {
 			),
 		};
 	} catch (err) {
-		console.log("getting resume error", (err as Error).message);
+		console.log("getting conductors error", (err as Error).message);
 
 		return {
 			status: StatusCodes.SERVER_ERROR,

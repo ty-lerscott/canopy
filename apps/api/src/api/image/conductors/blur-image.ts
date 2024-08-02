@@ -3,7 +3,7 @@ import codes from "@/api/utils/status-codes";
 import type { GetResponse } from "@/types";
 import getImage from "./get-image";
 
-const blur = async (url: string) => {
+const blurImage = async (url: string) => {
 	const responseBody: GetResponse<Buffer> = { status: codes.OK };
 
 	if (!url) {
@@ -33,4 +33,4 @@ const blur = async (url: string) => {
 	return responseBody;
 };
 
-export default blur;
+export default blurImage;

@@ -52,7 +52,6 @@ const updateUser = async (
 
 		if (Array.isArray(education) && education.length) {
 			for (const ed of education) {
-				console.log(ed);
 				await db.insert(schema.education).values(ed).onConflictDoUpdate({
 					target: schema.education.id,
 					set: ed,

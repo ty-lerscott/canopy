@@ -1,12 +1,12 @@
-import type { Controller } from "@/types";
-import deleteSocial from "./controllers/delete-social";
-import { getResume, getResumes } from "./controllers/get-resume";
-import getUser from "./controllers/get-user";
-import addExperience from "./controllers/post-experience";
-import addSkill from "./controllers/post-skill";
-import updateUser from "./controllers/put-user";
+import deleteSocial from "@/api/resume/conductors/delete-social";
+import { getResume, getResumes } from "@/api/resume/conductors/get-resume";
+import getUser from "@/api/resume/conductors/get-user";
+import addExperience from "@/api/resume/conductors/post-experience";
+import addSkill from "@/api/resume/conductors/post-skill";
+import updateUser from "@/api/resume/conductors/put-user";
+import type { Conductor } from "@/types";
 
-const ResumeController = async ({ res, next, req }: Controller) => {
+const ResumeConductor = async ({ res, next, req }: Conductor) => {
 	const [route] = req.extendedPath;
 	const { method } = req;
 
@@ -51,7 +51,7 @@ const ResumeController = async ({ res, next, req }: Controller) => {
 	next();
 };
 
-const ResumesController = async ({ res, next, req }: Controller) => {
+const ResumesConductor = async ({ res, next, req }: Conductor) => {
 	switch (req.method) {
 		case "GET": {
 			const { status, data, error } = await getResumes({ req, res });
@@ -65,4 +65,4 @@ const ResumesController = async ({ res, next, req }: Controller) => {
 	next();
 };
 
-export { ResumeController, ResumesController };
+export { ResumeConductor, ResumesConductor };

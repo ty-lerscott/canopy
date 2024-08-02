@@ -31,7 +31,7 @@ export type Data =
 	| PrimitiveObject
 	| (Primitives | PrimitiveObject)[];
 
-export type Controller = {
+export type Conductor = {
 	res: Response;
 	req: Request;
 	next: NextFunction;

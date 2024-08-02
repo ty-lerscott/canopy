@@ -61,7 +61,7 @@ const getResume = async ({
 			data: result || DEFAULT_RESUME,
 		};
 	} catch (err) {
-		console.log("getting resume error", (err as Error).message);
+		console.log("getting conductors error", (err as Error).message);
 
 		return {
 			status: StatusCodes.SERVER_ERROR,
