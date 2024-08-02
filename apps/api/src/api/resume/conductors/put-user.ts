@@ -1,13 +1,13 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_USER from "@/defaults/user";
-import type { Controller, GetResponse } from "@/types";
+import type { Conductor, GetResponse } from "@/types";
 import type { User } from "@/types/drizzle";
 import db, { schema } from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import merge from "lodash.mergewith";
 
 const updateUser = async (
-	req: Controller["req"],
+	req: Conductor["req"],
 ): Promise<GetResponse<User>> => {
 	const { socials, education, ...user } = req.body;
 

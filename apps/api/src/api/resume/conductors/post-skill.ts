@@ -1,12 +1,10 @@
 import StatusCodes from "@/api/utils/status-codes";
-import type { Controller, GetResponse } from "@/types";
+import type { Conductor, GetResponse } from "@/types";
 import type { Skill } from "@/types/drizzle";
 import db, { schema } from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
-const addSkill = async (
-	req: Controller["req"],
-): Promise<GetResponse<Skill>> => {
+const addSkill = async (req: Conductor["req"]): Promise<GetResponse<Skill>> => {
 	const resumeId = req.body.resumeId;
 
 	if (!resumeId) {

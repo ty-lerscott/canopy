@@ -33,7 +33,7 @@ const getUser =
 		const token = await session.getToken();
 
 		try {
-			const rawResp = await fetch("/api/user", {
+			const rawResp = await fetch("/api/resume/user", {
 				method: "POST",
 				headers: merge(
 					{
@@ -52,11 +52,17 @@ const getUser =
 				}),
 			});
 
-			const resp: User = await rawResp.json();
+			const resp = await rawResp.json();
 
-			options?.callback?.(resp.socials, resp.education);
+			if (resp.error) {
+				return Promise.reject(resp.error);
+			}
 
-			return resp;
+			const data = resp.data as User;
+
+			options?.callback?.(data.socials, data.education);
+
+			return data;
 		} catch (err) {
 			console.log("Error in getUserQuery", (err as Error).message);
 			return Promise.resolve({} as User);

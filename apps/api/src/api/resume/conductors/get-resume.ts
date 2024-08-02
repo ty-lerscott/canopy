@@ -1,6 +1,6 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_RESUME from "@/defaults/resume";
-import type { Controller, GetResponse } from "@/types";
+import type { Conductor, GetResponse } from "@/types";
 import type { Resume } from "@/types/drizzle";
 import db from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
@@ -11,7 +11,7 @@ type User = {
 
 const getResume = async ({
 	req,
-}: Omit<Controller, "next">): Promise<GetResponse<Resume>> => {
+}: Omit<Conductor, "next">): Promise<GetResponse<Resume>> => {
 	const { resume } = req.query;
 
 	if (!resume) {
@@ -72,7 +72,7 @@ const getResume = async ({
 
 const getResumes = async ({
 	req,
-}: Omit<Controller, "next">): Promise<GetResponse<Resume[]>> => {
+}: Omit<Conductor, "next">): Promise<GetResponse<Resume[]>> => {
 	const DEFAULT_REQUEST: GetResponse<Resume[]> = {
 		status: StatusCodes.BAD_REQUEST,
 		data: [],

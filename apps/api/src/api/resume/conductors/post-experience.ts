@@ -1,11 +1,11 @@
 import StatusCodes from "@/api/utils/status-codes";
-import type { Controller, GetResponse } from "@/types";
+import type { Conductor, GetResponse } from "@/types";
 import type { Experience } from "@/types/drizzle";
 import db, { schema } from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
 const addExperience = async (
-	req: Controller["req"],
+	req: Conductor["req"],
 ): Promise<GetResponse<Experience>> => {
 	const resumeId = req.body.resumeId;
 

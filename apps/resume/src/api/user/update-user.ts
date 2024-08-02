@@ -31,7 +31,7 @@ const updateUser =
 		}
 
 		try {
-			const rawResp = await fetch("/api/user", {
+			const rawResp = await fetch("/api/resume/user", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
