@@ -1,8 +1,8 @@
 import StatusCodes from "@/api/utils/status-codes";
+import db, { schema } from "@/tools/drizzle/client";
+import { socials } from "@/tools/drizzle/schemas";
 import type { Conductor, GetResponse } from "@/types";
 import type { Social } from "@/types/drizzle";
-import db, { schema } from "@/utils/drizzle/client";
-import { socials } from "@/utils/drizzle/schemas";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import { and, eq } from "drizzle-orm/sql";
 

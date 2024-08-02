@@ -1,7 +1,7 @@
 import StatusCodes from "@/api/utils/status-codes";
+import db, { schema } from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { Skill } from "@/types/drizzle";
-import db, { schema } from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
 const addSkill = async (req: Conductor["req"]): Promise<GetResponse<Skill>> => {

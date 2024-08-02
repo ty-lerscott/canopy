@@ -30,6 +30,7 @@ export type Education = {
 	degree: string;
 	startDate: string;
 	endDate?: string;
+	userId: string;
 	isEditable: boolean;
 };
 

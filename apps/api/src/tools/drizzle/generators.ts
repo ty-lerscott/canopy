@@ -35,9 +35,10 @@ const generateDegreeName = () => {
 	return `${level} ${field} ${subject}`;
 };
 
-const generateSkill = (resumeId: string): Skill & { resumeId: string } => {
+const generateSkill = (resumeId: string): Skill => {
 	return {
 		id: createId(),
+		isEditable: false,
 		name: faker.word.words({ count: { min: 1, max: 3 } }),
 		endDate: faker.date.recent().toString(),
 		isActive: faker.datatype.boolean(),
@@ -48,40 +49,34 @@ const generateSkill = (resumeId: string): Skill & { resumeId: string } => {
 	};
 };
 
-const generateExperience = (
-	resumeId: string,
-): Experience & { resumeId: string } => {
+const generateExperience = (resumeId: string): Experience => {
 	return {
 		id: createId(),
+		isEditable: false,
 		role: faker.person.jobTitle(),
 		company: faker.company.name(),
 		location: `${faker.location.city()}, ${faker.location.state()}`,
-		workStyle: faker.helpers.arrayElement([
-			"in-office",
-			"hybrid",
-			"remote",
-			undefined,
-		]),
+		workStyle: faker.helpers.arrayElement(["in-office", "hybrid", "remote"]),
 		startDate: faker.date.past().toString(),
 		endDate: faker.date.recent().toString(),
-		body: faker.lorem
-			.paragraphs({
-				min: 1,
-				max: 5,
-			})
-			.split("\n"),
+		body: faker.lorem.paragraphs({
+			min: 1,
+			max: 5,
+		}),
 		resumeId,
 	};
 };
 
-const generateEducation = (userId: string): Education & { userId: string } => {
+const generateEducation = (userId: string): Education => {
 	return {
+		userId,
 		id: createId(),
+		isEditable: false,
 		school: generateSchoolName(),
 		degree: generateDegreeName(),
 		startDate: faker.date.past().toString(),
 		endDate: faker.date.recent().toString(),
-		userId,
+		major: faker.word.words({ count: { min: 1, max: 3 } }),
 	};
 };
 
@@ -94,6 +89,9 @@ const generateUser = (): User => {
 		profession: faker.person.jobTitle(),
 		emailAddress: faker.internet.email(),
 		displayName: faker.internet.userName(),
+		socials: [],
+		education: [],
+		isEditable: false,
 		address: `${faker.location.city()}, ${faker.location.state()}`,
 	};
 };

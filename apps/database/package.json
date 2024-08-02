@@ -2,11 +2,16 @@
 	"name": "oasis",
 	"version": "0.0.0",
 	"description": "",
-	"main": "index.js",
 	"scripts": {
 		"start:db": "docker-compose up -d",
-		"stop:db": "docker-compose down"
+		"stop:db": "docker-compose down",
+		"docker:build": "docker-build",
+		"docker:run": "docker-run",
+		"docker:push": "docker-push"
 	},
 	"author": "Tyler Scott",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"docker-build-run-push": "3.0.0"
+	}
 }

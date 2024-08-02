@@ -1,8 +1,8 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_RESUME from "@/defaults/resume";
+import db from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { Resume } from "@/types/drizzle";
-import db from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
 type User = {

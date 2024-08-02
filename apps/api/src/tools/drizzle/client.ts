@@ -1,4 +1,3 @@
-import { resolve } from "node:path";
 import { config as dotenvConfig } from "@dotenvx/dotenvx";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
@@ -10,10 +9,7 @@ export const schema = {
 	...relations,
 };
 
-const env =
-	dotenvConfig({
-		path: resolve(resolve(process.cwd(), "..", "database"), ".env"),
-	}).parsed || {};
+const env = dotenvConfig().parsed || {};
 
 const tursoClient = createClient({
 	url: env.TURSO_DATABASE_URL,

@@ -1,8 +1,8 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_USER from "@/defaults/user";
+import db, { schema } from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { User } from "@/types/drizzle";
-import db, { schema } from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import merge from "lodash.mergewith";
 

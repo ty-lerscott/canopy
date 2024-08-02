@@ -3,14 +3,10 @@ import { config as dotenvConfig } from "@dotenvx/dotenvx";
 import type { Config } from "drizzle-kit";
 
 const cwd = process.cwd();
-const databasePath = resolve(cwd, "..", "database");
-const schemaPath = resolve(cwd, "src", "conductors", "drizzle", "schemas");
+const schemaPath = resolve(cwd, "src", "tools", "drizzle", "schemas");
 const migrationPath = resolve(cwd, "..", "..", "dist", "migrations");
 
-const env =
-	dotenvConfig({
-		path: resolve(databasePath, ".env"),
-	}).parsed || {};
+const env = dotenvConfig().parsed || {};
 
 export default {
 	driver: "turso",

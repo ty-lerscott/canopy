@@ -10,49 +10,49 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
-import { Route as ResumeResumeIdImport } from "./routes/resume/$resumeId";
+import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as ResumeResumeIdImport } from './routes/resume/$resumeId'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
-	path: "/",
-	getParentRoute: () => rootRoute,
-} as any);
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ResumeResumeIdRoute = ResumeResumeIdImport.update({
-	path: "/resume/$resumeId",
-	getParentRoute: () => rootRoute,
-} as any);
+  path: '/resume/$resumeId',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
-	interface FileRoutesByPath {
-		"/": {
-			id: "/";
-			path: "/";
-			fullPath: "/";
-			preLoaderRoute: typeof IndexImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/resume/$resumeId": {
-			id: "/resume/$resumeId";
-			path: "/resume/$resumeId";
-			fullPath: "/resume/$resumeId";
-			preLoaderRoute: typeof ResumeResumeIdImport;
-			parentRoute: typeof rootRoute;
-		};
-	}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/resume/$resumeId': {
+      id: '/resume/$resumeId'
+      path: '/resume/$resumeId'
+      fullPath: '/resume/$resumeId'
+      preLoaderRoute: typeof ResumeResumeIdImport
+      parentRoute: typeof rootRoute
+    }
+  }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-	IndexRoute,
-	ResumeResumeIdRoute,
-});
+  IndexRoute,
+  ResumeResumeIdRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -63,14 +63,14 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/conductors/$resumeId"
+        "/resume/$resumeId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/conductors/$resumeId": {
-      "filePath": "conductors/$resumeId.tsx"
+    "/resume/$resumeId": {
+      "filePath": "resume/$resumeId.tsx"
     }
   }
 }

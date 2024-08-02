@@ -7,6 +7,3 @@ services:
       - "8080:8080"
     volumes:
       - ./data:/var/lib/sqld
-    environment:
-      - SQLD_HTTP_LISTEN_ADDR=0.0.0.0:8080
-      - SQLD_AUTH_TOKEN=${TURSO_AUTH_TOKEN}
