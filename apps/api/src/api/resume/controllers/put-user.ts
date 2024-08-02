@@ -108,4 +108,4 @@ const updateUser = async (
 	}
 };
 
-export { updateUser };
+export default updateUser;

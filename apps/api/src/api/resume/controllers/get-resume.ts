@@ -1,29 +1,9 @@
 import StatusCodes from "@/api/utils/status-codes";
+import DEFAULT_RESUME from "@/defaults/resume";
 import type { Controller, GetResponse } from "@/types";
 import type { Resume } from "@/types/drizzle";
 import db from "@/utils/drizzle/client";
 import { clerkClient } from "@clerk/clerk-sdk-node";
-
-const DEFAULT_RESUME: Resume = {
-	id: "",
-	userId: "",
-	user: {
-		id: "",
-		address: "",
-		socials: [],
-		firstName: "",
-		lastName: "",
-		education: [],
-		profession: "",
-		displayName: "",
-		phoneNumber: "",
-		emailAddress: "",
-		isEditable: false,
-	},
-	skills: [],
-	experiences: [],
-	isEditable: false,
-};
 
 type User = {
 	userId: string;

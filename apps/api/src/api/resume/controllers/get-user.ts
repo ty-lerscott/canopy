@@ -68,4 +68,4 @@ const getUser = async (req: Controller["req"]): Promise<GetResponse<User>> => {
 	}
 };
 
-export { getUser };
+export default getUser;

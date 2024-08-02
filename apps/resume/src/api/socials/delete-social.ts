@@ -21,7 +21,7 @@ const deleteSocial =
 		}
 
 		try {
-			const rawResp = await fetch("/api/socials", {
+			const rawResp = await fetch("/api/resume/socials", {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

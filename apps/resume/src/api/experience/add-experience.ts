@@ -23,7 +23,7 @@ const addExperience =
 		try {
 			experience.body = btoa(experience.body);
 
-			const rawResp = await fetch("/api/experience", {
+			const rawResp = await fetch("/api/resume/experience", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

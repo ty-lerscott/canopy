@@ -21,7 +21,7 @@ const addSkill =
 		}
 
 		try {
-			const rawResp = await fetch("/api/skill", {
+			const rawResp = await fetch("/api/resume/skill", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
