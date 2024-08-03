@@ -1,8 +1,8 @@
 import StatusCodes from "@/api/utils/status-codes";
-import db, { schema } from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { Skill } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
+import { dbClient, schemas } from "~/apps/database/src";
 
 const addSkill = async (req: Conductor["req"]): Promise<GetResponse<Skill>> => {
 	const resumeId = req.body.resumeId;
@@ -28,10 +28,10 @@ const addSkill = async (req: Conductor["req"]): Promise<GetResponse<Skill>> => {
 			});
 		}
 
-		const resp = (await db
-			.insert(schema.skills)
+		const resp = (await dbClient
+			.insert(schemas.skills)
 			.values(req.body)
-			.onConflictDoUpdate({ target: schema.skills.id, set: req.body })
+			.onConflictDoUpdate({ target: schemas.skills.id, set: req.body })
 			.returning()) as unknown as Skill;
 
 		return {

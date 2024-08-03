@@ -1,10 +1,10 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_USER from "@/defaults/user";
-import db, { schema } from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { User } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import merge from "lodash.mergewith";
+import { dbClient, schemas } from "~/apps/database/src";
 
 const updateUser = async (
 	req: Conductor["req"],
@@ -43,27 +43,30 @@ const updateUser = async (
 
 		if (Array.isArray(socials) && socials.length) {
 			for (const social of socials) {
-				await db.insert(schema.socials).values(social).onConflictDoUpdate({
-					target: schema.socials.id,
-					set: social,
-				});
+				await dbClient
+					.insert(schemas.socials)
+					.values(social)
+					.onConflictDoUpdate({
+						target: schemas.socials.id,
+						set: social,
+					});
 			}
 		}
 
 		if (Array.isArray(education) && education.length) {
 			for (const ed of education) {
-				await db.insert(schema.education).values(ed).onConflictDoUpdate({
-					target: schema.education.id,
+				await dbClient.insert(schemas.education).values(ed).onConflictDoUpdate({
+					target: schemas.education.id,
 					set: ed,
 				});
 			}
 		}
 
 		if (Object.values(user).some((val) => Boolean(val))) {
-			const result = (await db
-				.insert(schema.users)
+			const result = (await dbClient
+				.insert(schemas.users)
 				.values(user)
-				.onConflictDoUpdate({ target: schema.users.id, set: user })
+				.onConflictDoUpdate({ target: schemas.users.id, set: user })
 				.returning()) as unknown as User;
 
 			const { firstName, lastName, emailAddresses } =

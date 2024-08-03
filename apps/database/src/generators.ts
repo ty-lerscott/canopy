@@ -1,6 +1,11 @@
-import type { Education, Experience, Skill, User } from "@/types/drizzle";
 import { faker } from "@faker-js/faker";
 import { createId } from "@paralleldrive/cuid2";
+import type {
+	Education,
+	Experience,
+	Skill,
+	User,
+} from "~/apps/api/src/types/dist";
 
 const generateSchoolName = () => {
 	const prefix = faker.helpers.arrayElement([

@@ -1,33 +1,40 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$"],
-      "cache": false,
-      "outputs": ["$TURBO_WORKDIR/apps/api/dist", "$TURBO_WORKDIR/apps/resume/dist/**","$TURBO_WORKDIR/config/dist/**"]
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "start": {
-      "cache": true
-    },
-    "start:pm2": {
-      "cache": false
-    },
-    "stop:pm2": {
-      "cache": false
-    },
-    "restart:pm2": {
-      "cache": false
-    },
-    "delete:pm2": {
-      "cache": false
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    }
-  }
+	"$schema": "https://turbo.build/schema.json",
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$"],
+			"cache": false,
+			"outputs": [
+				"$TURBO_WORKDIR/apps/api/dist",
+				"$TURBO_WORKDIR/apps/resume/dist/**",
+				"$TURBO_WORKDIR/config/dist/**"
+			]
+		},
+		"lint": {
+			"dependsOn": ["^lint"]
+		},
+		"start": {
+			"cache": true
+		},
+		"start:pm2": {
+			"cache": false
+		},
+		"stop:pm2": {
+			"cache": false
+		},
+		"restart:pm2": {
+			"cache": false
+		},
+		"delete:pm2": {
+			"cache": false
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"start:studio": {
+			"dependsOn": ["^dev"]
+		}
+	}
 }

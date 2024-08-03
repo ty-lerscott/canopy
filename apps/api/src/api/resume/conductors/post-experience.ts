@@ -1,8 +1,8 @@
 import StatusCodes from "@/api/utils/status-codes";
-import db, { schema } from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { Experience } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
+import { dbClient, schemas } from "~/apps/database/src";
 
 const addExperience = async (
 	req: Conductor["req"],
@@ -30,10 +30,10 @@ const addExperience = async (
 			});
 		}
 
-		const resp = (await db
-			.insert(schema.experiences)
+		const resp = (await dbClient
+			.insert(schemas.experiences)
 			.values(req.body)
-			.onConflictDoUpdate({ target: schema.experiences.id, set: req.body })
+			.onConflictDoUpdate({ target: schemas.experiences.id, set: req.body })
 			.returning()) as unknown as Experience;
 
 		return {

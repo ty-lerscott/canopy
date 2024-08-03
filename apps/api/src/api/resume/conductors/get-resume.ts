@@ -1,9 +1,9 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_RESUME from "@/defaults/resume";
-import db from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { Resume } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
+import { dbClient } from "~/apps/database/src";
 
 type User = {
 	userId: string;
@@ -28,7 +28,7 @@ const getResume = async ({
 			headers: req.headers,
 		});
 
-		const result = (await db.query.resumes.findFirst({
+		const result = (await dbClient.query.resumes.findFirst({
 			where: (resumes, { eq }) => eq(resumes.id, resume as string),
 			with: {
 				skills: true,
@@ -91,7 +91,7 @@ const getResumes = async ({
 	try {
 		const { userId } = toAuth() as User;
 
-		const results = (await db.query.resumes.findMany({
+		const results = (await dbClient.query.resumes.findMany({
 			where: (resumes, { eq }) => eq(resumes.userId, userId),
 			columns: {
 				userId: false,

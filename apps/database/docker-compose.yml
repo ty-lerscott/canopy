@@ -1,9 +1,0 @@
-version: "2.28.1"
-services:
-  turso:
-    image: ghcr.io/tursodatabase/libsql-server:latest
-    container_name: oasis
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./data:/var/lib/sqld

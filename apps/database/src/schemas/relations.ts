@@ -6,7 +6,7 @@ import {
 	skills,
 	socials,
 	users,
-} from "./index";
+} from "./tables";
 
 export const userRelations = relations(users, ({ many, one }) => ({
 	resumes: many(resumes),

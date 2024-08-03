@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "turbo dev",
+		"dev": "turbo dev start:studio",
 		"build": "turbo build",
 		"start": "turbo start",
 		"start:pm2": "turbo start:pm2",
@@ -18,6 +18,6 @@
 	},
 	"dependencies": {
 		"@biomejs/biome": "1.8.3",
-		"turbo": "2.0.7"
+		"turbo": "2.0.11"
 	}
 }

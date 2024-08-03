@@ -1,10 +1,10 @@
 import StatusCodes from "@/api/utils/status-codes";
 import DEFAULT_USER from "@/defaults/user";
-import db from "@/tools/drizzle/client";
 import type { Conductor, GetResponse } from "@/types";
 import type { User } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import merge from "lodash.mergewith";
+import { dbClient } from "~/apps/database/src";
 
 const getUser = async (req: Conductor["req"]): Promise<GetResponse<User>> => {
 	const { userId, socials, education } = req.body;
@@ -23,7 +23,7 @@ const getUser = async (req: Conductor["req"]): Promise<GetResponse<User>> => {
 			headers: req.headers,
 		});
 
-		const result = (await db.query.users.findFirst({
+		const result = (await dbClient.query.users.findFirst({
 			where: (users, { eq }) => eq(users.id, userId as string),
 			with: {
 				socials,

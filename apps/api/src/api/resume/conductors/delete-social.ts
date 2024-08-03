@@ -1,10 +1,9 @@
 import StatusCodes from "@/api/utils/status-codes";
-import db, { schema } from "@/tools/drizzle/client";
-import { socials } from "@/tools/drizzle/schemas";
 import type { Conductor, GetResponse } from "@/types";
 import type { Social } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import { and, eq } from "drizzle-orm/sql";
+import { dbClient, schemas } from "~/apps/database/src";
 
 const deleteSocial = async (
 	req: Conductor["req"],
@@ -32,9 +31,14 @@ const deleteSocial = async (
 			});
 		}
 
-		await db
-			.delete(schema.socials)
-			.where(and(eq(socials.id, id), eq(socials.userId, toAuth().userId)));
+		await dbClient
+			.delete(schemas.socials)
+			.where(
+				and(
+					eq(schemas.socials.id, id),
+					eq(schemas.socials.userId, toAuth().userId),
+				),
+			);
 
 		return {
 			status: StatusCodes.OK,
