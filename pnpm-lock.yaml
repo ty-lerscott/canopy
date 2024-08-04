@@ -15,121 +15,6 @@ importers:
         specifier: 2.0.11
         version: 2.0.11
 
-  apps/api:
-    dependencies:
-      '@clerk/clerk-sdk-node':
-        specifier: 5.0.16
-        version: 5.0.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/types':
-        specifier: 4.8.0
-        version: 4.8.0
-      '@dotenvx/dotenvx':
-        specifier: 1.6.2
-        version: 1.6.2
-      '@faker-js/faker':
-        specifier: 8.4.1
-        version: 8.4.1
-      '@libsql/client':
-        specifier: 0.7.0
-        version: 0.7.0
-      '@paralleldrive/cuid2':
-        specifier: 2.2.2
-        version: 2.2.2
-      '@sentry/node':
-        specifier: 8.17.0
-        version: 8.17.0
-      '@sentry/profiling-node':
-        specifier: 8.17.0
-        version: 8.17.0
-      '@types/body-parser':
-        specifier: 1.19.5
-        version: 1.19.5
-      '@types/cors':
-        specifier: 2.8.17
-        version: 2.8.17
-      '@types/deepmerge':
-        specifier: 2.2.0
-        version: 2.2.0
-      '@types/express':
-        specifier: 4.17.21
-        version: 4.17.21
-      '@types/lodash.mergewith':
-        specifier: 4.6.9
-        version: 4.6.9
-      '@types/node':
-        specifier: '20'
-        version: 20.14.10
-      '@types/object.omit':
-        specifier: 3.0.3
-        version: 3.0.3
-      body-parser:
-        specifier: 1.20.2
-        version: 1.20.2
-      clsx:
-        specifier: 2.1.1
-        version: 2.1.1
-      cors:
-        specifier: 2.8.5
-        version: 2.8.5
-      dayjs:
-        specifier: 1.11.11
-        version: 1.11.11
-      deepmerge:
-        specifier: 4.3.1
-        version: 4.3.1
-      discord-webhook-node:
-        specifier: 1.1.8
-        version: 1.1.8
-      docker-build-run-push:
-        specifier: ^3.0.0
-        version: 3.0.0
-      drizzle-kit:
-        specifier: 0.23.0
-        version: 0.23.0
-      drizzle-orm:
-        specifier: 0.32.0
-        version: 0.32.0(@libsql/client@0.7.0)(@opentelemetry/server@1.9.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
-      express:
-        specifier: 4.19.2
-        version: 4.19.2
-      fdir:
-        specifier: 6.1.1
-        version: 6.1.1(picomatch@3.0.1)
-      helmet:
-        specifier: 7.1.0
-        version: 7.1.0
-      jimp:
-        specifier: 0.22.12
-        version: 0.22.12
-      lodash.mergewith:
-        specifier: 4.6.2
-        version: 4.6.2
-      object.omit:
-        specifier: 3.0.0
-        version: 3.0.0
-      puppeteer:
-        specifier: 22.12.1
-        version: 22.12.1(typescript@5.5.4)
-      redoc:
-        specifier: 2.1.5
-        version: 2.1.5(core-js@3.37.1)(enzyme@3.11.0)(mobx@6.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      tsconfig-paths:
-        specifier: ^4.2.0
-        version: 4.2.0
-      tsup:
-        specifier: 8.1.0
-        version: 8.1.0(postcss@8.4.39)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.4))(typescript@5.5.4)
-      tsx:
-        specifier: 4.16.2
-        version: 4.16.2
-      winston:
-        specifier: 3.13.0
-        version: 3.13.0
-    devDependencies:
-      typescript:
-        specifier: 5.5.4
-        version: 5.5.4
-
   apps/database:
     dependencies:
       '@dotenvx/dotenvx':
@@ -155,7 +40,7 @@ importers:
         version: 0.23.0
       drizzle-orm:
         specifier: 0.32.0
-        version: 0.32.0(@libsql/client@0.7.0)(@opentelemetry/server@1.9.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
+        version: 0.32.0(@libsql/client@0.7.0)(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
       kebab-case:
         specifier: ^2.0.1
         version: 2.0.1
@@ -171,6 +56,9 @@ importers:
       '@clerk/types':
         specifier: 4.8.0
         version: 4.8.0
+      '@dotenvx/dotenvx':
+        specifier: 1.6.2
+        version: 1.6.2
       '@faker-js/faker':
         specifier: 8.4.1
         version: 8.4.1
@@ -322,6 +210,121 @@ importers:
       vite-tsconfig-paths:
         specifier: 4.3.2
         version: 4.3.2(typescript@5.5.4)(vite@5.3.5(@types/node@20.14.10))
+
+  apps/server:
+    dependencies:
+      '@clerk/clerk-sdk-node':
+        specifier: 5.0.16
+        version: 5.0.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/types':
+        specifier: 4.8.0
+        version: 4.8.0
+      '@dotenvx/dotenvx':
+        specifier: 1.6.2
+        version: 1.6.2
+      '@faker-js/faker':
+        specifier: 8.4.1
+        version: 8.4.1
+      '@libsql/client':
+        specifier: 0.7.0
+        version: 0.7.0
+      '@paralleldrive/cuid2':
+        specifier: 2.2.2
+        version: 2.2.2
+      '@sentry/node':
+        specifier: 8.17.0
+        version: 8.17.0
+      '@sentry/profiling-node':
+        specifier: 8.17.0
+        version: 8.17.0
+      '@types/body-parser':
+        specifier: 1.19.5
+        version: 1.19.5
+      '@types/cors':
+        specifier: 2.8.17
+        version: 2.8.17
+      '@types/deepmerge':
+        specifier: 2.2.0
+        version: 2.2.0
+      '@types/express':
+        specifier: 4.17.21
+        version: 4.17.21
+      '@types/lodash.mergewith':
+        specifier: 4.6.9
+        version: 4.6.9
+      '@types/node':
+        specifier: '20'
+        version: 20.14.10
+      '@types/object.omit':
+        specifier: 3.0.3
+        version: 3.0.3
+      body-parser:
+        specifier: 1.20.2
+        version: 1.20.2
+      clsx:
+        specifier: 2.1.1
+        version: 2.1.1
+      cors:
+        specifier: 2.8.5
+        version: 2.8.5
+      dayjs:
+        specifier: 1.11.11
+        version: 1.11.11
+      deepmerge:
+        specifier: 4.3.1
+        version: 4.3.1
+      discord-webhook-node:
+        specifier: 1.1.8
+        version: 1.1.8
+      docker-build-run-push:
+        specifier: ^3.0.0
+        version: 3.0.0
+      drizzle-kit:
+        specifier: 0.23.0
+        version: 0.23.0
+      drizzle-orm:
+        specifier: 0.32.0
+        version: 0.32.0(@libsql/client@0.7.0)(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@types/react@18.3.3)(react@18.3.1)
+      express:
+        specifier: 4.19.2
+        version: 4.19.2
+      fdir:
+        specifier: 6.1.1
+        version: 6.1.1(picomatch@3.0.1)
+      helmet:
+        specifier: 7.1.0
+        version: 7.1.0
+      jimp:
+        specifier: 0.22.12
+        version: 0.22.12
+      lodash.mergewith:
+        specifier: 4.6.2
+        version: 4.6.2
+      object.omit:
+        specifier: 3.0.0
+        version: 3.0.0
+      puppeteer:
+        specifier: 22.12.1
+        version: 22.12.1(typescript@5.5.4)
+      redoc:
+        specifier: 2.1.5
+        version: 2.1.5(core-js@3.37.1)(enzyme@3.11.0)(mobx@6.13.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      tsconfig-paths:
+        specifier: ^4.2.0
+        version: 4.2.0
+      tsup:
+        specifier: 8.1.0
+        version: 8.1.0(postcss@8.4.39)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.4))(typescript@5.5.4)
+      tsx:
+        specifier: 4.16.2
+        version: 4.16.2
+      winston:
+        specifier: 3.13.0
+        version: 3.13.0
+    devDependencies:
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
 
   config:
     dependencies:
@@ -5990,8 +5993,8 @@ snapshots:
   '@opentelemetry/instrumentation-connect@0.38.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
       '@types/connect': 3.4.36
     transitivePeerDependencies:
@@ -6000,8 +6003,8 @@ snapshots:
   '@opentelemetry/instrumentation-express@0.41.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6009,8 +6012,8 @@ snapshots:
   '@opentelemetry/instrumentation-fastify@0.38.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6018,15 +6021,15 @@ snapshots:
   '@opentelemetry/instrumentation-graphql@0.42.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
     transitivePeerDependencies:
       - supports-color
 
   '@opentelemetry/instrumentation-hapi@0.40.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6034,8 +6037,8 @@ snapshots:
   '@opentelemetry/instrumentation-http@0.52.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
       semver: 7.6.2
     transitivePeerDependencies:
@@ -6044,7 +6047,7 @@ snapshots:
   '@opentelemetry/instrumentation-ioredis@0.42.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/redis-common': 0.36.2
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
@@ -6053,8 +6056,8 @@ snapshots:
   '@opentelemetry/instrumentation-koa@0.42.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6062,8 +6065,8 @@ snapshots:
   '@opentelemetry/instrumentation-mongodb@0.46.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/sdk-metrics': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-metrics': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6071,8 +6074,8 @@ snapshots:
   '@opentelemetry/instrumentation-mongoose@0.40.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6080,16 +6083,16 @@ snapshots:
   '@opentelemetry/instrumentation-mysql2@0.40.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
-      '@opentelemetry/sql-common': 0.40.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/sql-common': 0.40.1(@opentelemetry/api@1.9.0)
     transitivePeerDependencies:
       - supports-color
 
   '@opentelemetry/instrumentation-mysql@0.40.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
       '@types/mysql': 2.15.22
     transitivePeerDependencies:
@@ -6098,7 +6101,7 @@ snapshots:
   '@opentelemetry/instrumentation-nestjs-core@0.39.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
@@ -6106,9 +6109,9 @@ snapshots:
   '@opentelemetry/instrumentation-pg@0.43.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
-      '@opentelemetry/sql-common': 0.40.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/sql-common': 0.40.1(@opentelemetry/api@1.9.0)
       '@types/pg': 8.6.1
       '@types/pg-pool': 2.0.4
     transitivePeerDependencies:
@@ -6117,7 +6120,7 @@ snapshots:
   '@opentelemetry/instrumentation-redis-4@0.41.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/redis-common': 0.36.2
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
@@ -6152,21 +6155,21 @@ snapshots:
   '@opentelemetry/resources@1.25.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
 
   '@opentelemetry/sdk-metrics@1.25.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/resources': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources': 1.25.1(@opentelemetry/api@1.9.0)
       lodash.merge: 4.6.2
 
   '@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/resources': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
 
   '@opentelemetry/semantic-conventions@1.25.1': {}
@@ -6174,7 +6177,7 @@ snapshots:
   '@opentelemetry/sql-common@0.40.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
 
   '@paralleldrive/cuid2@2.2.2':
     dependencies:
@@ -6186,8 +6189,8 @@ snapshots:
   '@prisma/instrumentation@5.16.1':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/api@1.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -6734,43 +6737,43 @@ snapshots:
   '@sentry/node@8.17.0':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/context-async-hooks': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-connect': 0.38.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-express': 0.41.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-fastify': 0.38.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-graphql': 0.42.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-hapi': 0.40.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-http': 0.52.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-ioredis': 0.42.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-koa': 0.42.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-mongodb': 0.46.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-mongoose': 0.40.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-mysql': 0.40.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-mysql2': 0.40.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-nestjs-core': 0.39.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-pg': 0.43.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation-redis-4': 0.41.0(@opentelemetry/server@1.9.0)
-      '@opentelemetry/resources': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/context-async-hooks': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-connect': 0.38.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-express': 0.41.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-fastify': 0.38.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-graphql': 0.42.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-hapi': 0.40.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-http': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-ioredis': 0.42.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-koa': 0.42.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-mongodb': 0.46.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-mongoose': 0.40.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-mysql': 0.40.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-mysql2': 0.40.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-nestjs-core': 0.39.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-pg': 0.43.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-redis-4': 0.41.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
       '@prisma/instrumentation': 5.16.1
       '@sentry/core': 8.17.0
-      '@sentry/opentelemetry': 8.17.0(@opentelemetry/server@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/server@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/server@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/server@1.9.0))(@opentelemetry/semantic-conventions@1.25.1)
+      '@sentry/opentelemetry': 8.17.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.25.1)
       '@sentry/types': 8.17.0
       '@sentry/utils': 8.17.0
     optionalDependencies:
-      opentelemetry-instrumentation-fetch-node: 1.2.3(@opentelemetry/server@1.9.0)
+      opentelemetry-instrumentation-fetch-node: 1.2.3(@opentelemetry/api@1.9.0)
     transitivePeerDependencies:
       - supports-color
 
   '@sentry/opentelemetry@8.17.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.25.1)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.25.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/server@1.9.0)
-      '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/server@1.9.0)
+      '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
       '@sentry/core': 8.17.0
       '@sentry/types': 8.17.0
@@ -8822,7 +8825,7 @@ snapshots:
   opentelemetry-instrumentation-fetch-node@1.2.3(@opentelemetry/api@1.9.0):
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/instrumentation': 0.46.0(@opentelemetry/server@1.9.0)
+      '@opentelemetry/instrumentation': 0.46.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.25.1
     transitivePeerDependencies:
       - supports-color
