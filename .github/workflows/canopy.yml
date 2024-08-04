@@ -54,7 +54,7 @@ jobs:
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1
         with:
-          switches: -avzc --exclude=".git*"
+          switches: -azc --exclude=".git*"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
