@@ -7,7 +7,7 @@ import Select from "@/components/form/select-input";
 import TextInput from "@/components/form/text-input";
 import type { FieldComponent } from "@tanstack/react-form";
 import type { PropsWithChildren } from "react";
-import type { Experience } from "~/apps/api/src/types/drizzle";
+import type { Experience } from "~/apps/server/src/types/drizzle";
 
 const ExperienceForm = ({
 	Field,

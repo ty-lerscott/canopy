@@ -21,7 +21,7 @@ import type {
 	Social,
 	User,
 	UserProfile,
-} from "~/apps/api/src/types/drizzle";
+} from "~/apps/server/src/types/drizzle";
 import Education from "./education";
 import FormFooter from "./footer";
 import Profile from "./profile";

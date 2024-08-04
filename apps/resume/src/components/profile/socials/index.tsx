@@ -16,7 +16,7 @@ import type { FieldComponent } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import type { UserProfile } from "~/apps/api/src/types/drizzle";
+import type { UserProfile } from "~/apps/server/src/types/drizzle";
 import Social from "./social";
 
 const Socials = ({

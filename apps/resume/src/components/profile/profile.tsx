@@ -2,7 +2,7 @@ import InputTypes from "@/components/form/input-types";
 import TextInput from "@/components/form/text-input";
 import toSentenceCase from "@/utils/to-sentence-case";
 import type { FieldComponent, Updater } from "@tanstack/react-form";
-import type { UserProfile } from "~/apps/api/src/types/drizzle";
+import type { UserProfile } from "~/apps/server/src/types/drizzle";
 
 const Profile = ({
 	Field,

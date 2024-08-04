@@ -1,5 +1,5 @@
 import type { ActiveSessionResource } from "@clerk/types";
-import type { Resume } from "~/apps/api/src/types/drizzle";
+import type { Resume } from "~/apps/server/src/types/drizzle";
 
 const addResume =
 	(session: ActiveSessionResource | null | undefined) =>

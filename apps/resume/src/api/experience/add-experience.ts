@@ -1,5 +1,5 @@
 import type { ActiveSessionResource } from "@clerk/types";
-import type { Experience } from "~/apps/api/src/types/drizzle";
+import type { Experience } from "~/apps/server/src/types/drizzle";
 
 const addExperience =
 	(session: ActiveSessionResource | null | undefined) =>

@@ -1,5 +1,5 @@
 import type { ActiveSessionResource } from "@clerk/types";
-import type { User } from "~/apps/api/src/types/drizzle";
+import type { User } from "~/apps/server/src/types/drizzle";
 
 const updateUser =
 	(session: ActiveSessionResource) =>

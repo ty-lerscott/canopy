@@ -5,7 +5,7 @@ import type {
 	Experience,
 	Skill,
 	User,
-} from "~/apps/api/src/types/drizzle";
+} from "~/apps/server/src/types/drizzle";
 
 const generateSchoolName = () => {
 	const prefix = faker.helpers.arrayElement([

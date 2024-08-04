@@ -8,7 +8,7 @@ import {
 } from "@/components/dropdown-menu";
 import Separator from "@/components/separator";
 import { Toaster } from "@/components/sonner";
-import type { Resume } from "~/apps/api/src/types/drizzle";
+import type { Resume } from "~/apps/server/src/types/drizzle";
 import {
 	SignInButton,
 	SignedIn,

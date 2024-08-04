@@ -7,7 +7,7 @@ import type { FieldComponent } from "@tanstack/react-form";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { IoCalendarNumber as CalendarIcon } from "react-icons/io5";
-import type { UserProfile } from "~/apps/api/src/types/drizzle";
+import type { UserProfile } from "~/apps/server/src/types/drizzle";
 
 const EducationItem = ({
 	index,

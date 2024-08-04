@@ -20,8 +20,6 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"maxNodeModuleJsDepth": 150,
-		"maxTypeInstantiations": 150,
 		"paths": {
 			"@/*": ["./src/*"],
 			"~/*": ["../../*"]

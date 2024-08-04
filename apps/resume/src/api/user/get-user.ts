@@ -1,6 +1,6 @@
 import type { ActiveSessionResource } from "@clerk/types";
 import merge from "deepmerge";
-import type { User } from "~/apps/api/src/types/drizzle";
+import type { User } from "~/apps/server/src/types/drizzle";
 
 type Options = {
 	socials?: boolean;

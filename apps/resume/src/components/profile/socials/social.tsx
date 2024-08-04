@@ -22,7 +22,7 @@ import {
 import type {
 	Social as SocialProps,
 	UserProfile,
-} from "~/apps/api/src/types/drizzle";
+} from "~/apps/server/src/types/drizzle";
 
 type SocialEntry = {
 	label: string;

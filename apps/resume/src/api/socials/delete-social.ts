@@ -1,5 +1,5 @@
 import type { ActiveSessionResource } from "@clerk/types";
-import type { Social } from "~/apps/api/src/types/drizzle";
+import type { Social } from "~/apps/server/src/types/drizzle";
 
 const deleteSocial =
 	(session: ActiveSessionResource) =>

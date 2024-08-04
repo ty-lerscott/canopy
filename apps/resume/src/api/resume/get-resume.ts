@@ -1,6 +1,6 @@
 import type { ActiveSessionResource } from "@clerk/types";
 import type { UseNavigateResult } from "@tanstack/react-router";
-import type { Resume } from "~/apps/api/src/types/drizzle";
+import type { Resume } from "~/apps/server/src/types/drizzle";
 
 const getResume =
 	({

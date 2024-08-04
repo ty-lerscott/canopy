@@ -8,7 +8,7 @@ import { useForm } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { toast } from "sonner";
-import type { Experience } from "~/apps/api/src/types/drizzle";
+import type { Experience } from "~/apps/server/src/types/drizzle";
 
 const AddExperience = ({
 	isOpen,

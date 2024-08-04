@@ -6,7 +6,7 @@ import { useSession } from "@clerk/clerk-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { Experience, Resume } from "~/apps/api/src/types/drizzle";
+import type { Experience, Resume } from "~/apps/server/src/types/drizzle";
 
 const EditExperience = ({
 	id,

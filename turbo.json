@@ -6,7 +6,7 @@
 			"inputs": ["$TURBO_DEFAULT$"],
 			"cache": false,
 			"outputs": [
-				"$TURBO_WORKDIR/apps/api/dist",
+				"$TURBO_WORKDIR/apps/server/dist",
 				"$TURBO_WORKDIR/apps/resume/dist/**",
 				"$TURBO_WORKDIR/config/dist/**"
 			]

@@ -32,7 +32,7 @@ import {
 import { FaRegCalendar } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
 import { MdAddBox, MdEmail, MdHouse, MdPhone } from "react-icons/md";
-import type { Resume } from "~/apps/api/src/types/drizzle";
+import type { Resume } from "~/apps/server/src/types/drizzle";
 
 import styles from "@/routes/styles.module.css";
 import "@fontsource/zilla-slab/500.css";

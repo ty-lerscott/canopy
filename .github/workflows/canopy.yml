@@ -80,7 +80,7 @@ jobs:
             steps.check_for_changes.outputs.APPS_DIR_CHANGED  == 'true'
           )
         with:
-          switches: -avzc --exclude="api/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="api/api" --exclude="api/tools" --exclude="api/types" --exclude="api/conductors"
+          switches: -avzc --exclude="server/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="server/server" --exclude="server/tools" --exclude="server/types" --exclude="server/conductors"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
@@ -98,7 +98,7 @@ jobs:
               steps.check_for_changes.outputs.APPS_DIR_CHANGED  == 'true'
           )
         with:
-          switches: -avzc --exclude="api/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="node_modules" --exclude="api/api" --exclude="api/tools" --exclude="api/types" --exclude="api/conductors"
+          switches: -avzc --exclude="server/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="node_modules" --exclude="server/server" --exclude="server/tools" --exclude="server/types" --exclude="server/conductors"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
