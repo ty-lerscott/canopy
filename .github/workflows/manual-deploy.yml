@@ -27,8 +27,8 @@ jobs:
       - name: Create .env files
         run: |
           echo "# .env file created by GitHub Actions >> ./apps/database/.env" > ./apps/database/.env
-          echo "TURSO_AUTH_TOKEN=${{ secrets.TURSO_AUTH_TOKEN }} > ./apps/database/.env
-          echo "TURSO_DATABASE_URL=${{ secrets.TURSO_DATABASE_URL }} > ./apps/database/.env
+          echo "TURSO_AUTH_TOKEN=${{ secrets.TURSO_AUTH_TOKEN }}" > ./apps/database/.env
+          echo "TURSO_DATABASE_URL=${{ secrets.TURSO_DATABASE_URL }}" > ./apps/database/.env
           
           echo "# .env file created by GitHub Actions >> ./apps/resume/.env" > ./apps/resume/.env
           echo "VITE_CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }}" > ./apps/resume/.env
@@ -54,7 +54,7 @@ jobs:
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1
         with:
-          switches: -avzc --exclude=".git" --exclude="biome.json"
+          switches: -azc --exclude=".git" --exclude="biome.json"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
