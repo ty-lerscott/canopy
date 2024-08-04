@@ -93,7 +93,7 @@ const ResumeLayout = () => {
 	const addWorkExperience = () => {
 		setIsExperienceDialogOpen((prevState) => !prevState);
 	};
-	const addEducation = () => {};
+	// const addEducation = () => {};
 	const addSkill = () => {
 		setIsSkillDialogOpen((prevState) => !prevState);
 	};
@@ -283,7 +283,7 @@ const ResumeLayout = () => {
 						{isEditable ? (
 							<Button
 								variant="ghost"
-								onClick={addEducation}
+								// onClick={addEducation}
 								className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
 							>
 								<MdAddBox className="size-4" />

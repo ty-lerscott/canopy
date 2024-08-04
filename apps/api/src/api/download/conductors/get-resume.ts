@@ -24,8 +24,6 @@ const getResume = async (resumeId: string): Promise<GetResponse> => {
 
 		const { browser, page } = await puppeteer();
 
-		console.log("going to:", `${pathname}/${resumeId}?print=true`);
-
 		await page.goto(`${pathname}/${resumeId}?print=true`);
 		await page.waitForSelector('[data-testid="Page-Resume"]', {
 			timeout: 5000,
@@ -44,7 +42,7 @@ const getResume = async (resumeId: string): Promise<GetResponse> => {
 
 		const headers = {
 			"Content-Type": "application/pdf",
-			"Content-Disposition": `attachment; filename=tyler_williams_resume.pdf`,
+			"Content-Disposition": `attachment; filename=resume.pdf`,
 		};
 
 		responseBody = { data: pdfBuffer, headers, status: StatusCodes.OK };
