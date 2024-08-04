@@ -98,6 +98,28 @@ const ResumeLayout = () => {
 		setIsSkillDialogOpen((prevState) => !prevState);
 	};
 
+	const handleEditExperience = (id: string) => () => {
+		setIsEditExperienceOpen(id);
+	};
+
+	const download = async () => {
+		try {
+			const resp = await fetch(`/api/download/resume/${resumeId}`);
+
+			const blob = await resp.blob();
+
+			if (blob.type) {
+				const file = window.URL.createObjectURL(blob);
+				const resumeWindow = window.open(file, "_blank");
+				if (resumeWindow) {
+					resumeWindow.document.title = "Tyler Scott Williams Resume.pdf";
+				}
+			}
+		} catch (err) {
+			console.log("Error Downloading Resume", (err as Error).message);
+		}
+	};
+
 	const {
 		user: {
 			firstName,
@@ -127,15 +149,12 @@ const ResumeLayout = () => {
 		},
 	];
 
-	const handleEditExperience = (id: string) => () => {
-		setIsEditExperienceOpen(id);
-	};
-
 	return (
 		<div
 			className={cn(styles.Page, forPrint && styles.PagePaddless)}
-			data-testid="Page-Index"
+			data-testid="Page-Resume"
 		>
+			{forPrint ? null : <Button onClick={download}>Download</Button>}
 			<div>
 				<h1 className={styles.Name}>
 					{firstName} {lastName}

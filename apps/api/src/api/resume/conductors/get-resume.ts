@@ -3,6 +3,7 @@ import DEFAULT_RESUME from "@/defaults/resume";
 import type { Conductor, GetResponse } from "@/types";
 import type { Resume } from "@/types/drizzle";
 import { clerkClient } from "@clerk/clerk-sdk-node";
+import { desc } from "drizzle-orm/sql";
 import { dbClient } from "~/apps/database/src";
 
 type User = {
@@ -12,9 +13,9 @@ type User = {
 const getResume = async ({
 	req,
 }: Omit<Conductor, "next">): Promise<GetResponse<Resume>> => {
-	const { resume } = req.query;
+	const [resumeId] = req.extendedPath;
 
-	if (!resume) {
+	if (!resumeId) {
 		return Promise.resolve({
 			status: StatusCodes.BAD_REQUEST,
 			error: "Resume ID is required",
@@ -29,10 +30,12 @@ const getResume = async ({
 		});
 
 		const result = (await dbClient.query.resumes.findFirst({
-			where: (resumes, { eq }) => eq(resumes.id, resume as string),
+			where: (resumes, { eq }) => eq(resumes.id, resumeId),
 			with: {
 				skills: true,
-				experiences: true,
+				experiences: {
+					orderBy: (experience) => desc(experience.startDate),
+				},
 				user: {
 					with: {
 						socials: true,

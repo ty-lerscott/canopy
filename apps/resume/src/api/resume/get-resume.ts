@@ -28,15 +28,17 @@ const getResume =
 		];
 	}): Promise<Resume> => {
 		const { isLoaded } = queryKey[1];
-
-		if (!session || !isLoaded) {
+		if (!isLoaded) {
 			return Promise.resolve({} as Resume);
 		}
 
-		const token = await session.getToken();
+		let token = "";
+		if (session) {
+			token = (await session.getToken()) as string;
+		}
 
 		try {
-			const rawResp = await fetch(`/api/resume?resume=${resumeId}`, {
+			const rawResp = await fetch(`/api/resume/${resumeId}`, {
 				method: "GET",
 				...(token && {
 					headers: {

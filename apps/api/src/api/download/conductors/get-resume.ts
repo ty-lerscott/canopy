@@ -1,22 +1,36 @@
 import { logger } from "@/api/utils/logger";
 import puppeteer from "@/api/utils/puppeteer";
+import StatusCodes from "@/api/utils/status-codes";
 import type { GetResponse } from "@/types";
-import pkg from "~/package.json";
 
 const isLocal = process.env.APP_ENV === "development";
 
-const getResume = async (): Promise<GetResponse> => {
+const getResume = async (resumeId: string): Promise<GetResponse> => {
 	let responseBody: GetResponse;
+
+	if (!resumeId) {
+		responseBody = {
+			status: StatusCodes.BAD_REQUEST,
+			error: "Resume id is required",
+		};
+
+		return responseBody;
+	}
 
 	try {
 		const pathname = isLocal
-			? "http://ty.lerscott.local:3000"
-			: "https://ty.lerscott.com";
-		const url = `${pathname}/resume/simple`;
+			? "http://resume.lerscott.local:3101/resume"
+			: "https://resume.lerscott.com/resume";
 
 		const { browser, page } = await puppeteer();
 
-		await page.goto(url);
+		console.log("going to:", `${pathname}/${resumeId}?print=true`);
+
+		await page.goto(`${pathname}/${resumeId}?print=true`);
+		await page.waitForSelector('[data-testid="Page-Resume"]', {
+			timeout: 5000,
+		});
+
 		const pdfBuffer = await page.pdf({
 			format: "A4",
 			margin: {
@@ -28,17 +42,19 @@ const getResume = async (): Promise<GetResponse> => {
 		});
 		await browser.close();
 
-		const fileName = pkg.author.name.toLowerCase().replace(/\s/g, "_");
 		const headers = {
 			"Content-Type": "application/pdf",
-			"Content-Disposition": `attachment; filename=${fileName}_resume.pdf`,
+			"Content-Disposition": `attachment; filename=tyler_williams_resume.pdf`,
 		};
 
-		responseBody = { data: pdfBuffer, headers, status: 200 };
+		responseBody = { data: pdfBuffer, headers, status: StatusCodes.OK };
 	} catch (error) {
 		logger.error("Error generating PDF:", error);
 
-		responseBody = { status: 500, error: (error as Error).message };
+		responseBody = {
+			status: StatusCodes.SERVER_ERROR,
+			error: (error as Error).message,
+		};
 	}
 
 	return responseBody;

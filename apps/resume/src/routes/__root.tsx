@@ -6,7 +6,6 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
-import ProfileDialog from "@/components/profile";
 import Separator from "@/components/separator";
 import { Toaster } from "@/components/sonner";
 import {
@@ -26,9 +25,12 @@ import {
 	useParams,
 	useSearch,
 } from "@tanstack/react-router";
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
+
+import "./global.css";
 
 const queryClient = new QueryClient();
+const ProfileDialog = lazy(() => import("@/components/profile"));
 
 const Root = () => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -60,55 +62,57 @@ const Root = () => {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			{forPrint ? null : (
-				<>
-					<header className="flex items-center p-2 justify-between">
-						<h1 className="text-[--primary] font-bold">
-							<Link to="/">@maestro/resume</Link>
-						</h1>
-						<SignedOut>
-							<SignInButton />
-						</SignedOut>
-						<SignedIn>
-							<div className="flex items-center gap-4">
-								<span className="text-xs text-[--ghost]">{resumeId}</span>
-								<DropdownMenu>
-									<DropdownMenuTrigger>
-										<Avatar className="size-6">
-											<AvatarImage src={user?.imageUrl} />
-											<AvatarFallback className="bg-[--primary] text-2xs font-bold text-white">
-												{user?.fullName
-													?.split(" ")
-													.map((name) => name[0])
-													.join("")}
-											</AvatarFallback>
-										</Avatar>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent>
-										<DropdownMenuLabel>My Account</DropdownMenuLabel>
-										<DropdownMenuItem onSelect={() => setIsDialogOpen(true)}>
-											Profile
-										</DropdownMenuItem>
-										<Separator />
-										<DropdownMenuItem onClick={handleSignOut}>
-											Sign Out
-										</DropdownMenuItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
-								<ProfileDialog
-									isOpen={isDialogOpen}
-									setIsOpen={setIsDialogOpen}
-								/>
-							</div>
-						</SignedIn>
-					</header>
-					<Separator />
-				</>
-			)}
+			<Suspense>
+				{forPrint ? null : (
+					<>
+						<header className="flex items-center p-2 justify-between">
+							<h1 className="text-[--primary] font-bold">
+								<Link to="/">@maestro/resume</Link>
+							</h1>
+							<SignedOut>
+								<SignInButton />
+							</SignedOut>
+							<SignedIn>
+								<div className="flex items-center gap-4">
+									<span className="text-xs text-[--ghost]">{resumeId}</span>
+									<DropdownMenu>
+										<DropdownMenuTrigger>
+											<Avatar className="size-6">
+												<AvatarImage src={user?.imageUrl} />
+												<AvatarFallback className="bg-[--primary] text-2xs font-bold text-white">
+													{user?.fullName
+														?.split(" ")
+														.map((name) => name[0])
+														.join("")}
+												</AvatarFallback>
+											</Avatar>
+										</DropdownMenuTrigger>
+										<DropdownMenuContent>
+											<DropdownMenuLabel>My Account</DropdownMenuLabel>
+											<DropdownMenuItem onSelect={() => setIsDialogOpen(true)}>
+												Profile
+											</DropdownMenuItem>
+											<Separator />
+											<DropdownMenuItem onClick={handleSignOut}>
+												Sign Out
+											</DropdownMenuItem>
+										</DropdownMenuContent>
+									</DropdownMenu>
+									<ProfileDialog
+										isOpen={isDialogOpen}
+										setIsOpen={setIsDialogOpen}
+									/>
+								</div>
+							</SignedIn>
+						</header>
+						<Separator />
+					</>
+				)}
+			</Suspense>
 
 			<Outlet />
 			<Toaster richColors />
-			<ReactQueryDevtools />
+			{forPrint ? null : <ReactQueryDevtools />}
 		</QueryClientProvider>
 	);
 };

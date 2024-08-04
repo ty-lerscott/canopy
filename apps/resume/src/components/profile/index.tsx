@@ -39,6 +39,8 @@ const ProfileDialog = ({
 	const { user, isLoaded: isUserLoaded } = useUser();
 	const { session, isLoaded: isSessionLoaded } = useSession();
 
+	console.log("mounted");
+
 	const { data, isPending, refetch } = useQuery({
 		queryKey: ["getUser", { isLoaded: isUserLoaded && isSessionLoaded }],
 		queryFn: getUser({

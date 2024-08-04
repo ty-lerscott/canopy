@@ -10,10 +10,10 @@ import { z } from "zod";
 import styles from "./styles.module.css";
 
 const Index = () => {
-	const { session, isLoaded } = useSession();
+	const { session, isLoaded, isSignedIn } = useSession();
 
 	const { data } = useQuery({
-		queryKey: ["getResumes", { isLoaded }],
+		queryKey: ["getResumes", { isLoaded: isLoaded && isSignedIn }],
 		queryFn: getResumes(session as ActiveSessionResource),
 	});
 

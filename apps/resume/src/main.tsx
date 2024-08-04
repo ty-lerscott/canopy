@@ -1,5 +1,3 @@
-import "./global.css";
-
 import { ClerkProvider } from "@clerk/clerk-react";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";

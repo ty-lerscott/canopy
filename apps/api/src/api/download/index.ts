@@ -1,3 +1,4 @@
+import StatusCodes from "@/api/utils/status-codes";
 import type { Conductor } from "@/types";
 import getResume from "./conductors/get-resume";
 
@@ -5,12 +6,19 @@ const DownloadConductor = async ({
 	res,
 	next,
 	req: {
-		extendedPath: [subject],
+		method,
+		extendedPath: [subject, resumeId],
 	},
 }: Conductor) => {
+	if (method !== "GET") {
+		res.status(StatusCodes.BAD_REQUEST).json({
+			error: "Unauthorized request",
+		});
+	}
+
 	switch (subject) {
 		case "resume": {
-			const { data, error, status, headers } = await getResume();
+			const { data, error, status, headers } = await getResume(resumeId);
 			res.set(headers);
 			res.status(status).send(data || error);
 			break;

@@ -15,6 +15,8 @@ const getResumes =
 	}): Promise<Resume[]> => {
 		const { isLoaded } = queryKey[1];
 
+		console.log("GETRESUMES", { isLoaded });
+
 		if (!session || !isLoaded) {
 			return Promise.resolve([] as Resume[]);
 		}
@@ -37,7 +39,7 @@ const getResumes =
 
 			return resp.data;
 		} catch (err) {
-			console.log("fetchResumes error:", (err as Error).message);
+			console.log("getResumes error:", (err as Error).message);
 			return Promise.resolve([] as Resume[]);
 		}
 	};
