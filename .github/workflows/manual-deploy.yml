@@ -3,6 +3,7 @@ name: Manual Deploy
 on:
   workflow_dispatch:
 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,55 +18,43 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Check for changes
-        id: check_for_changes
-        run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            BASE_SHA=${{ github.event.pull_request.base.sha }}
-            HEAD_SHA=${{ github.event.pull_request.head.sha }}
-          else
-            BASE_SHA=$(git rev-parse HEAD^)
-            HEAD_SHA=${{ github.sha }}
-          fi
-          
-          CHANGED_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA)
-          echo "PACKAGE_JSON_CHANGED=$(echo "$CHANGED_FILES" | grep -q "^package.json$" && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: |
-          npm i
+        run: pnpm i --prod
 
-      - name: Create .env file
+      - name: Create .env files
         run: |
-          echo "# .env file created by GitHub Actions" > .env
-          echo "BLUR=${{ secrets.BLUR }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
-          echo "API_KEY=${{ secrets.API_KEY }}" >> .env
-          echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
-          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "SENTRY_URL=${{ secrets.SENTRY_URL }}" >> .env
-          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
-          echo "DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}" >> .env
+          echo "# .env file created by GitHub Actions >> ./apps/database/.env" > ./apps/database/.env
+          echo "TURSO_AUTH_TOKEN=${{ secrets.TURSO_AUTH_TOKEN }} >> ./apps/database/.env
+          echo "TURSO_DATABASE_URL=${{ secrets.TURSO_DATABASE_URL }} >> ./apps/database/.env
+          
+          echo "# .env file created by GitHub Actions >> ./apps/resume/.env" > ./apps/resume/.env
+          echo "VITE_CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }}" >> ./apps/resume/.env
+          echo "APP_ENV=${{ secrets.APP_ENV }}" >> ./apps/resume/.env
+          
+          echo "# .env file created by GitHub Actions >> ./apps/server/.env" > ./apps/server/.env             
+          echo "NODE_ENV=production" >> ./apps/server/.env
+          echo "BLUR=${{ secrets.BLUR }}" >> ./apps/server/.env
+          echo "PORT=${{ secrets.PORT }}" >> ./apps/server/.env
+          echo "API_KEY=${{ secrets.API_KEY }}" >> ./apps/server/.env
+          echo "APP_ENV=${{ secrets.APP_ENV }}" >> ./apps/server/.env
+          echo "SENTRY_URL=${{ secrets.SENTRY_URL }}" >> ./apps/server/.env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> ./apps/server/.env
+          echo "DISCORD_WEBHOOK_URL=${{ secrets.DISCORD_WEBHOOK_URL }}" >> ./apps/server/.env
+          echo "TURSO_AUTH_TOKEN=${{ secrets.TURSO_AUTH_TOKEN }}" >> ./apps/server/.env
+          echo "TURSO_DATABASE_URL=${{ secrets.TURSO_DATABASE_URL }}" >> ./apps/server/.env
+          echo "CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}" >> ./apps/server/.env
+          echo "CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }}" >> ./apps/server/.env
 
       - name: Build
-        run: npm run build:all
+        run: pnpm build
 
       - name: Deploy with rsync w/ node_modules
         uses: burnett01/rsync-deployments@5.2.1
-        if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'true'
         with:
-          switches: -avzc --exclude="server/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="server/server" --exclude="server/tools" --exclude="server/types" --exclude="server/conductors"
-          path: ./
-          remote_path: ${{ secrets.TARGET_DIR }}
-          remote_host: ${{ secrets.HOST }}
-          remote_user: ${{ secrets.USER }}
-          remote_key: ${{ secrets.SSH_KEY }}
-
-      - name: Deploy with rsync w/o node_modules
-        uses: burnett01/rsync-deployments@5.2.1
-        if: steps.check_for_changes.outputs.PACKAGE_JSON_CHANGED == 'false'
-        with:
-          switches: -avzc --exclude="server/apps/app" --exclude=".git*" --exclude=".env.default" --exclude="biome.json" --exclude="node_modules" --exclude="server/server" --exclude="server/tools" --exclude="server/types" --exclude="server/conductors"
+          switches: -avzc --exclude=".git" --exclude="biome.json"
           path: ./
           remote_path: ${{ secrets.TARGET_DIR }}
           remote_host: ${{ secrets.HOST }}
