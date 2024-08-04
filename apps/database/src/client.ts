@@ -1,7 +1,7 @@
 import { config as dotenvConfig } from "@dotenvx/dotenvx";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
-import schema from "./schemas";
+import schema from "./schema";
 
 const env = dotenvConfig().parsed || {};
 

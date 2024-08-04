@@ -1,2 +1,2 @@
 export { default as dbClient } from "./client";
-export { default as schemas } from "./schemas";
+export { default as schema, tables } from "./schema";

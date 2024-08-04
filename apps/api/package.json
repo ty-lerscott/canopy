@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "NODE_OPTIONS=\"--import ./src/lib/sentry.mjs\" tsx watch ./src/index.ts",
+		"dev": "tsx --watch ./src/index.ts",
 		"build": "tsup",
 		"start": "NODE_OPTIONS=\"--import ./dist/lib/sentry.js\" node ./dist/index.js",
 		"lint": "biome lint ./src",
@@ -54,12 +54,12 @@
 		"object.omit": "3.0.0",
 		"puppeteer": "22.12.1",
 		"redoc": "2.1.5",
+		"tsconfig-paths": "^4.2.0",
 		"tsup": "8.1.0",
 		"tsx": "4.16.2",
-		"turbo": "2.0.6",
 		"winston": "3.13.0"
 	},
 	"devDependencies": {
-		"typescript": "5.5.3"
+		"typescript": "5.5.4"
 	}
 }

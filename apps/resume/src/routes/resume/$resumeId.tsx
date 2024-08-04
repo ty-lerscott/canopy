@@ -1,4 +1,5 @@
 import getResume from "@/api/resume/get-resume";
+import downloadResume from "@/api/resume/download-resume";
 import AddExperience from "@/components/add-experience";
 import AddSkill from "@/components/add-skill";
 import { Button } from "@/components/button";
@@ -16,6 +17,7 @@ import {
 	useNavigate,
 	useParams,
 	useSearch,
+	useRouterState,
 } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -46,6 +48,7 @@ const Socials = {
 };
 
 const ResumeLayout = () => {
+	const state = useRouterState();
 	const [skills, setSkills] = useState<Resume["skills"]>([]);
 	const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 	const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
@@ -67,6 +70,8 @@ const ResumeLayout = () => {
 		from: "/resume/$resumeId",
 		select: ({ print }) => Boolean(print),
 	});
+
+	console.log({ state });
 
 	const { session, isLoaded } = useSession();
 
@@ -104,11 +109,9 @@ const ResumeLayout = () => {
 
 	const download = async () => {
 		try {
-			const resp = await fetch(`/api/download/resume/${resumeId}`);
+			const blob = await downloadResume(resumeId);
 
-			const blob = await resp.blob();
-
-			if (blob.type) {
+			if (blob?.type) {
 				const file = window.URL.createObjectURL(blob);
 				const resumeWindow = window.open(file, "_blank");
 				if (resumeWindow) {

@@ -2,12 +2,11 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-
-// Import the generated route tree
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, defaultPreload: "intent" });
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -22,15 +21,18 @@ if (!PUBLISHABLE_KEY) {
 	throw new Error("Missing Publishable Key");
 }
 
-// Render the app
-const rootElement = document.getElementById("root")!;
-if (!rootElement.innerHTML) {
-	const root = ReactDOM.createRoot(rootElement);
-	root.render(
-		<StrictMode>
-			<ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-				<RouterProvider router={router} />
-			</ClerkProvider>
-		</StrictMode>,
-	);
-}
+(() => {
+	const rootElement = document.getElementById("root");
+
+	if (rootElement) {
+		ReactDOM.createRoot(rootElement).render(
+			<StrictMode>
+				<ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+					<QueryClientProvider client={new QueryClient()}>
+						<RouterProvider router={router} />
+					</QueryClientProvider>
+				</ClerkProvider>
+			</StrictMode>,
+		);
+	}
+})();

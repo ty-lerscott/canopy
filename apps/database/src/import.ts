@@ -6,7 +6,7 @@ import skillsJson from "../dist/data/Skills data.json";
 import socialsJson from "../dist/data/Socials data.json";
 import usersJson from "../dist/data/Users data.json";
 import client from "./client";
-import { tables } from "./schemas";
+import { tables } from "./schema";
 
 const imports = [
 	{ json: usersJson, table: tables.users },

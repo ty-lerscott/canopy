@@ -15,8 +15,6 @@ const getResumes =
 	}): Promise<Resume[]> => {
 		const { isLoaded } = queryKey[1];
 
-		console.log("GETRESUMES", { isLoaded });
-
 		if (!session || !isLoaded) {
 			return Promise.resolve([] as Resume[]);
 		}

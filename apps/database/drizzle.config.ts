@@ -9,8 +9,8 @@ const env = dotenvConfig().parsed || {};
 export default {
 	driver: "turso",
 	dialect: "sqlite",
-	schema: `${resolve(cwd, "src", "schemas")}/*`,
-	out: resolve(cwd, "dist", "migrations"),
+	schema: `${resolve(cwd, "src", "schema")}/*`,
+	out: resolve(cwd, "db", "migrations"),
 	dbCredentials: {
 		url: env.TURSO_DATABASE_URL,
 		authToken: env.TURSO_AUTH_TOKEN,

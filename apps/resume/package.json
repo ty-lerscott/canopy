@@ -26,9 +26,10 @@
 		"@radix-ui/react-slider": "1.2.0",
 		"@radix-ui/react-slot": "1.1.0",
 		"@tanstack/react-form": "0.26.4",
-		"@tanstack/react-query": "5.51.1",
-		"@tanstack/react-query-devtools": "5.51.9",
+		"@tanstack/react-query": "5.51.21",
+		"@tanstack/react-query-devtools": "5.51.21",
 		"@tanstack/react-router": "1.45.4",
+		"@tanstack/router": "0.0.1-beta.53",
 		"@types/object.omit": "3.0.3",
 		"@types/prismjs": "1.26.4",
 		"autoprefixer": "10.4.19",
@@ -60,7 +61,7 @@
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",
 		"@vitejs/plugin-react": "4.3.1",
-		"typescript": "5.2.2",
+		"typescript": "5.5.4",
 		"vite-tsconfig-paths": "4.3.2"
 	}
 }

@@ -1,11 +1,11 @@
 {
-	"name": "oasis",
+	"name": "database",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "turso dev --db-file ./dist/resume.db",
+		"dev": "turso dev --db-file ./db/resume.db",
 		"start:studio": "drizzle-kit studio",
-		"db:generate": "rm -rf ./dist/migrations && drizzle-kit generate",
+		"db:generate": "rm -rf ./db/migrations && drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:import": "tsx ./src/import.ts"
 	},

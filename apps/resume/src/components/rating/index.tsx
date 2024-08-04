@@ -32,14 +32,14 @@ const Star = ({
 						offset={offset}
 						style={{
 							stopOpacity: 1,
-							stopColor: `var(${invert ? "--ghost" : "--primary"})`,
+							stopColor: `var(${invert ? "--shadow" : "--secondary"})`,
 						}}
 					/>
 					<stop
 						offset={offset}
 						style={{
 							stopOpacity: 1,
-							stopColor: `var(${invert ? "--primary" : "--ghost"})`,
+							stopColor: `var(${invert ? "--secondary" : "--shadow"})`,
 						}}
 					/>
 				</linearGradient>

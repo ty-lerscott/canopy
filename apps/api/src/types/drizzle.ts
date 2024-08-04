@@ -61,6 +61,7 @@ export type User = UserProfile & {
 export type Resume = {
 	id: string;
 	user: User;
+	name: string;
 	userId: string;
 	skills: Skill[];
 	isEditable: boolean;

@@ -2,8 +2,8 @@
 	"extends": "../../tsconfig.root.json",
 	"compilerOptions": {
 		"baseUrl": ".",
-		"rootDir": "../..",
 		"outDir": "../dist",
+		"rootDir": "../..",
 		"paths": {
 			"~/*": ["../../*"],
 			"@/*": ["../../apps/api/src/*"]

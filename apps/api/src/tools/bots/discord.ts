@@ -1,5 +1,5 @@
-import { logger } from "@/api/utils/logger";
 import type { Level, Message, MessageOptions } from "@/types/discord";
+import { logger } from "@/utils/logger";
 import { MessageBuilder, Webhook } from "discord-webhook-node";
 
 const LEVEL = {

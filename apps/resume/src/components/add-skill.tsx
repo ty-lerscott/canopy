@@ -59,7 +59,7 @@ const AddSkill = ({
 			isEditable: true,
 			startDate: new Date().toDateString(),
 		},
-		onSubmit: async ({ value }) => {
+		onSubmit: ({ value }) => {
 			handleAddSkill.mutate({
 				mutationKey: ["addSkill", value],
 			});

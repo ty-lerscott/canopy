@@ -14,14 +14,14 @@ const TextInput = ({
 	placeholder,
 }: {
 	name: string;
-	label: string;
+	label?: string;
 	type?: string;
 	className?: string;
 	placeholder?: string;
 	defaultValue?: string;
 	value?: string | number;
 	onChange: (updater: Updater<string>) => void;
-	onBlur: (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => void;
+	onBlur?: (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => void;
 }) => {
 	return (
 		<div
@@ -31,9 +31,11 @@ const TextInput = ({
 			)}
 			data-testid={`TextInput-${name}`}
 		>
-			<label htmlFor={name} className="text-sm text-gray-400">
-				{label}:
-			</label>
+			{label ? (
+				<label htmlFor={name} className="text-sm text-gray-400">
+					{label}:
+				</label>
+			) : null}
 			<input
 				id={name}
 				type={type}
@@ -45,7 +47,10 @@ const TextInput = ({
 				autoCorrect="off"
 				autoCapitalize="none"
 				placeholder={placeholder}
-				className="px-2 py-1 text-[--primary] bg-transparent w-full"
+				className={cn(
+					"px-2 py-1 text-[--primary] bg-transparent w-full",
+					!label && "col-span-2",
+				)}
 				onChange={(e) => onChange(e.target.value)}
 			/>
 		</div>

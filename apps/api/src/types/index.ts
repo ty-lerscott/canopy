@@ -1,7 +1,7 @@
 import type {
 	Request as ExpressRequest,
+	Response as ExpressResponse,
 	NextFunction,
-	Response,
 } from "express";
 
 export type Primitives = string | number | boolean | null | Buffer | undefined;
@@ -32,11 +32,12 @@ export type Data =
 	| (Primitives | PrimitiveObject)[];
 
 export type Conductor = {
-	res: Response;
 	req: Request;
 	next: NextFunction;
+	res: ExpressResponse;
 };
 
+// TODO: rename to Response
 export type GetResponse<T = Data> = {
 	data?: T;
 	error?: string;
