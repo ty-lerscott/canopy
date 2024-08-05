@@ -2,8 +2,6 @@ const { resolve } = require("node:path");
 const dotenvConfig = require("@dotenvx/dotenvx").config;
 const getPackageJson = require("./utils/get-package-json");
 
-const IS_TURBO = Boolean(process.env.TURBO_HASH);
-
 const cwd = process.cwd();
 const serverDir = resolve(cwd, "..", "..", "apps", "server");
 const rootPkg = getPackageJson(resolve(cwd, "..", ".."));
