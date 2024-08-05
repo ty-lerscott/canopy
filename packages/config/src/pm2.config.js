@@ -5,9 +5,11 @@ const getPackageJson = require("./utils/get-package-json");
 const IS_TURBO = Boolean(process.env.TURBO_HASH);
 
 const cwd = process.cwd();
-const serverDir = resolve(cwd, "..", "apps", "server");
-const rootPkg = getPackageJson(resolve(cwd, ".."));
+const serverDir = resolve(cwd, "..", "..", "apps", "server");
+const rootPkg = getPackageJson(resolve(cwd, "..", ".."));
 const apiPkg = getPackageJson(serverDir);
+
+console.log({ cwd, serverDir, rootPkg, apiPkg });
 
 const apiEnv =
 	dotenvConfig({
