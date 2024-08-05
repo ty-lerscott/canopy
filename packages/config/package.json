@@ -1,0 +1,17 @@
+{
+	"name": "config",
+	"version": "0.0.0",
+	"description": "",
+	"author": "Tyler Scott",
+	"license": "ISC",
+	"scripts": {
+		"start:pm2": "pm2 start src/pm2.config.js",
+		"stop:pm2": "pm2 stop all",
+		"restart:pm2": "pm2 restart all",
+		"delete:pm2": "pm2 delete all"
+	},
+	"dependencies": {
+		"@dotenvx/dotenvx": "1.6.2",
+		"fdir": "6.1.1"
+	}
+}
