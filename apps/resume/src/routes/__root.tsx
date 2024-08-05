@@ -30,6 +30,9 @@ import "./global.css";
 
 const ProfileDialog = lazy(() => import("@/components/profile"));
 const IS_LOCAL = import.meta.env.APP_ENV === "development";
+const REDIRECT_URL = IS_LOCAL
+	? "http://resume.lerscott.local:3101"
+	: "https://resume.lerscott.com";
 
 const Root = () => {
 	const queryClient = useQueryClient();
@@ -66,11 +69,8 @@ const Root = () => {
 						</h1>
 						<SignedOut>
 							<SignInButton
-								fallbackRedirectUrl={
-									IS_LOCAL
-										? "http://resume.lerscott.local:3101"
-										: "https://resume.lerscott.com"
-								}
+								forceRedirectUrl={REDIRECT_URL}
+								fallbackRedirectUrl={REDIRECT_URL}
 							/>
 						</SignedOut>
 						<SignedIn>
