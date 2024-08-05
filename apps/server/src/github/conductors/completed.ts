@@ -3,7 +3,6 @@ import discord from "@/tools/bots/discord";
 import type { GHCompletedAction } from "@/types/github";
 import dayjs from "@/utils/dayjs";
 import { logger } from "@/utils/logger";
-import pkg from "~/package.json";
 
 const IS_LOCAL = process.env.NODE_ENV !== "production";
 
@@ -61,7 +60,7 @@ const CompletedController = async (body: GHCompletedAction): Promise<void> => {
 		}
 
 		if (!IS_LOCAL) {
-			execSync(`pm2 restart @/${pkg.name}/resume`);
+			execSync("pm2 restart all");
 		}
 	}
 
