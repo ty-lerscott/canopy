@@ -29,6 +29,7 @@ import { lazy, useState } from "react";
 import "./global.css";
 
 const ProfileDialog = lazy(() => import("@/components/profile"));
+const IS_LOCAL = import.meta.env.APP_ENV === "development";
 
 const Root = () => {
 	const queryClient = useQueryClient();
@@ -64,7 +65,13 @@ const Root = () => {
 							<a href="/">@maestro/resume</a>
 						</h1>
 						<SignedOut>
-							<SignInButton />
+							<SignInButton
+								fallbackRedirectUrl={
+									IS_LOCAL
+										? "http://resume.lerscott.local:3101"
+										: "https://resume.lerscott.com"
+								}
+							/>
 						</SignedOut>
 						<SignedIn>
 							<div className="flex items-center gap-4">
