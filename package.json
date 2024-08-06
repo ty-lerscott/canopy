@@ -6,6 +6,7 @@
 		"dev": "turbo dev https:all start:studio",
 		"build": "turbo build build:server",
 		"start": "turbo start",
+		"start:https": "turbo start https:all start:studio",
 		"start:pm2": "turbo start:pm2",
 		"stop:pm2": "turbo stop:pm2",
 		"restart:pm2": "turbo restart:pm2",

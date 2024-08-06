@@ -48,7 +48,7 @@ const start = () => {
             directives: merge({}, Object.entries(helmet.contentSecurityPolicy.getDefaultDirectives()).reduce((acc, [key, valueArr]) => {
                 const valArr = valueArr as string[];
 
-                acc[key] = ['object-src', 'upgrade-insecure-requests', 'script-src-attr'].includes(key) ? valArr : valArr.concat([env.CLERK_API_URL, 'https://canopy.lerscott.local']);
+                acc[key] = ['object-src', 'upgrade-insecure-requests', 'script-src-attr'].includes(key) ? valArr : valArr.concat([env.CLERK_API_URL, `https://canopy.lerscott.${IS_LOCAL ? 'local' : 'com'}`]);
 
                 return acc;
             }, {} as Record<string, string[]>), {
