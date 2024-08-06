@@ -32,7 +32,10 @@ jobs:
           
           echo "# .env file created by GitHub Actions >> ./apps/resume/.env" > ./apps/resume/.env
           echo "VITE_CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }}" >> ./apps/resume/.env
-          echo "APP_ENV=${{ secrets.APP_ENV }}" >> ./apps/resume/.env
+          echo "VITE_APP_ENV=${{ secrets.APP_ENV }}" >> ./apps/resume/.env
+          echo "PORT=${{ secrets.RESUME_PORT }}" >> ./apps/resume/.env
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> ./apps/resume/.env
+          echo "CLERK_API_URL=${{ secrets.CLERK_API_URL }}" >> ./apps/resume/.env
           
           echo "# .env file created by GitHub Actions >> ./apps/server/.env" > ./apps/server/.env             
           echo "NODE_ENV=production" >> ./apps/server/.env
