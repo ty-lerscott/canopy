@@ -10,6 +10,7 @@ import express, { type NextFunction, type Request, type Response} from 'express'
 
 const env = config().parsed as Record<string, string>;
 const server = express();
+const IS_LOCAL = env.VITE_APP_ENV === 'development';
 const PORT = env.PORT || 3000;
 const urlEncoded = bodyParser.urlencoded({
     extended: true,
@@ -64,8 +65,11 @@ const start = () => {
         res.sendFile(resolve(process.cwd(), 'dist', 'index.html'));
     });
 
-    server.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+    server.listen(PORT, (err?: Error) => {
+        if (err) throw err;
+        console.log(
+            `> Ready on https://resume.lerscott.${IS_LOCAL ? 'local' : "com"}`,
+        );
     });
 }
 
