@@ -23,7 +23,7 @@ const generateConfig = (appDir: string) => {
         env,
         args: "start",
         cwd: serverDir,
-        script: "node ./dist/index.js",
+        script: "pnpm",
         instances: "1",
         exec_mode: "fork",
         name: `@${rootPkg.name}/${serverPkg.name}`,
