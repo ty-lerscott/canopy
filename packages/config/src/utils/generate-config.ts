@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import {config as envConfig} from "@dotenvx/dotenvx";
-import getPackageJson from "../utils/get-package-json";
+import getEnv from "@/utils/get-env";
+import getPackageJson from "@/utils/get-package-json";
 
 const DEBUG = process.env.DEBUG === 'true';
 
@@ -9,15 +9,11 @@ const generateConfig = (appDir: string) => {
         return {}
     }
 
-    const cwd = process.cwd();
-    const serverDir = resolve(cwd, "..", "..", appDir);
-    const rootPkg = getPackageJson(resolve(cwd, "..", ".."));
+    const root = resolve(process.cwd(), "..", "..");
+    const rootPkg = getPackageJson(root);
+    const serverDir = resolve(root, appDir);
     const serverPkg = getPackageJson(serverDir);
-
-    const env =
-        envConfig({
-            path: resolve(serverDir, ".env"),
-        }).parsed || {};
+    const env = getEnv(resolve(root, appDir));
 
     const config = {
         env,
@@ -31,7 +27,7 @@ const generateConfig = (appDir: string) => {
     }
 
     if (DEBUG){
-        console.log(config)
+        console.log(appDir, env)
     }
 
     return config;
