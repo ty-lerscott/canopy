@@ -8,7 +8,7 @@
 			"outputs": [
 				"$TURBO_WORKDIR/apps/server/dist",
 				"$TURBO_WORKDIR/apps/resume/dist/**",
-				"$TURBO_WORKDIR/config/dist/**"
+				"$TURBO_WORKDIR/packages/config/dist/**"
 			]
 		},
 		"build:server": {
