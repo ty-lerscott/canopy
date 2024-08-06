@@ -17,7 +17,6 @@ import {
 	useNavigate,
 	useParams,
 	useSearch,
-	useRouterState,
 } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -48,7 +47,6 @@ const Socials = {
 };
 
 const ResumeLayout = () => {
-	const state = useRouterState();
 	const [skills, setSkills] = useState<Resume["skills"]>([]);
 	const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 	const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
@@ -70,8 +68,6 @@ const ResumeLayout = () => {
 		from: "/resume/$resumeId",
 		select: ({ print }) => Boolean(print),
 	});
-
-	console.log({ state });
 
 	const { session, isLoaded } = useSession();
 

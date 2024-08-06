@@ -37,6 +37,7 @@ const Conductors = async (req: Request, res: Response, next: NextFunction) => {
 			await ResumesConductor(props);
 			break;
 		default:
+			res.send('HELLO WORLD')
 			break;
 	}
 

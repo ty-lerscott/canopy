@@ -11,6 +11,14 @@
 				"$TURBO_WORKDIR/config/dist/**"
 			]
 		},
+		"build:server": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$"],
+			"cache": false,
+			"outputs": [
+				"$TURBO_WORKDIR/apps/resume/dist/**"
+			]
+		},
 		"lint": {
 			"dependsOn": ["^lint"]
 		},
@@ -32,6 +40,12 @@
 		"dev": {
 			"cache": false,
 			"persistent": true
+		},
+		"dev:https": {
+			"dependsOn": ["^dev"]
+		},
+		"https:all": {
+			"dependsOn": ["^dev"]
 		},
 		"start:studio": {
 			"dependsOn": ["^dev"]

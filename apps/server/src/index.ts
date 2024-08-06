@@ -4,7 +4,7 @@ import env from "./lib/dotenv";
 import bodyParser from "body-parser";
 import * as Sentry from "@sentry/node";
 import APIConductor from "./conductors";
-import LoggerController from "./utils/logger";
+import LoggerController from "@/utils/logger";
 import express, { type RequestHandler } from "express";
 import ImagesMiddleware from "./utils/middleware/images";
 
@@ -28,7 +28,7 @@ const start = async () => {
 	server.listen(env.PORT, (err?: Error) => {
 		if (err) throw err;
 		console.log(
-			`> Ready on canopy.lerscott.${IS_LOCAL ? `local:${env.PORT}` : "com"}`,
+			`> Ready on https://canopy.lerscott.${IS_LOCAL ? 'local' : "com"}`,
 		);
 	});
 };

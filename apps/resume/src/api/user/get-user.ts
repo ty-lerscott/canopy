@@ -1,5 +1,5 @@
 import type { ActiveSessionResource } from "@clerk/types";
-import merge from "deepmerge";
+import merge from "lodash.mergewith";
 import type { User } from "~/apps/server/src/types/drizzle";
 
 type Options = {
@@ -7,6 +7,8 @@ type Options = {
 	education?: boolean;
 	callback?: (socials: User["socials"], education: User["education"]) => void;
 };
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const getUser =
 	({
@@ -33,9 +35,10 @@ const getUser =
 		const token = await session.getToken();
 
 		try {
-			const rawResp = await fetch("/api/resume/user", {
+			const rawResp = await fetch(`${API_URL}/resume/user`, {
 				method: "POST",
 				headers: merge(
+					{},
 					{
 						"Content-Type": "application/json",
 					},

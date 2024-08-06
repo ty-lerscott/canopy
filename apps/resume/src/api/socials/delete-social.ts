@@ -1,6 +1,8 @@
 import type { ActiveSessionResource } from "@clerk/types";
 import type { Social } from "~/apps/server/src/types/drizzle";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const deleteSocial =
 	(session: ActiveSessionResource) =>
 	async ({
@@ -21,7 +23,7 @@ const deleteSocial =
 		}
 
 		try {
-			const rawResp = await fetch("/api/resume/socials", {
+			const rawResp = await fetch(`${API_URL}/resume/socials`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

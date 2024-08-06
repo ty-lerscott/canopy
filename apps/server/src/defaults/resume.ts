@@ -2,6 +2,7 @@ import type { Resume } from "@/types/drizzle";
 
 const DEFAULT_RESUME: Resume = {
 	id: "",
+	name: '',
 	userId: "",
 	user: {
 		id: "",

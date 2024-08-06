@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "turbo dev start:studio",
-		"build": "turbo build",
+		"dev": "turbo dev https:all start:studio",
+		"build": "turbo build build:server",
 		"start": "turbo start",
 		"start:pm2": "turbo start:pm2",
 		"stop:pm2": "turbo stop:pm2",

@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import omit from "object.omit";
 import winston from "winston";
 
-export const logger = winston.createLogger({
+const logger = winston.createLogger({
 	level: "info",
 	format: winston.format.json(),
 	transports: [
@@ -15,10 +15,10 @@ export const logger = winston.createLogger({
 	],
 });
 
-const LoggerController = (req: Request, res: Response, next: NextFunction) => {
+const LoggerController = (req: Request, _res: Response, next: NextFunction) => {
 	const query = omit(req.query, ["auto", "w", "fit", "ixlib", "ixid"]);
 	const hasQuery = Object.values(query).some(Boolean);
-	const url = req.url.split("?")[0];
+	const [url] = req.url.split("?");
 
 	if (!/^\/(monitoring|_next|images|favicon)/.test(url)) {
 		logger.info(`${req.method} ${url}`, hasQuery && { query });
@@ -27,4 +27,5 @@ const LoggerController = (req: Request, res: Response, next: NextFunction) => {
 	next();
 };
 
+export {logger}
 export default LoggerController;

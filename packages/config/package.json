@@ -5,13 +5,16 @@
 	"author": "Tyler Scott",
 	"license": "ISC",
 	"scripts": {
-		"start:pm2": "pm2 start src/pm2.config.js",
+		"start:pm2": "pm2 start ./dist/pm2.config.js",
 		"stop:pm2": "pm2 stop all",
 		"restart:pm2": "pm2 restart all",
-		"delete:pm2": "pm2 delete all"
+		"delete:pm2": "pm2 delete all",
+		"build": "tsup"
 	},
 	"dependencies": {
 		"@dotenvx/dotenvx": "1.6.2",
-		"fdir": "6.1.1"
+		"@types/node": "20",
+		"fdir": "6.1.1",
+		"tsup": "8.1.0"
 	}
 }

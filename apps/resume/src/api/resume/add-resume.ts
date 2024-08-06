@@ -1,6 +1,8 @@
 import type { ActiveSessionResource } from "@clerk/types";
 import type { Resume } from "~/apps/server/src/types/drizzle";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const addResume =
 	(session: ActiveSessionResource | null | undefined) =>
 	async (): Promise<Resume | undefined> => {
@@ -10,7 +12,7 @@ const addResume =
 		}
 
 		try {
-			const rawResp = await fetch("/api/resume", {
+			const rawResp = await fetch(`${API_URL}/resume`, {
 				method: "POST",
 				...(token && {
 					headers: {

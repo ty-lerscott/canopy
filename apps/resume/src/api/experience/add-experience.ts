@@ -1,6 +1,8 @@
 import type { ActiveSessionResource } from "@clerk/types";
 import type { Experience } from "~/apps/server/src/types/drizzle";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const addExperience =
 	(session: ActiveSessionResource | null | undefined) =>
 	async ({
@@ -23,7 +25,7 @@ const addExperience =
 		try {
 			experience.body = btoa(experience.body);
 
-			const rawResp = await fetch("/api/resume/experience", {
+			const rawResp = await fetch(`${API_URL}/resume/experience`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

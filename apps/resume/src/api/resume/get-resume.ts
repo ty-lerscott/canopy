@@ -2,6 +2,8 @@ import type { ActiveSessionResource } from "@clerk/types";
 import type { UseNavigateResult } from "@tanstack/react-router";
 import type { Resume } from "~/apps/server/src/types/drizzle";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const getResume =
 	({
 		resumeId,
@@ -38,7 +40,7 @@ const getResume =
 		}
 
 		try {
-			const rawResp = await fetch(`/api/resume/${resumeId}`, {
+			const rawResp = await fetch(`${API_URL}/resume/${resumeId}`, {
 				method: "GET",
 				...(token && {
 					headers: {

@@ -1,6 +1,8 @@
 import type { ActiveSessionResource } from "@clerk/types";
 import type { User } from "~/apps/server/src/types/drizzle";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const updateUser =
 	(session: ActiveSessionResource) =>
 	async ({
@@ -31,7 +33,7 @@ const updateUser =
 		}
 
 		try {
-			const rawResp = await fetch("/api/resume/user", {
+			const rawResp = await fetch(`${API_URL}/resume/user`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
