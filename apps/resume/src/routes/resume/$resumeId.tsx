@@ -329,7 +329,7 @@ const ResumeLayout = () => {
 
 					{skills.map((skill) => {
 						return (
-							<div key={skill.name} className={styles.Skill}>
+							<div key={skill.name} className={styles.Skill} data-testid="Skill">
 								<p>{skill.name}</p>
 								<Rating rating={skill.comfortLevel / 2} />
 							</div>

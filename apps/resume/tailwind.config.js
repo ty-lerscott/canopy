@@ -85,6 +85,12 @@ module.exports = {
 				"*": {
 					lineHeight: "1",
 				},
+				ul: {
+					listStyleType: theme('listStyleType.disc'),
+					listStylePosition: 'inside',
+					display: 'grid',
+					gap: theme('spacing.2')
+				}
 			});
 		}),
 	],
