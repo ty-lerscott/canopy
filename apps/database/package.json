@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "turso dev --db-file ./db/resume.db",
+		"start": "npm run dev",
 		"start:studio": "drizzle-kit studio",
 		"db:generate": "rm -rf ./db/migrations && drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
