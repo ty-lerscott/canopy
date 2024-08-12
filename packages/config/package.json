@@ -1,6 +1,6 @@
 {
 	"name": "config",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "",
 	"author": "Tyler Scott",
 	"license": "ISC",
@@ -12,9 +12,7 @@
 		"build": "tsup"
 	},
 	"dependencies": {
-		"@dotenvx/dotenvx": "1.6.2",
 		"@types/node": "20",
-		"fdir": "6.1.1",
 		"tsup": "8.1.0"
 	}
 }
