@@ -5,7 +5,9 @@ const TABLES = ['users', 'socials', 'skills', 'experiences', 'education', 'resum
 
 const clearDB = async () => {
     for (const table of TABLES) {
-        await client.run(sql`DELETE FROM ${table}`);
+        const query = `DELETE FROM ${table}`;
+
+        await client.run(sql`${query}`);
     }
 };
 
