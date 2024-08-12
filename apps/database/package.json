@@ -8,7 +8,8 @@
 		"start:studio": "drizzle-kit studio",
 		"db:generate": "rm -rf ./db/migrations && drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
-		"db:import": "tsx ./src/import.ts"
+		"db:import": "tsx ./src/import.ts",
+		"db:clear": "tsx ./src/clear.ts"
 	},
 	"type": "module",
 	"dependencies": {
