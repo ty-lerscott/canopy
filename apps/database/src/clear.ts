@@ -1,13 +1,10 @@
 import client from "./client";
-import { sql } from "drizzle-orm/sql";
-
-const TABLES = ['users', 'socials', 'skills', 'experiences', 'education', 'resumes']
+import { tables } from "./schema";
+import type { SQLiteTable} from "drizzle-orm/sqlite-core";
 
 const clearDB = async () => {
-    for (const table of TABLES) {
-        const query = `DELETE FROM ${table}`;
-
-        await client.run(sql`${query}`);
+    for (const table of tables as unknown as SQLiteTable[]) {
+        await client.delete(table)
     }
 };
 
