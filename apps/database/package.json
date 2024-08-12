@@ -13,7 +13,6 @@
 	"type": "module",
 	"dependencies": {
 		"@dotenvx/dotenvx": "1.6.2",
-		"@faker-js/faker": "8.4.1",
 		"@libsql/client": "0.7.0",
 		"@paralleldrive/cuid2": "2.2.2",
 		"@types/node": "20",
@@ -21,5 +20,8 @@
 		"drizzle-kit": "0.23.0",
 		"drizzle-orm": "0.32.0",
 		"tsx": "4.16.2"
+	},
+	"devDependencies": {
+		"@faker-js/faker": "8.4.1"
 	}
 }
