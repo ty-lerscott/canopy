@@ -153,7 +153,10 @@ const ResumeLayout = () => {
 
 	return (
 		<div
-			className={cn(styles.Page, forPrint && styles.PagePaddless)}
+			className={cn(
+				"flex flex-col gap-4",
+				forPrint ? styles.PagePaddless : styles.Page,
+			)}
 			data-testid="Page-Resume"
 		>
 			{forPrint ? null : <Button onClick={download}>Download</Button>}

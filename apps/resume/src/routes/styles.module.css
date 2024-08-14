@@ -1,5 +1,5 @@
 .Page {
-    @apply flex flex-col gap-4 p-4;
+    @apply p-4 mx-auto max-w-[48.75rem];
 }
 
 .PagePaddless {

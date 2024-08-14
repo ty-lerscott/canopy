@@ -53,6 +53,7 @@
 		"date-fns": "3.6.0",
 		"dayjs": "1.11.11",
 		"express": "4.19.2",
+		"helmet": "7.1.0",
 		"lodash.mergewith": "4.6.2",
 		"lucide-react": "0.411.0",
 		"markdown-to-jsx": "7.4.7",
