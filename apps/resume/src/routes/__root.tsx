@@ -1,40 +1,40 @@
+import { lazy, useState } from "react";
+import useTitle from "@/hooks/use-title";
+import { Toaster } from "@/components/sonner";
+import Separator from "@/components/separator";
+import { useQueryClient } from "@tanstack/react-query";
+import type { Resume } from "~/apps/server/src/types/drizzle";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 import {
 	DropdownMenu,
-	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
+	DropdownMenuContent,
 } from "@/components/dropdown-menu";
-import Separator from "@/components/separator";
-import { Toaster } from "@/components/sonner";
-import type { Resume } from "~/apps/server/src/types/drizzle";
 import {
-	SignInButton,
-	SignedIn,
-	SignedOut,
 	useAuth,
 	useUser,
+	SignedIn,
+	SignedOut,
+	SignInButton,
 } from "@clerk/clerk-react";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
-	type AnyRoute,
 	Outlet,
-	createRootRoute,
 	useSearch,
+	type AnyRoute,
+	createRootRoute,
 } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { lazy, useState } from "react";
 
 import "./global.css";
 
 const ProfileDialog = lazy(() => import("@/components/profile"));
 const IS_LOCAL = import.meta.env.APP_ENV === "development";
-const REDIRECT_URL = IS_LOCAL
-	? "http://resume.lerscott.local:3101"
-	: "https://resume.lerscott.com";
+const REDIRECT_URL = `https://resume.lerscott.${IS_LOCAL ? "local" : "com"}`;
 
 const Root = () => {
+	useTitle();
 	const queryClient = useQueryClient();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const { isLoaded, signOut } = useAuth();

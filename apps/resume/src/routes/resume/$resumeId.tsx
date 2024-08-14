@@ -91,6 +91,8 @@ const ResumeLayout = () => {
 		return null;
 	}
 
+	const editProfessionalSummary = () => {};
+
 	const addWorkExperience = () => {
 		setIsExperienceDialogOpen((prevState) => !prevState);
 	};
@@ -130,6 +132,7 @@ const ResumeLayout = () => {
 			socials,
 			education,
 		},
+		professionalSummary,
 		isEditable,
 	} = data as Resume;
 
@@ -154,45 +157,63 @@ const ResumeLayout = () => {
 			data-testid="Page-Resume"
 		>
 			{forPrint ? null : <Button onClick={download}>Download</Button>}
-			<div>
-				<h1 className={styles.Name}>
-					{firstName} {lastName}
-				</h1>
-				<h2 className={styles.Profession}>{profession}</h2>
-			</div>
-			<div className={styles.Contact}>
-				{personalInfo.map(({ value, Icon }) => {
-					return (
-						<div key={value as string} className={styles.ContactItem}>
-							<div>
-								<Icon className={styles.Icon} />
-							</div>
-							<p>{value as string}</p>
-						</div>
-					);
-				})}
-				{(socials || []).map(({ name, href }) => {
-					const Icon = Socials[name as keyof typeof Socials];
-					const url = href.includes("http") ? href : `https://${href}`;
+			<div className="grid grid-cols-[1fr_auto]">
+				<div>
+					<h1 className={styles.Name}>
+						{firstName} {lastName}
+					</h1>
+					<h2 className={styles.Profession}>{profession}</h2>
+				</div>
+				<ul className={styles.Contact}>
+					{personalInfo.map(({ value, Icon }) => {
+						return (
+							<li key={value as string} className={styles.ContactItem}>
+								<p>{value as string}</p>
+								<div>
+									<Icon className={styles.Icon} />
+								</div>
+							</li>
+						);
+					})}
+					{(socials || []).map(({ name, href }) => {
+						const Icon = Socials[name as keyof typeof Socials];
+						const url = href.includes("http") ? href : `https://${href}`;
 
-					return (
-						<div key={name} className={styles.ContactItem}>
-							<div>
-								<Icon className={styles.Icon} />
-							</div>
-							<a
-								href={url}
-								target="_blank"
-								rel="noreferrer"
-								className="transition-all underline underline-offset-4 hover:text-[--primary]"
-							>
-								{href}
-							</a>
-						</div>
-					);
-				})}
+						return (
+							<li key={name} className={styles.ContactItem}>
+								<a
+									href={url}
+									target="_blank"
+									rel="noreferrer"
+									className="transition-all underline underline-offset-4 hover:text-[--primary]"
+								>
+									{href}
+								</a>
+								<span>
+									<Icon className={styles.Icon} />
+								</span>
+							</li>
+						);
+					})}
+				</ul>
 			</div>
 			<div className={styles.Body}>
+				<div className={styles.ProfessionalSummary}>
+					<h2 className={styles.Header}>
+						<span>Professional Summary</span>
+						{isEditable ? (
+							<Button
+								variant="ghost"
+								onClick={editProfessionalSummary}
+								className="px-1 py-0 h-auto transition-colors text-transparent hover:text-[--primary]"
+							>
+								<MdAddBox className="size-4" />
+							</Button>
+						) : null}
+					</h2>
+
+					<p className="text-xs">{atob(professionalSummary)}</p>
+				</div>
 				<div className={styles.WorkExperiences}>
 					<h2 className={styles.Header}>
 						<span>Work Experience</span>
@@ -329,7 +350,11 @@ const ResumeLayout = () => {
 
 					{skills.map((skill) => {
 						return (
-							<div key={skill.name} className={styles.Skill} data-testid="Skill">
+							<div
+								key={skill.name}
+								className={styles.Skill}
+								data-testid="Skill"
+							>
 								<p>{skill.name}</p>
 								<Rating rating={skill.comfortLevel / 2} />
 							</div>

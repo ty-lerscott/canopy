@@ -2,7 +2,7 @@ import type { Resume } from "@/types/drizzle";
 
 const DEFAULT_RESUME: Resume = {
 	id: "",
-	name: '',
+	name: "",
 	userId: "",
 	user: {
 		id: "",
@@ -20,6 +20,7 @@ const DEFAULT_RESUME: Resume = {
 	skills: [],
 	experiences: [],
 	isEditable: false,
+	professionalSummary: "",
 };
 
 export default DEFAULT_RESUME;

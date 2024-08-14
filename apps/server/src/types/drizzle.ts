@@ -66,4 +66,5 @@ export type Resume = {
 	skills: Skill[];
 	isEditable: boolean;
 	experiences: Experience[];
+	professionalSummary: string;
 };

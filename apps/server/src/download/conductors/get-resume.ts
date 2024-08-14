@@ -18,9 +18,7 @@ const getResume = async (resumeId: string): Promise<GetResponse> => {
 	}
 
 	try {
-		const pathname = isLocal
-			? "http://resume.lerscott.local:3101/resume"
-			: "https://resume.lerscott.com/resume";
+		const pathname =  `https://resume.lerscott.${isLocal ? 'local': 'com'}/resume`
 
 		const { browser, page } = await puppeteer();
 

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ccbe0cbe-8310-42cb-8836-36dcf6f2b9d7",
+  "id": "094dbac6-6006-44fc-849e-dedfdaf8c7d6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "education": {
@@ -174,6 +174,13 @@
         },
         "Name": {
           "name": "Name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "Professional Summary": {
+          "name": "Professional Summary",
           "type": "text",
           "primaryKey": false,
           "notNull": false,

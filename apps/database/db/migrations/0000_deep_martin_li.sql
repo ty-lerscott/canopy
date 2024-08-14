@@ -25,6 +25,7 @@ CREATE TABLE `experiences` (
 CREATE TABLE `resumes` (
 	`id` text PRIMARY KEY NOT NULL,
 	`Name` text,
+	`Professional Summary` text,
 	`User Id` text,
 	FOREIGN KEY (`User Id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );

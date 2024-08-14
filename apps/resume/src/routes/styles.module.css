@@ -7,23 +7,23 @@
 }
 
 .Name {
-    @apply text-black uppercase text-6xl font-semibold;
+    @apply text-black uppercase text-5xl font-semibold;
 }
 
 .Profession {
-    @apply text-3xl font-semibold;
+    @apply font-semibold;
 }
 
 .Contact {
-    @apply grid grid-cols-3 gap-4;
+    @apply list-none gap-0;
 }
 
 .ContactItem {
-    @apply flex items-center gap-2;
+    @apply flex items-center gap-2 text-sm text-[--ghost] justify-end;
 }
 
 .Icon {
-    @apply size-4 text-[--primary];
+    @apply size-4 text-[--secondary];
 }
 
 .Body {
@@ -32,6 +32,10 @@
 
 .Header {
     @apply flex border-b-4 border-[--primary] pb-2 mb-4 uppercase font-bold items-center;
+}
+
+.ProfessionalSummary {
+    @apply col-span-3 break-words;
 }
 
 .WorkExperiences {

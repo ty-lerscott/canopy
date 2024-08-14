@@ -47,15 +47,6 @@ importers:
         specifier: 8.4.1
         version: 8.4.1
 
-  apps/humanize:
-    dependencies:
-      '@jsdevtools/humanize-anything':
-        specifier: ^1.1.1
-        version: 1.1.1
-      tsx:
-        specifier: 4.16.2
-        version: 4.16.2
-
   apps/resume:
     dependencies:
       '@clerk/clerk-react':
@@ -181,9 +172,6 @@ importers:
       express:
         specifier: 4.19.2
         version: 4.19.2
-      helmet:
-        specifier: 7.1.0
-        version: 7.1.0
       lodash.mergewith:
         specifier: 4.6.2
         version: 4.6.2
@@ -352,117 +340,6 @@ importers:
       typescript:
         specifier: 5.5.4
         version: 5.5.4
-      winston:
-        specifier: 3.13.0
-        version: 3.13.0
-
-  apps/tree:
-    dependencies:
-      '@clerk/clerk-react':
-        specifier: 5.2.8
-        version: 5.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@clerk/types':
-        specifier: 4.8.0
-        version: 4.8.0
-      '@dotenvx/dotenvx':
-        specifier: 1.6.2
-        version: 1.6.2
-      '@faker-js/faker':
-        specifier: 8.4.1
-        version: 8.4.1
-      '@paralleldrive/cuid2':
-        specifier: 2.2.2
-        version: 2.2.2
-      '@tanstack/react-query':
-        specifier: 5.51.21
-        version: 5.51.21(react@18.3.1)
-      '@tanstack/react-query-devtools':
-        specifier: 5.51.21
-        version: 5.51.21(@tanstack/react-query@5.51.21(react@18.3.1))(react@18.3.1)
-      '@types/body-parser':
-        specifier: 1.19.5
-        version: 1.19.5
-      '@types/cors':
-        specifier: 2.8.17
-        version: 2.8.17
-      '@types/express':
-        specifier: 4.17.21
-        version: 4.17.21
-      '@types/lodash.mergewith':
-        specifier: 4.6.9
-        version: 4.6.9
-      '@types/object.omit':
-        specifier: 3.0.3
-        version: 3.0.3
-      '@types/react':
-        specifier: 18.3.3
-        version: 18.3.3
-      '@types/react-dom':
-        specifier: 18.3.0
-        version: 18.3.0
-      '@vitejs/plugin-react':
-        specifier: 4.3.1
-        version: 4.3.1(vite@5.3.5(@types/node@20.14.10))
-      autoprefixer:
-        specifier: 10.4.19
-        version: 10.4.19(postcss@8.4.39)
-      body-parser:
-        specifier: 1.20.2
-        version: 1.20.2
-      cors:
-        specifier: 2.8.5
-        version: 2.8.5
-      date-fns:
-        specifier: 3.6.0
-        version: 3.6.0
-      express:
-        specifier: 4.19.2
-        version: 4.19.2
-      helmet:
-        specifier: 7.1.0
-        version: 7.1.0
-      lodash.mergewith:
-        specifier: 4.6.2
-        version: 4.6.2
-      object.omit:
-        specifier: 3.0.0
-        version: 3.0.0
-      postcss:
-        specifier: 8.4.39
-        version: 8.4.39
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: 18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-router:
-        specifier: ^6.26.0
-        version: 6.26.0(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.26.0
-        version: 6.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tailwind-merge:
-        specifier: 2.3.0
-        version: 2.3.0
-      tailwindcss:
-        specifier: 3.4.4
-        version: 3.4.4(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.4))
-      tailwindcss-animate:
-        specifier: 1.0.7
-        version: 1.0.7(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.4)))
-      tsup:
-        specifier: 8.1.0
-        version: 8.1.0(postcss@8.4.39)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.4))(typescript@5.5.4)
-      typescript:
-        specifier: 5.5.4
-        version: 5.5.4
-      vite:
-        specifier: 5.3.5
-        version: 5.3.5(@types/node@20.14.10)
-      vite-tsconfig-paths:
-        specifier: 4.3.2
-        version: 4.3.2(typescript@5.5.4)(vite@5.3.5(@types/node@20.14.10))
       winston:
         specifier: 3.13.0
         version: 3.13.0
@@ -1354,10 +1231,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@jsdevtools/humanize-anything@1.1.1':
-    resolution: {integrity: sha512-bsEon8edwiGjP5YBCDRSxa4EPvzFMNEu1WZhgBlrIj5La8Hi4iBNf+tApKvsRKrJwxqLuBLAffuaF66U1bzxnw==}
-    engines: {node: '>=10'}
-
   '@libsql/client@0.7.0':
     resolution: {integrity: sha512-1aLDtWzsErr68GZ640TVyOLkL/+lB2YK8cYvJIfiI7Mt+DEPB22Jkoz2QfBDg5PVGX/efeRHog2j/oVbUhxO8Q==}
 
@@ -2009,10 +1882,6 @@ packages:
 
   '@remix-run/router@1.18.0':
     resolution: {integrity: sha512-L3jkqmqoSVBVKHfpGZmLrex0lxR5SucGA0sUfFzGctehw+S/ggL9L/0NnC5mw6P8HUWpFZ3nQw3cRApjjWx9Sw==}
-    engines: {node: '>=14.0.0'}
-
-  '@remix-run/router@1.19.0':
-    resolution: {integrity: sha512-zDICCLKEwbVYTS6TjYaWtHXxkdoUvD/QXvyVZjGCsWz5vyH7aFeONlPffPdW+Y/t6KT0MgXb2Mfjun9YpWN1dA==}
     engines: {node: '>=14.0.0'}
 
   '@remix-run/server-runtime@2.10.3':
@@ -4418,19 +4287,6 @@ packages:
       '@types/react':
         optional: true
 
-  react-router-dom@6.26.0:
-    resolution: {integrity: sha512-RRGUIiDtLrkX3uYcFiCIxKFWMcWQGMojpYZfcstc63A1+sSnVgILGIm9gNUA6na3Fm1QuPGSBQH2EMbAZOnMsQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-
-  react-router@6.26.0:
-    resolution: {integrity: sha512-wVQq0/iFYd3iZ9H2l3N3k4PL8EEHcb0XlU2Na8nEwmiXgIUElEH6gaJDtUQxJ+JFzmIXaQjfdpcGWaM6IoQGxg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: '>=16.8'
-
   react-shallow-renderer@16.15.0:
     resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
     peerDependencies:
@@ -6050,8 +5906,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
     optional: true
 
-  '@jsdevtools/humanize-anything@1.1.1': {}
-
   '@libsql/client@0.7.0':
     dependencies:
       '@libsql/core': 0.7.0
@@ -6795,8 +6649,6 @@ snapshots:
       typescript: 5.5.4
 
   '@remix-run/router@1.18.0': {}
-
-  '@remix-run/router@1.19.0': {}
 
   '@remix-run/server-runtime@2.10.3(typescript@5.5.4)':
     dependencies:
@@ -9308,18 +9160,6 @@ snapshots:
       use-sidecar: 1.1.2(@types/react@18.3.3)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.3
-
-  react-router-dom@6.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@remix-run/router': 1.19.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-router: 6.26.0(react@18.3.1)
-
-  react-router@6.26.0(react@18.3.1):
-    dependencies:
-      '@remix-run/router': 1.19.0
-      react: 18.3.1
 
   react-shallow-renderer@16.15.0(react@18.3.1):
     dependencies:

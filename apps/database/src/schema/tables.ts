@@ -15,6 +15,7 @@ export const users = sqliteTable("users", {
 export const resumes = sqliteTable("resumes", {
 	id: text("id").primaryKey().$defaultFn(createId),
 	name: text("Name"),
+	professionalSummary: text("Professional Summary"),
 	userId: text("User Id").references(() => users.id),
 });
 

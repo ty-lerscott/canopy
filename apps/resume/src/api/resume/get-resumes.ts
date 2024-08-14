@@ -31,10 +31,10 @@ const getResumes =
 			const rawResp = await fetch(`${API_URL}/resumes`, {
 				method: "GET",
 				headers: {
-					'Content-Type': 'application/json',
+					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
-			})
+			});
 
 			const resp = await rawResp.json();
 
