@@ -3,7 +3,7 @@ import type { Resume } from "@/types/drizzle";
 import StatusCodes from "@/utils/status-codes";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import { faker } from "@faker-js/faker";
-import { dbClient, tables } from "~/apps/database/src";
+import { dbClient, tables } from "~/apps/databases/src/resume";
 
 const postResume = async (
 	req: Conductor["req"],

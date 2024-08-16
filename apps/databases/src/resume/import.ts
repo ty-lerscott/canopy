@@ -1,12 +1,12 @@
 import camelCase from "camelcase-keys";
-import educationJson from "./dump/education.json";
-import experiencesJson from "./dump/experiences.json";
-import resumesJson from "./dump/resumes.json";
-import skillsJson from "./dump/skills.json";
-import socialsJson from "./dump/socials.json";
-import usersJson from "./dump/users.json";
+import educationJson from "~/apps/databases/src/resume/dump/education.json";
+import experiencesJson from "~/apps/databases/src/resume/dump/experiences.json";
+import resumesJson from "~/apps/databases/src/resume/dump/resumes.json";
+import skillsJson from "~/apps/databases/src/resume/dump/skills.json";
+import socialsJson from "~/apps/databases/src/resume/dump/socials.json";
+import usersJson from "~/apps/databases/src/resume/dump/users.json";
 import client from "./client";
-import { tables } from "./schema";
+import { tables } from "./schemas";
 
 const imports = [
 	{ json: usersJson, table: tables.users },

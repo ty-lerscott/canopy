@@ -3,7 +3,7 @@ import type { Social } from "@/types/drizzle";
 import StatusCodes from "@/utils/status-codes";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import { and, eq } from "drizzle-orm/sql";
-import { dbClient, tables } from "~/apps/database/src";
+import { dbClient, tables } from "~/apps/databases/src/resume";
 
 const deleteSocial = async (
 	req: Conductor["req"],

@@ -2,7 +2,7 @@ import type { Conductor, GetResponse } from "@/types";
 import type { Experience } from "@/types/drizzle";
 import StatusCodes from "@/utils/status-codes";
 import { clerkClient } from "@clerk/clerk-sdk-node";
-import { dbClient, tables } from "~/apps/database/src";
+import { dbClient, tables } from "~/apps/databases/src/resume";
 
 const addExperience = async (
 	req: Conductor["req"],

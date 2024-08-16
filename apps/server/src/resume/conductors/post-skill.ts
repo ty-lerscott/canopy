@@ -2,7 +2,7 @@ import type { Conductor, GetResponse } from "@/types";
 import type { Skill } from "@/types/drizzle";
 import StatusCodes from "@/utils/status-codes";
 import { clerkClient } from "@clerk/clerk-sdk-node";
-import { dbClient, tables } from "~/apps/database/src";
+import { dbClient, tables } from "~/apps/databases/src/resume";
 
 const addSkill = async (req: Conductor["req"]): Promise<GetResponse<Skill>> => {
 	const resumeId = req.body.resumeId;

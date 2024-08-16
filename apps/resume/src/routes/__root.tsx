@@ -96,7 +96,7 @@ const Root = () => {
 											Profile
 										</DropdownMenuItem>
 										<Separator />
-										<DropdownMenuItem onClick={handleSignOut}>
+										<DropdownMenuItem onSelect={handleSignOut}>
 											Sign Out
 										</DropdownMenuItem>
 									</DropdownMenuContent>

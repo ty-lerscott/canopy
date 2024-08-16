@@ -4,7 +4,7 @@ import type { User } from "@/types/drizzle";
 import StatusCodes from "@/utils/status-codes";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import merge from "lodash.mergewith";
-import { dbClient, tables } from "~/apps/database/src";
+import { dbClient, tables } from "~/apps/databases/src/resume";
 
 const getUser = async (req: Conductor["req"]): Promise<GetResponse<User>> => {
 	const { userId, socials, education } = req.body;

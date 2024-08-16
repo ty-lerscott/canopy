@@ -1,9 +1,15 @@
+canopy.lerscott.local {
+	tls internal
+	reverse_proxy http://localhost:3100
+}
+
 resume.lerscott.local {
 	tls internal
 	reverse_proxy http://localhost:3101
 }
 
-canopy.lerscott.local {
+clear.lerscott.local {
 	tls internal
-	reverse_proxy http://localhost:3100
+	reverse_proxy http://localhost:3200
 }
+

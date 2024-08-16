@@ -9,8 +9,8 @@
 		"db:generate": "rm -rf ./db/migrations && drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:push": "drizzle-kit push",
-		"db:import": "tsx ./src/import.ts",
-		"db:clear": "tsx ./src/clear.ts"
+		"db:import": "tsx src/resume/import.ts",
+		"db:clear": "tsx src/resume/clear.ts"
 	},
 	"type": "module",
 	"dependencies": {

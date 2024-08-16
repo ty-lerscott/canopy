@@ -4,7 +4,7 @@ import type { Resume } from "@/types/drizzle";
 import StatusCodes from "@/utils/status-codes";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import { desc } from "drizzle-orm/sql";
-import { dbClient } from "~/apps/database/src";
+import { dbClient } from "~/apps/databases/src/resume";
 
 type User = {
 	userId: string;

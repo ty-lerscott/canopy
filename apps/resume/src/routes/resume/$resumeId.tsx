@@ -162,9 +162,7 @@ const ResumeLayout = () => {
 			{forPrint ? null : <Button onClick={download}>Download</Button>}
 			<div className="grid grid-cols-[1fr_auto]">
 				<div>
-					<h1 className={styles.Name}>
-						{firstName} {lastName}
-					</h1>
+					<h1 className={styles.Name}>{`${firstName} ${lastName}`}</h1>
 					<h2 className={styles.Profession}>{profession}</h2>
 				</div>
 				<ul className={styles.Contact}>
