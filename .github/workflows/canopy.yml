@@ -26,9 +26,9 @@ jobs:
 
       - name: Create .env files
         run: |
-          echo "# .env file created by GitHub Actions >> ./apps/databases/.env" > ./apps/database/.env
-          echo "TURSO_AUTH_TOKEN=${{ secrets.TURSO_AUTH_TOKEN }}" >> ./apps/database/.env
-          echo "TURSO_DATABASE_URL=${{ secrets.TURSO_DATABASE_URL }}" >> ./apps/database/.env
+          echo "# .env file created by GitHub Actions >> ./apps/databases/.env" > ./apps/databases/.env
+          echo "TURSO_AUTH_TOKEN=${{ secrets.TURSO_AUTH_TOKEN }}" >> ./apps/databases/.env
+          echo "TURSO_DATABASE_URL=${{ secrets.TURSO_DATABASE_URL }}" >> ./apps/databases/.env
           
           echo "# .env file created by GitHub Actions >> ./apps/resume/.env" > ./apps/resume/.env
           echo "PORT=${{ secrets.RESUME_PORT }}" >> ./apps/resume/.env
