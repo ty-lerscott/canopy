@@ -16,7 +16,7 @@ importers:
         specifier: 1.8.3
         version: 1.8.3
 
-  apps/database:
+  apps/databases:
     dependencies:
       '@dotenvx/dotenvx':
         specifier: 1.6.2
